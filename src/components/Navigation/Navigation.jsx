@@ -1,13 +1,17 @@
 import { NavLink } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 
 export const Navigation = () => {
+  const isMobile = useMediaQuery({
+    query: '(max-width: 320px)',
+  });
   return (
-    <>
-      <StyledLink to="/">☀️ Home</StyledLink>
-      <StyledLink to="/diagram">😉 Statistics</StyledLink>
-      <StyledLink to="/currency">🌟 Currency</StyledLink>
-    </>
+    <Nav>
+      <StyledLink to="/">☀️ {!isMobile && 'Home'}</StyledLink>
+      <StyledLink to="/diagram">😉 {!isMobile && 'Statistics'}</StyledLink>
+      {isMobile && <StyledLink to="/currency">🌟</StyledLink>}
+    </Nav>
   );
 };
 
@@ -25,5 +29,15 @@ const StyledLink = styled(NavLink)`
 
   &.active {
     font-weight: 700;
+  }
+`;
+
+const Nav = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 36px;
+  @media screen and (min-width: 768px) {
+    flex-direction: column;
+    gap: 12px;
   }
 `;

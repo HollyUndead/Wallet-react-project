@@ -15,11 +15,10 @@ export const Layout = () => {
     <>
       <h2>Header</h2>
       <aside>
-        <div>
+        <Wraper>
           <Navigation />
           {isDesktopOrLaptop && <Balance />}
-          <Balance />
-        </div>
+        </Wraper>
         {isDesktopOrLaptop && <p>Currency</p>}
       </aside>
 
@@ -27,3 +26,9 @@ export const Layout = () => {
     </>
   );
 };
+
+const Wraper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+`;
