@@ -1,5 +1,7 @@
 import { Outlet } from 'react-router-dom';
+
 import { useMediaQuery } from 'react-responsive';
+
 import { Balance } from 'components/Balance/Balance';
 import { Navigation } from 'components/Navigation/Navigation';
 import styled from 'styled-components';
@@ -16,9 +18,9 @@ export const Layout = () => {
         <div>
           <Navigation />
           {isDesktopOrLaptop && <Balance />}
+          <Balance />
         </div>
         {isDesktopOrLaptop && <p>Currency</p>}
-        <p>Currency</p>
       </aside>
 
       <Outlet />
