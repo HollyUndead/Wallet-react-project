@@ -1,3 +1,4 @@
+import { ModalMain } from './ModalAddTransactions/ModalMain/ModalMain';
 export const App = () => {
   return (
     <div
@@ -9,6 +10,8 @@ export const App = () => {
         fontSize: 40,
         color: '#010101',
       }}
-    ></div>
+    >
+      <ModalMain />
+    </div>
   );
 };
