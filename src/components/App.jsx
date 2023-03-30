@@ -9,6 +9,8 @@ export const App = () => {
         fontSize: 40,
         color: '#010101',
       }}
-    ></div>
+    >
+      Prosto test
+    </div>
   );
 };
