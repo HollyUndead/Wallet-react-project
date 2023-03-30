@@ -71,7 +71,7 @@ export const fetchCurrentUser = createAsyncThunk(
 );
 
 export const fetchTransactions = createAsyncThunk(
-  'contacts/fetchTransactions',
+  'transactions/fetchTransactions',
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`/transactions`);
@@ -82,14 +82,67 @@ export const fetchTransactions = createAsyncThunk(
   }
 );
 
-// export const addTransaction = createAsyncThunk(
-//   'contacts/addTransaction',
-//   async (transaction, { rejectWithValue }) => {
+// export const fetchTransactionCategories = createAsyncThunk(
+//   'transactions/fetchTransactionCategories',
+//   async (_, { rejectWithValue }) => {
 //     try {
-//       const { data } = await axios.post(`/transactions`, transaction);
+//       const { data } = await axios.get(`/transaction-categories`);
 //       return data;
 //     } catch (error) {
 //       return rejectWithValue(error);
 //     }
 //   }
 // );
+
+export const addTransaction = createAsyncThunk(
+  'transactions/addTransaction',
+  async (transaction, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(`/transactions`, transaction);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const deleteTransaction = createAsyncThunk(
+  'transactions/deleteTransaction',
+  async (id, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.delete(`/transactions/${id}`);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const editTransaction = createAsyncThunk(
+  'transactions/editTransaction',
+  async ({ id, comment, amount }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.patch(`/transactions/${id}`, {
+        amount,
+        comment,
+      });
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const fetchTransactionSummary = createAsyncThunk(
+  'transactions/fetchTransactionSummary',
+  async ({ year, month }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(
+        `/transactions-summary?year=${year}&month=${month}`
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
