@@ -147,15 +147,24 @@ export const fetchTransactionSummary = createAsyncThunk(
   }
 );
 
-export const fetchCurrency = createAsyncThunk(
-  'finance/fetchCurrency',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await fetch('https://api.monobank.ua/bank/currency');
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+// export const fetchCurrency = createAsyncThunk(
+//   'finance/fetchCurrency',
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await fetch('https://api.monobank.ua/bank/currency');
+//       const data = await response.json();
+//       return data;
+//     } catch (error) {
+//       return rejectWithValue(error);
+//     }
+//   }
+// );
+
+export const fetchCurrency = async () => {
+  try {
+    const { data } = await axios.get('https://api.monobank.ua/bank/currency');
+    return data;
+  } catch (error) {
+    console.log(error.message);
   }
-);
+};
