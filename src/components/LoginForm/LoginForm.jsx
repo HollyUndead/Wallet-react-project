@@ -14,8 +14,9 @@ import {
 import { Link } from 'react-router-dom';
 import { Logo } from 'components/Logo/Logo';
 import Icons from '../../images/icons.svg';
-import { signIn } from 'components/redux/operations';
+
 import { useDispatch } from 'react-redux';
+import { signIn } from 'redux/operations';
 
 const validationSchema = yup.object().shape({
   email: yup

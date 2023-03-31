@@ -15,8 +15,9 @@ import {
 } from './RegistrationForm.styled';
 import Icons from 'images/icons.svg';
 import { useDispatch } from 'react-redux';
-import { signUp } from '../redux/operations';
+
 import { Link, useNavigate } from 'react-router-dom';
+import { signUp } from 'redux/operations';
 
 const validationSchema = yup.object().shape({
   email: yup
