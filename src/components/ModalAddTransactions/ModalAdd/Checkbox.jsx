@@ -9,11 +9,11 @@ const Checkbox = ({ checked, onChange }) => {
       <CheckboxIcon>
         {checked ? (
           <GreenCircle>
-            <AiOutlinePlus />
+            <AiOutlinePlus style={{ color: 'white', fontSize: '1.5rem' }} />
           </GreenCircle>
         ) : (
           <RedCircle>
-            <AiOutlineMinus />
+            <AiOutlineMinus style={{ color: 'white', fontSize: '1.5rem' }} />
           </RedCircle>
         )}
       </CheckboxIcon>
