@@ -5,6 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 import { Balance } from 'components/Balance/Balance';
 import { Navigation } from 'components/Navigation/Navigation';
 import styled from 'styled-components';
+import { Header } from 'components/Header/Header';
 
 export const Layout = () => {
   const isDesktopOrLaptop = useMediaQuery({
@@ -13,7 +14,7 @@ export const Layout = () => {
 
   return (
     <>
-      <h2>Header</h2>
+      <Header />
       <aside>
         <Wraper>
           <Navigation />
