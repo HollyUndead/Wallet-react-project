@@ -4,8 +4,12 @@ import { Balance } from 'components/Balance/Balance';
 import { Navigation } from 'components/Navigation/Navigation';
 
 import { Header } from 'components/Header/Header';
+
 import background from '../../img/bg-images/bg-image-desktop.png';
 import styled from 'styled-components';
+
+import { Currency } from 'components/Currency/Currency';
+
 
 export const Layout = () => {
   const isDesktopOrLaptop = useMediaQuery({
@@ -15,18 +19,20 @@ export const Layout = () => {
   return (
     <>
       <Header />
+
       <Container>
         <Aside>
           <Wraper>
             <Navigation />
             {isDesktopOrLaptop && <Balance />}
           </Wraper>
-          {isDesktopOrLaptop && <p>Currency</p>}
+          {isDesktopOrLaptop && <Currency />}
         </Aside>
         <OutletContainer>
           <Outlet />
         </OutletContainer>
       </Container>
+
     </>
   );
 };
