@@ -37,6 +37,7 @@ const Icon = styled.svg`
   height: 38px;
   border-radius: 6px;
   fill: #6e78e8;
+  background-color: #fff;
   transition: all 200ms linear;
   &:hover {
     fill: #4a56e2;

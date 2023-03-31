@@ -20,7 +20,7 @@ const Wrapper = styled.div`
   display: inline-block;
   padding-left: 32px;
   text-align: left;
-  background-color: lightblue;
+  background-color: #ffffff;
   border-radius: 30px;
   @media screen and (min-width: 768px) {
     width: 296px;
@@ -58,5 +58,6 @@ const Count = styled.p`
 
 const Simbol = styled.span`
   font-weight: 400;
+
   padding-right: 8px;
 `;
