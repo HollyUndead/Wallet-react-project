@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Wallet-react-project/static/css/main.0248d4b6.css",
-    "main.js": "/Wallet-react-project/static/js/main.5e6ee1d7.js",
+    "main.js": "/Wallet-react-project/static/js/main.024d48bc.js",
     "static/media/Circe-Regular.eot": "/Wallet-react-project/static/media/Circe-Regular.13bbfad0e7f851273f3c.eot",
     "static/media/Circe-Regular.ttf": "/Wallet-react-project/static/media/Circe-Regular.814e4dd4329ffdb6c9ed.ttf",
     "static/media/Circe-Bold.eot": "/Wallet-react-project/static/media/Circe-Bold.23b8280ab15052d5ba11.eot",
@@ -16,10 +16,10 @@
     "static/media/Poppins-Bold.woff": "/Wallet-react-project/static/media/Poppins-Bold.125974335c0c9046c212.woff",
     "index.html": "/Wallet-react-project/index.html",
     "main.0248d4b6.css.map": "/Wallet-react-project/static/css/main.0248d4b6.css.map",
-    "main.5e6ee1d7.js.map": "/Wallet-react-project/static/js/main.5e6ee1d7.js.map"
+    "main.024d48bc.js.map": "/Wallet-react-project/static/js/main.024d48bc.js.map"
   },
   "entrypoints": [
     "static/css/main.0248d4b6.css",
-    "static/js/main.5e6ee1d7.js"
+    "static/js/main.024d48bc.js"
   ]
 }
