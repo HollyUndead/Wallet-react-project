@@ -2,11 +2,12 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { SummaryPage } from 'pages/SummaryPage';
 import { LoginPage } from 'pages/LoginPage';
 import { DashboardPage } from 'pages/DashboardPage';
-import { Layout } from './Layout';
+import { Layout } from './Layout/Layout';
 import { RegistrationPage } from 'pages/RegistrationPage';
 import { CurrencyPage } from 'pages/CurrencyPage';
 import { PrivateRoute } from '../hoc/PrivateRoute';
 import { PublicRoute } from '../hoc/PublicRoute';
+import { ModalMain } from './ModalAddTransactions/ModalMain/ModalMain';
 
 export const App = () => {
   return (
@@ -43,6 +44,7 @@ export const App = () => {
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+      <ModalMain />
     </div>
   );
 };
