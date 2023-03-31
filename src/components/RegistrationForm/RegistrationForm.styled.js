@@ -166,3 +166,43 @@ export const ButtonLogIn = styled.button`
     width: 300px;
   }
 `;
+
+export const IndicatorBox = styled.div`
+  width: 334px;
+
+  border-radius: 10px;
+  height: 2px;
+  overflow: hidden;
+  background-color: ${props => props.color};
+`;
+
+export const Indicator = styled.div`
+  height: 100%;
+  border-radius: 10px;
+  width: ${props => props.width}%;
+
+  background: linear-gradient(
+    90deg,
+    rgba(36, 204, 167, 1) 75%,
+    rgba(255, 27, 0, 1) 100%
+  );
+  transition: all 500ms ease-in-out; */
+  /* background-color: ${props => props.color};  */
+  /* background: rgb(36, 204, 167);
+  background: linear-gradient(
+    90deg,
+    rgba(36, 204, 167, 1) ${props => props.power}%,
+    rgba(255, 27, 0, 1) ${props => props.weakness}%
+  );
+
+  transition: all 2000ms ease-in-out; */
+
+  /* background: rgb(255, 27, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 27, 0, 1) 0%,
+    rgba(255, 233, 0, 1) 50%,
+    rgba(36, 204, 167, 1) 100%
+  );
+  transition: all 250ms ease-in-out; */
+`;

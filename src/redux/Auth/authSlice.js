@@ -37,11 +37,20 @@ export const authSlice = createSlice({
         state.isLoggedIn = true;
         state.error = null;
       })
-      .addMatcher(
-        action => action.type.endsWith('/rejected'),
-        (state, action) => {
-          state.error = action.payload;
-        }
-      );
+      .addCase(fetchCurrentUser.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        // state.error = action.payload;
+      })
+      .addCase(signIn.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        state.error = action.payload;
+        console.log(state.error);
+      });
+    // .addMatcher(
+    //   action => action.type.endsWith('/rejected'),
+    //   (state, action) => {
+    //     state.error = action.payload;
+    //   }
+    // );
   },
 });

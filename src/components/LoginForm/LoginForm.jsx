@@ -15,8 +15,9 @@ import { Link } from 'react-router-dom';
 import { Logo } from 'components/Logo/Logo';
 import Icons from '../../images/icons.svg';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from 'redux/operations';
+import { selectError } from 'redux/Auth/authSelector';
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -32,6 +33,8 @@ const validationSchema = yup.object().shape({
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+  const error = useSelector(selectError);
+  // console.log(error);
 
   const handleSubmit = ({ email, password }, props) => {
     const user = {
@@ -39,8 +42,15 @@ export const LoginForm = () => {
       password,
     };
     dispatch(signIn(user));
+    // console.log(dispatch(signIn(user))
+    if (error !== null) {
+      console.log('hello from error');
+    }
+
     props.resetForm();
   };
+  // .unwrap().catch(console.log(error.request.status));
+
   return (
     <FormLayout>
       <LogoContainer>

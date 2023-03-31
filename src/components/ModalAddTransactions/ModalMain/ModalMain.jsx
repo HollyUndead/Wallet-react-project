@@ -18,7 +18,6 @@ export const ModalMain = () => {
   const [isModalAddTransactionOpen, setIsModalAddTransactionOpen] =
     useState(true);
   const overlay = useRef();
-  console.log(transaction);
 
   const onModalClose = () => {
     setIsModalAddTransactionOpen(!isModalAddTransactionOpen);
@@ -45,8 +44,6 @@ export const ModalMain = () => {
   useEffect(() => {
     overlay.current.focus();
   }, []);
-
-  console.log(isModalAddTransactionOpen);
 
   return (
     <>
