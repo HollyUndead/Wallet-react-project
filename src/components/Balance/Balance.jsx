@@ -1,9 +1,11 @@
 import styled from 'styled-components';
-// import { useSelector } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
+import { selectTotalBalance } from '../../redux/Finance/financeSelectors';
 
 export const Balance = () => {
   // const currentBalance = useSelector(state => state.finance.totalBalance);
-  const currentBalance = '24 000.00';
+  const currentBalance = useSelector(selectTotalBalance);
+  // const currentBalance = '24 000.00';
   return (
     <Wrapper>
       <Text>Your balance</Text>
