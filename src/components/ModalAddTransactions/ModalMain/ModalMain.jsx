@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ModalAdd from '../ModalAdd/ModalAdd';
 import ModalEdit from '../ModalEdit/ModalEdit';
 import styled from 'styled-components';
+import { useRef, useEffect } from 'react';
 
 const defaultState = {
   type: true,
@@ -14,6 +15,25 @@ const defaultState = {
 export const ModalMain = () => {
   const typeOfModal = 0;
   const [transaction, setTransaction] = useState(defaultState);
+  const [isModalAddTransactionOpen, setIsModalAddTransactionOpen] =
+    useState(true);
+  const overlay = useRef();
+  console.log(transaction);
+
+  const onModalClose = () => {
+    setIsModalAddTransactionOpen(!isModalAddTransactionOpen);
+  };
+  const closeModalBackdrop = event => {
+    if (event.target === event.currentTarget) {
+      onModalClose();
+    }
+  };
+  const handlePressKey = event => {
+    if (event.code === 'Escape') {
+      onModalClose();
+    }
+  };
+
   const hendalSubmitForm = evt => {
     evt.preventDefault();
     setTransaction({
@@ -22,17 +42,32 @@ export const ModalMain = () => {
     });
   };
 
+  useEffect(() => {
+    overlay.current.focus();
+  }, []);
+
+  console.log(isModalAddTransactionOpen);
+
   return (
-    <ModalBackdrop>
-      <ModalBody>
-        <ButtonClose>x</ButtonClose>
-        {typeOfModal ? (
-          <ModalAdd hendalSubmitForm={hendalSubmitForm} />
-        ) : (
-          <ModalEdit hendalSubmitForm={hendalSubmitForm} />
-        )}
-      </ModalBody>
-    </ModalBackdrop>
+    <>
+      {isModalAddTransactionOpen && (
+        <ModalBackdrop
+          ref={overlay}
+          tabIndex={-1}
+          onKeyDown={handlePressKey}
+          onClick={closeModalBackdrop}
+        >
+          <ModalBody>
+            <ButtonClose onClick={closeModalBackdrop}>x</ButtonClose>
+            {typeOfModal ? (
+              <ModalAdd hendalSubmitForm={hendalSubmitForm} />
+            ) : (
+              <ModalEdit hendalSubmitForm={hendalSubmitForm} />
+            )}
+          </ModalBody>
+        </ModalBackdrop>
+      )}
+    </>
   );
 };
 
