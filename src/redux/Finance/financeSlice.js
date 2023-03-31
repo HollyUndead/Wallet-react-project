@@ -7,6 +7,7 @@ import {
   editTransaction,
   fetchTransactionSummary,
   fetchCurrency,
+  fetchCurrentUser,
 } from '../operations';
 
 const financeInitialState = {
@@ -14,6 +15,7 @@ const financeInitialState = {
   transactionCategories: [],
   transactionSummary: {},
   currency: [],
+  totalBalance: null,
   isLoading: false,
   error: null,
 };
@@ -53,6 +55,8 @@ const financeSlice = createSlice({
     [fetchTransactionSummary.rejected]: handleRejected,
     [fetchCurrency.pending]: handlePending,
     [fetchCurrency.rejected]: handleRejected,
+    [fetchCurrentUser.pending]: handlePending,
+    [fetchCurrentUser.rejected]: handleRejected,
     [fetchTransactions.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
@@ -90,6 +94,11 @@ const financeSlice = createSlice({
       state.isLoading = false;
       state.error = null;
       state.currency = action.payload;
+    },
+    [fetchCurrentUser.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+      state.totalBalance = action.payload.balance;
     },
   },
 });
