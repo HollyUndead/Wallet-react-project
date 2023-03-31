@@ -1,14 +1,50 @@
-import React from 'react';
+import { Formik, Form, ErrorMessage, Field } from 'formik';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { validationSchema } from '../ModalMain/ModalMain';
+import Checkbox from './Checkbox';
 
-const ModalAdd = ({ hendalSubmitForm }) => {
+const initialValues = {
+  type: false,
+  category: '',
+  amount: '',
+  transactionDate: new Date(Date.now()),
+  comment: '',
+};
+const ModalAdd = ({ handleSubmitForm }) => {
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = () => {
+    setChecked(!checked);
+  };
+
+  const onSubmit = values => {
+    handleSubmitForm({ ...values, type: checked });
+  };
   return (
     <div>
-      <ModalTitle>Add transactiocs</ModalTitle>
-      <form onSubmit={hendalSubmitForm}>
-        <input type="text" name="comment" />
-        <button>Submit</button>
-      </form>
+      <ModalTitle>Add transactions</ModalTitle>
+      <div>
+        <Checkbox type="checkbox" checked={checked} onChange={handleChange} />
+      </div>
+
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+      >
+        <Form>
+          <Field name="comment" placeholder="comment" />
+          <ErrorMessage name="comment" />
+
+          <Field name="amount" placeholder="amount" />
+          <ErrorMessage name="amount" />
+
+          <Field type="text" name="category" placeholder="category" />
+          <ErrorMessage name="category" />
+          <button type="submit">Submit</button>
+        </Form>
+      </Formik>
     </div>
   );
 };
