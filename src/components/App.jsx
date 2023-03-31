@@ -18,6 +18,7 @@ export const App = () => {
             <PrivateRoute>
               <Layout />
             </PrivateRoute>
+            // <LoginPage />
           }
         >
           <Route index element={<DashboardPage />} />
