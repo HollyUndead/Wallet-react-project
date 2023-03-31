@@ -3,8 +3,16 @@ import { Logo } from './Logo';
 import { RxExit } from 'react-icons/rx';
 import { IconContext } from 'react-icons';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from 'redux/operations';
+import { selectUserName } from 'redux/Auth/authSelector';
 
 export const Header = () => {
+  const dispatch = useDispatch();
+  const handleLogOut = () => {
+    dispatch(signOut());
+  };
+
   return (
     <header>
       <HeaderContainer>
@@ -21,13 +29,13 @@ export const Header = () => {
                 size: '18px',
               }}
             >
-              <ProfileSpan>Name</ProfileSpan>
+              <ProfileSpan>{useSelector(selectUserName)}</ProfileSpan>
             </IconContext.Provider>
           </ProfileFlex>
           <IconContext.Provider
             value={{ className: 'global-class-name', size: '24px' }}
           >
-            <Button type="button">
+            <Button type="button" onClick={handleLogOut}>
               <RxExit />
               <span>Exit</span>
             </Button>
