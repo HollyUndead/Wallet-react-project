@@ -146,3 +146,16 @@ export const fetchTransactionSummary = createAsyncThunk(
     }
   }
 );
+
+export const fetchCurrency = createAsyncThunk(
+  'transactions/fetchCurrency',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await fetch('https://api.monobank.ua/bank/currency');
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
