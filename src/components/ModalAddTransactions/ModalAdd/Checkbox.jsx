@@ -6,6 +6,7 @@ const Checkbox = ({ checked, onChange }) => {
   return (
     <CheckboxWrapper>
       <HiddenCheckbox checked={checked} onChange={onChange} />
+      <StileIncome checked={checked}>Income</StileIncome>
       <CheckboxIcon>
         {checked ? (
           <GreenCircle>
@@ -17,9 +18,19 @@ const Checkbox = ({ checked, onChange }) => {
           </RedCircle>
         )}
       </CheckboxIcon>
+      <StileExpense checked={checked}>Expense</StileExpense>
     </CheckboxWrapper>
   );
 };
+
+const StileIncome = styled.span`
+  color: ${props => (!props.checked ? '#E0E0E0' : '#24CCA7')};
+  padding-right: 20px;
+`;
+const StileExpense = styled.span`
+  color: ${props => (props.checked ? '#E0E0E0' : '#FF6596')};
+  padding-left: 20px;
+`;
 
 const GreenCircle = styled.span`
   display: flex;

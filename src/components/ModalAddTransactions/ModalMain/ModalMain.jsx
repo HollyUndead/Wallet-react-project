@@ -7,13 +7,13 @@ import { IoCloseOutline } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
 import { object, string, number, date } from 'yup';
 
-const defaultState = {
-  type: true,
-  category: '',
-  amount: '',
-  transactionDate: new Date(Date.now()),
-  comment: '',
-};
+// const defaultState = {
+//   type: true,
+//   category: '',
+//   amount: '',
+//   transactionDate: new Date(Date.now()),
+//   comment: '',
+// };
 
 export const validationSchema = object().shape({
   transactionDate: date().required('Data is a required field'),
@@ -24,7 +24,7 @@ export const validationSchema = object().shape({
 
 export const ModalMain = () => {
   const typeOfModal = 1;
-  const [transaction, setTransaction] = useState(defaultState);
+
   const [isModalAddTransactionOpen, setIsModalAddTransactionOpen] =
     useState(true);
   const overlay = useRef();

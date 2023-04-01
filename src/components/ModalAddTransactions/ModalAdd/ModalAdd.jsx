@@ -34,14 +34,22 @@ const ModalAdd = ({ handleSubmitForm }) => {
         validationSchema={validationSchema}
       >
         <Form>
+          <Field name="category" as="select">
+            <option value=""></option>
+            <option value="value1">Main expenses</option>
+            <option value="value2">Products</option>
+            <option value="value4">Car</option>
+            <option value="value5">Self care</option>
+            <option value="value6">Child care</option>
+            <option value="value7">Household products</option>
+          </Field>
+          <ErrorMessage name="category" />
           <Field name="comment" placeholder="comment" />
           <ErrorMessage name="comment" />
 
           <Field name="amount" placeholder="amount" />
           <ErrorMessage name="amount" />
 
-          <Field type="text" name="category" placeholder="category" />
-          <ErrorMessage name="category" />
           <button type="submit">Submit</button>
         </Form>
       </Formik>
@@ -53,6 +61,7 @@ export default ModalAdd;
 
 const ModalTitle = styled.h2`
   margin: 0;
+  margin-bottom: 40px;
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 400;
