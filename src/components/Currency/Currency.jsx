@@ -10,7 +10,13 @@ const EUR_CURRENCU_CODE = 978;
 const UAH_CURRENCU_CODE = 980;
 
 export const Currency = () => {
-  const [currency, setCurrency] = useState([]);
+  const [currency, setCurrency] = useState(
+    JSON.parse(localStorage.getItem('currency')) ?? []
+  );
+  const [lastCurrencyFetchDate, setlastCurrencyFetchDate] = useState(
+    localStorage.getItem('lastCurrencyFetchDate') ?? null
+  );
+
   useEffect(() => {
     const getFeaturedCurrency = async () => {
       const data = await fetchCurrency();
@@ -24,9 +30,32 @@ export const Currency = () => {
         }
       );
       setCurrency(featuredCurrency);
+      localStorage.setItem('currency', JSON.stringify(featuredCurrency));
     };
-    getFeaturedCurrency();
+
+    const currentDateTime = new Date().getTime();
+    const timeDiffInSec = (currentDateTime - lastCurrencyFetchDate) / 1000;
+    if (timeDiffInSec > 3600) {
+      getFeaturedCurrency();
+      setlastCurrencyFetchDate(currentDateTime);
+      localStorage.setItem('lastCurrencyFetchDate', currentDateTime);
+    }
+    // eslint-disable-next-line
   }, []);
+  const getFormattedDate = () => {
+    let date = new Date(Number(lastCurrencyFetchDate));
+    let str = `${date.getFullYear()}/${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}/${date
+      .getDate()
+      .toString()
+      .padStart(2, '0')} \xa0 ${date
+      .getHours()
+      .toString()
+      .padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+
+    return str;
+  };
 
   return (
     <TableWrapper>
@@ -49,18 +78,18 @@ export const Currency = () => {
           ))}
         </TableBody>
       </TableCurrency>
+      <LastUpdate>Last update &nbsp;: &nbsp; {getFormattedDate()}</LastUpdate>
     </TableWrapper>
   );
 };
 
 export const TableWrapper = styled.div`
-  position: relative;
   /* display: flex;
   flex-direction: column;
-  align-items: center; */
-  /* justify-content: center; */
+  align-items: center;
+  justify-content: center;  */
+  position: relative;
   background: #4a56e2;
-  margin-top: 32px;
   width: 280px;
   height: 174px;
   border-radius: 30px;
@@ -143,4 +172,24 @@ export const TableBody = styled.tbody`
   font-size: 16px;
   line-height: 24px;
   color: #fff;
+`;
+
+export const LastUpdate = styled.p`
+  color: #fff;
+  padding-top: 20px;
+  padding-right: 10px;
+  font-size: 10px;
+  text-align: center;
+
+  @media screen and (min-width: 768px) {
+    padding-right: 15px;
+    /* text-align: center; */
+  }
+  @media screen and (min-width: 1200px) {
+    /* padding: 82px; */
+
+    padding-top: 123px;
+    padding-right: 10px;
+    font-size: 16px;
+  }
 `;

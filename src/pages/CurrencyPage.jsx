@@ -1,3 +1,5 @@
+import { Currency } from '../components/Currency/Currency';
+
 export const CurrencyPage = () => {
-  return <h1>CurrencyPage</h1>;
+  return <Currency />;
 };
