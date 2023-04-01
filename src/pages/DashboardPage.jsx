@@ -7,7 +7,7 @@ import {
   selectTransactions,
   selectTransactionCategories,
 } from 'redux/Finance/financeSelectors';
-import { AiOutlinePlus, AiFillPlusCircle } from 'react-icons/ai';
+import { AiFillPlusCircle } from 'react-icons/ai';
 import { fetchTransactions } from 'redux/operations';
 import styled from 'styled-components';
 
@@ -15,8 +15,9 @@ export const DashboardPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchTransactions());
+    // eslint-disable-next-line
   }, []);
-
+  // eslint-disable-next-line
   const trannsactions = useSelector(selectTransactions);
   const categories = useSelector(selectTransactionCategories);
   const isMobile = useMediaQuery({
