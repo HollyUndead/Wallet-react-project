@@ -2,13 +2,18 @@ import { TransactionDeleteButton } from 'components/Transaction-buttons/Transact
 import { TransactionEditButton } from 'components/Transaction-buttons/TransactionEditButton';
 import styled from 'styled-components';
 
-export const TransactionListItemPc = ({ ...props }) => {
-  const { transactionDate, type, categoryName, comment, amount } =
-    props.trannsaction;
+export const TransactionListItemPc = ({ transaction, categories }) => {
+  const { transactionDate, type, categoryId, comment, amount } = transaction;
+
+  const typeStr = type === 'INCOME' ? '+' : '-';
+  const categoryName =
+    categories.length &&
+    categories.find(category => category.id === categoryId).name;
+
   return (
     <tr>
       <ListItemTd>{transactionDate}</ListItemTd>
-      <TypeEl>{type}</TypeEl>
+      <TypeEl>{typeStr}</TypeEl>
       <ListItemTd>{categoryName}</ListItemTd>
       <ListItemTd>{comment}</ListItemTd>
       <ListItemTd>{amount}</ListItemTd>

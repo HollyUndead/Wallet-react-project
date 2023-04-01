@@ -1,6 +1,11 @@
-export const TransactionListItemMobile = ({ ...props }) => {
-  const { transactionDate, type, categoryName, comment, amount } =
-    props.trannsaction;
+export const TransactionListItemMobile = ({ transaction, categories }) => {
+  const { transactionDate, type, categoryId, comment, amount } = transaction;
+
+  const typeStr = type === 'INCOME' ? '+' : '-';
+  const categoryName =
+    categories.length &&
+    categories.find(category => category.id === categoryId).name;
+
   return (
     <div>
       <ul className="aasas">
@@ -10,7 +15,7 @@ export const TransactionListItemMobile = ({ ...props }) => {
         </li>
         <li>
           <span>Type</span>
-          <span>{type}</span>
+          <span>{typeStr}</span>
         </li>
         <li>
           <span>Category</span>
