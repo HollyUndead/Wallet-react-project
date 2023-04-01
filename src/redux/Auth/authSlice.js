@@ -44,13 +44,10 @@ export const authSlice = createSlice({
       .addCase(signIn.rejected, (state, action) => {
         state.isLoggedIn = false;
         state.error = action.payload;
-        console.log(state.error);
+      })
+      .addCase(signUp.rejected, (state, action) => {
+        state.isLoggedIn = false;
+        state.error = action.payload;
       });
-    // .addMatcher(
-    //   action => action.type.endsWith('/rejected'),
-    //   (state, action) => {
-    //     state.error = action.payload;
-    //   }
-    // );
   },
 });

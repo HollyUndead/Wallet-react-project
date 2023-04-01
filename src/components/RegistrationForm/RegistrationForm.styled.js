@@ -66,6 +66,7 @@ export const RegistrationLabel = styled.label`
 `;
 
 export const RegistrationInput = styled(Field)`
+  position: relative;
   width: 100%;
   outline: none;
   padding: 8px 0 8px 54px;
@@ -168,12 +169,18 @@ export const ButtonLogIn = styled.button`
 `;
 
 export const IndicatorBox = styled.div`
-  width: 334px;
-
+  width: 0;
+  transform: translateY(-1px);
   border-radius: 10px;
   height: 2px;
   overflow: hidden;
   background-color: ${props => props.color};
+
+  transition: all 250ms ease-in-out;
+
+  ${RegistrationLabel}:hover & {
+    width: 334px;
+  }
 `;
 
 export const Indicator = styled.div`
@@ -186,23 +193,44 @@ export const Indicator = styled.div`
     rgba(36, 204, 167, 1) 75%,
     rgba(255, 27, 0, 1) 100%
   );
+  transition: all 1000ms ease-in-out; */
+
+`;
+
+export const EyeBox = styled.div`
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  fill: #e0e0e0;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  :hover,
+  :focus {
+    fill: #4a56e2;
+  }
+`;
+
+export const ConfirmBox = styled.div`
+  width: 0;
+  transform: translateY(-1px);
+  border-radius: 10px;
+  height: 2px;
+  overflow: hidden;
+  background-color: #ff1b00;
+
+  transition: all 250ms ease-in-out;
+
+  ${RegistrationLabel}:hover & {
+    width: 334px;
+  }
+`;
+
+export const ConfirmIndicator = styled.div`
+ height: 100%;
+  border-radius: 10px;
+  width: ${props => props.width}%;
+
+  background-color: rgba(36, 204, 167, 1);
   transition: all 500ms ease-in-out; */
-  /* background-color: ${props => props.color};  */
-  /* background: rgb(36, 204, 167);
-  background: linear-gradient(
-    90deg,
-    rgba(36, 204, 167, 1) ${props => props.power}%,
-    rgba(255, 27, 0, 1) ${props => props.weakness}%
-  );
-
-  transition: all 2000ms ease-in-out; */
-
-  /* background: rgb(255, 27, 0);
-  background: linear-gradient(
-    90deg,
-    rgba(255, 27, 0, 1) 0%,
-    rgba(255, 233, 0, 1) 50%,
-    rgba(36, 204, 167, 1) 100%
-  );
-  transition: all 250ms ease-in-out; */
 `;

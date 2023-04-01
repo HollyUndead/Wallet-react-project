@@ -10,14 +10,17 @@ import {
   LogInLabel,
   LogoContainer,
   InputIcon,
+  EyeBox,
 } from './LoginForm.styled';
 import { Link } from 'react-router-dom';
 import { Logo } from 'components/Logo/Logo';
 import Icons from '../../images/icons.svg';
+import { toast } from 'react-toastify';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signIn } from 'redux/operations';
-import { selectError } from 'redux/Auth/authSelector';
+import { useState } from 'react';
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -33,23 +36,39 @@ const validationSchema = yup.object().shape({
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  const error = useSelector(selectError);
-  // console.log(error);
+  const [passwordType, setPasswordType] = useState('password');
 
-  const handleSubmit = ({ email, password }, props) => {
-    const user = {
-      email,
-      password,
-    };
-    dispatch(signIn(user));
-    // console.log(dispatch(signIn(user))
-    if (error !== null) {
-      console.log('hello from error');
+  const togglePassword = () => {
+    if (passwordType === 'password') {
+      setPasswordType('text');
+      return;
     }
+    setPasswordType('password');
+  };
+
+  const handleSubmit = async ({ email, password }, props) => {
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
+    const user = {
+      email: trimmedEmail,
+      password: trimmedPassword,
+    };
+
+    dispatch(signIn(user))
+      .unwrap()
+      .catch(error => {
+        if (error.code === 'ERR_NETWORK') {
+          return toast.error(
+            'Oops, something wrong with network, try again later'
+          );
+        }
+        if (error.code === 'ERR_BAD_REQUEST') {
+          return toast.error('You have entered an invalid email or password');
+        }
+      });
 
     props.resetForm();
   };
-  // .unwrap().catch(console.log(error.request.status));
 
   return (
     <FormLayout>
@@ -65,9 +84,10 @@ export const LoginForm = () => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form autoComplete="off">
+          <Form autoComplete="on">
             <LogInLabel>
               <LogInInput
+                autoComplete="off"
                 type="email"
                 name="email"
                 placeholder="E-mail:  example@mail.com"
@@ -80,11 +100,19 @@ export const LoginForm = () => {
 
             <LogInLabel>
               <LogInInput
-                type="password"
+                autoComplete="on"
+                type={passwordType}
                 name="password"
                 placeholder="Password"
               />
               <ErrorMessage name="password" component="div" />
+              <EyeBox onClick={togglePassword}>
+                {passwordType === 'password' ? (
+                  <BsEye fill="#e0e0e0" />
+                ) : (
+                  <BsEyeSlash fill="#e0e0e0" />
+                )}
+              </EyeBox>
               <InputIcon width="16" height="21">
                 <use href={`${Icons}#icon-lock`} />
               </InputIcon>

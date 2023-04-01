@@ -158,3 +158,17 @@ export const ButtonRegister = styled.button`
     width: 300px;
   }
 `;
+
+export const EyeBox = styled.div`
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  fill: #e0e0e0;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  :hover,
+  :focus {
+    fill: #4a56e2;
+  }
+`;

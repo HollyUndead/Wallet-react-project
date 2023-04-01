@@ -1,7 +1,10 @@
-import { Logo } from 'components/Logo/Logo';
-import { Formik, ErrorMessage } from 'formik';
+import { useDispatch } from 'react-redux';
+import { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
+import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
+
 import {
   FormLayout,
   RegForm,
@@ -14,14 +17,17 @@ import {
   InputIcon,
   Indicator,
   IndicatorBox,
+  EyeBox,
+  ConfirmBox,
+  ConfirmIndicator,
 } from './RegistrationForm.styled';
 import Icons from 'images/icons.svg';
-import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Logo } from 'components/Logo/Logo';
+import { handleValidation } from './Validation';
 import { signUp } from 'redux/operations';
-import { selectError } from 'redux/Auth/authSelector';
-import { useState } from 'react';
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -51,70 +57,33 @@ const validationSchema = yup.object().shape({
 });
 
 export const RegistrationForm = () => {
-  const error = useSelector(selectError);
   const dispatch = useDispatch();
+  const ref = useRef('');
+  const [passwordType, setPasswordType] = useState('password');
+  const [confirmPass, setConfirmPass] = useState('0');
   const [width, setWidth] = useState('3');
   const [bgc, setBgc] = useState('#ff1b00');
-  // const [strengthBar, setStrengthBar] = useState('0');
-  // const [weakBar, setWeakBar] = useState('50');
 
-  function handleValidation(e) {
-    const password = e.target.value;
-    let strength = 0;
+  const handleConfirmPasswordBar = e => {
+    const matchPass = e.target.value;
+    const mainPass = ref.current.values.password;
 
-    // console.log(password.search(/\s+/));
-    const validations = [
-      password.length > 5,
-      password.length < 12,
-      password.search(/\d+/) > -1,
-      password.search(/[a-z]+/) > -1,
-      password.search(/[A-Z]+/) > -1,
-    ];
-    strength = validations.reduce((acc, cur) => acc + cur);
-    console.log(strength);
-
-    if (password === '') {
-      strength = 0;
+    if (mainPass === matchPass) {
+      setConfirmPass('100');
+      return;
     }
 
-    if (strength === 0) {
-      // setStrengthBar('0');
-      // setWeakBar('50');
-      setWidth('10');
-      setBgc('#ff1b00');
-    }
+    setConfirmPass('0');
+    return;
+  };
 
-    if (strength === 1) {
-      // setStrengthBar('20');
-      // setWeakBar('50');
-      setWidth('20');
-      setBgc('#ff1b00');
+  const togglePassword = () => {
+    if (passwordType === 'password') {
+      setPasswordType('text');
+      return;
     }
-    if (strength === 2) {
-      // setStrengthBar('30');
-      // setWeakBar('65');
-      setWidth('40');
-      setBgc('#ff1b00');
-    }
-    if (strength === 3) {
-      // setStrengthBar('60');
-      // setWeakBar('75');
-      setWidth('75');
-      setBgc('#ff1b00');
-    }
-    if (strength === 4) {
-      // setStrengthBar('80');
-      // setWeakBar('100');
-      setWidth('100');
-      setBgc('#ff1b00');
-    }
-    if (strength === 5) {
-      // setStrengthBar('100');
-      // setWeakBar('50');
-      setWidth('125');
-      setBgc('transparent');
-    }
-  }
+    setPasswordType('password');
+  };
 
   const handleSubmit = ({ username, email, password }, props) => {
     const trimmedUser = username.trim();
@@ -125,7 +94,18 @@ export const RegistrationForm = () => {
       email: trimmedEmail,
       password: trimmedPassword,
     };
-    dispatch(signUp(user)).catch(() => console.log('smth'));
+    dispatch(signUp(user))
+      .unwrap()
+      .catch(error => {
+        if (error.code === 'ERR_NETWORK') {
+          return toast.error(
+            'Oops, something wrong with network, try again later'
+          );
+        }
+        if (error.code === 'ERR_BAD_REQUEST') {
+          return toast.error('User with such email already exists');
+        }
+      });
 
     props.resetForm();
   };
@@ -138,6 +118,7 @@ export const RegistrationForm = () => {
             <Logo />
           </LogoContainer>
           <Formik
+            innerRef={ref}
             validationSchema={validationSchema}
             initialValues={{
               email: '',
@@ -151,6 +132,7 @@ export const RegistrationForm = () => {
               <RegForm autoComplete="off">
                 <RegistrationLabel>
                   <RegistrationInput
+                    autoComplete="off"
                     type="email"
                     name="email"
                     placeholder="E-mail:  example@mail.com"
@@ -163,19 +145,25 @@ export const RegistrationForm = () => {
                 </RegistrationLabel>
                 <RegistrationLabel>
                   <RegistrationInput
-                    type="text"
+                    autoComplete="off"
+                    type={passwordType}
                     name="password"
                     placeholder="Password"
-                    onInput={handleValidation}
+                    onInput={e => {
+                      handleValidation(e, setBgc, setWidth);
+                    }}
                   />
-                  <ErrorMessage name="password" component="div" />
                   <IndicatorBox color={bgc}>
-                    <Indicator
-                      // power={strengthBar}
-                      // weakness={weakBar}
-                      width={width}
-                    />
+                    <Indicator width={width} />
                   </IndicatorBox>
+                  <ErrorMessage name="password" component="div" />
+                  <EyeBox onClick={togglePassword}>
+                    {passwordType === 'password' ? (
+                      <BsEye fill="#e0e0e0" />
+                    ) : (
+                      <BsEyeSlash fill="#e0e0e0" />
+                    )}
+                  </EyeBox>
 
                   <InputIcon width="16" height="21">
                     <use href={`${Icons}#icon-lock`} />
@@ -184,11 +172,23 @@ export const RegistrationForm = () => {
 
                 <RegistrationLabel>
                   <RegistrationInput
-                    type="text"
+                    autoComplete="off"
+                    type={passwordType}
                     name="passwordConfirmation"
                     placeholder="Confirm password"
+                    onInput={e => handleConfirmPasswordBar(e)}
                   />
+                  <ConfirmBox>
+                    <ConfirmIndicator width={confirmPass} />
+                  </ConfirmBox>
                   <ErrorMessage name="passwordConfirmation" component="div" />
+                  <EyeBox onClick={togglePassword}>
+                    {passwordType === 'password' ? (
+                      <BsEye fill="#e0e0e0" />
+                    ) : (
+                      <BsEyeSlash fill="#e0e0e0" />
+                    )}
+                  </EyeBox>
 
                   <InputIcon width="16" height="21">
                     <use href={`${Icons}#icon-lock`} />
@@ -219,7 +219,7 @@ export const RegistrationForm = () => {
                 </ButtonContainer>
               </RegForm>
             )}
-          </Formik>{' '}
+          </Formik>
         </FormLayout>
       </section>
     </div>
