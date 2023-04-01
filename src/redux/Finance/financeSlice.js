@@ -34,6 +34,11 @@ const financeSlice = createSlice({
   reducers: {
     // Так как бекенд не возвращает id удаляемой транзакции, надо вручную ещё удалять
     deleteTransactionOffline(state, action) {
+      const amount = state.transactions.find(
+        transaction => transaction.id === action.payload
+      ).amount;
+      state.totalBalance = state.totalBalance - amount;
+
       const index = state.transactions.findIndex(
         transaction => transaction.id === action.payload
       );
