@@ -12,6 +12,7 @@ import {
   fetchTransactions,
   fetchTransactionCategories,
 } from 'redux/operations';
+import { Balance } from 'components/Balance/Balance';
 import styled from 'styled-components';
 
 export const DashboardPage = () => {
@@ -24,11 +25,12 @@ export const DashboardPage = () => {
   const transactions = useSelector(selectTransactions);
   const categories = useSelector(selectTransactionCategories);
   const isMobile = useMediaQuery({
-    query: '(max-width: 480px)',
+    query: '(max-width: 767px)',
   });
 
   return (
-    <div style={{ width: '100%' }}>
+    <DashboardContainer>
+      {isMobile && <Balance />}
       {!isMobile && (
         <TransactionListTablePc>
           <thead>
@@ -74,9 +76,23 @@ export const DashboardPage = () => {
           }}
         />
       </AddIconWrap>
-    </div>
+    </DashboardContainer>
   );
 };
+
+const DashboardContainer = styled.div`
+  width: '100%';
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @media screen and (min-width: 768px) {
+    padding-top: 20px;
+  }
+  @media screen and (min-width: 1200px) {
+    padding-top: 46px;
+  }
+`;
 
 const AddIconWrap = styled.div`
   position: absolute;

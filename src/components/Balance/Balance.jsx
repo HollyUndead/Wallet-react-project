@@ -10,7 +10,7 @@ export const Balance = () => {
     <Wrapper>
       <Text>Your balance</Text>
       <Count>
-        <Simbol>₴</Simbol> {currentBalance}
+        <Simbol>{'\u20B4'}</Simbol> {currentBalance}
       </Count>
     </Wrapper>
   );
@@ -60,6 +60,6 @@ const Count = styled.p`
 
 const Simbol = styled.span`
   font-weight: 400;
-
+  font-family: 'Poppins', sans-serif;
   padding-right: 8px;
 `;
