@@ -13,14 +13,13 @@ const initialValues = {
   type: false,
   category: '',
   amount: '',
-  transactionDate: new Date(Date.now()),
   comment: '',
 };
 const ModalAdd = ({ handleSubmitForm }) => {
   const [checked, setChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [transactionDate, setTransactionDate] = useState(new Date(Date.now()));
-  console.log(Icons);
+
   const handleChange = () => {
     setChecked(!checked);
   };
@@ -61,9 +60,8 @@ const ModalAdd = ({ handleSubmitForm }) => {
           </StyledSelectField>
           <ErrorMessage name="category" />
           <DataBox>
-            <Field name="amount" placeholder="0.00" />
+            <StyledAmountField name="amount" placeholder="0.00" />
             <ErrorMessage name="amount" />
-
             <Datetime
               open={isOpen}
               timeFormat={false}
@@ -83,12 +81,11 @@ const ModalAdd = ({ handleSubmitForm }) => {
             <Icon onClick={handleClick}>
               <use href={`${Icons}#icon-calendar`} />
             </Icon>
-
-            <ModalButtonAdd type="submit">Submit</ModalButtonAdd>
           </DataBox>
           <StyledCommentField name="comment" placeholder="Comment" />
           <ErrorMessage name="comment" />
-          <button type="submit">ADD</button>
+          <ModalButtonAdd type="submit">ADD</ModalButtonAdd>
+
         </StyledForm>
       </Formik>
     </ModalBox>
@@ -97,21 +94,7 @@ const ModalAdd = ({ handleSubmitForm }) => {
 
 export default ModalAdd;
 
-export const InputData = styled.input`
-  width: 280px;
-  border: none;
-  border-bottom: 1px solid #e0e0e0;
-  text-align: center;
-  margin-top: 42px;
-  @media screen and (min-width: 768px) {
-    width: 181px;
-    margin-top: 0;
-  }
-  &:focus-visible {
-    outline: none;
-    border-bottom: 1px solid grey;
-  }
-`;
+
 
 export const ModalButtonAdd = styled.button`
   width: 280px;
@@ -147,45 +130,99 @@ export const ModalButtonAdd = styled.button`
   }
 `;
 
-export const Icon = styled.svg`
-  position: relative;
-  height: 24px;
-  width: 24px;
-  @media screen and (min-width: 768px) {
-    top: 0px;
-    left: 0px;
-  }
-  :hover {
-    transform: scale(1.1);
-    cursor: pointer;
+
+
+const StyledSelectField = styled(Field)`
+  width: 394px;
+  height: 30px;
+  margin-bottom: 40px;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  &:focus-visible {
+    
+    outline: none;
+    /* border-bottom: 1px solid var(--btn-teal-color);
+    background-color: var(--text-white-color); */
   }
 `;
 
-const StyledSelectField = styled(Field)`
-  width: 495px;
-  height: 30px;
-  margin-bottom: 40px;
-  border: none;
-  border-bottom: 1px solid #e0e0e0;
-`;
+
+
 const StyledCommentField = styled(Field)`
-  width: 495px;
-  height: 30px;
+  width: 394px;
+  /* height: 30px; */
   margin-bottom: 40px;
   border: none;
   border-bottom: 1px solid #e0e0e0;
+  &:focus-visible {
+    outline: none;
+    /* border-bottom: 1px solid var(--btn-teal-color);
+    background-color: var(--text-white-color); */
+  }
 `;
 const StyledCheckbox = styled.div`
   margin-bottom: 45px;
 `;
 
 const DataBox = styled.div`
-  width: 495px;
+  width: 398px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  gap: 30px;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* flex-direction: row; */
+  margin-bottom: 40px;
+  /* gap: 30px; */
+`;
+
+const StyledAmountField = styled(Field)`
+  width: 280px;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+  /* margin-right: 32px; */
+  
+  @media screen and (min-width: 768px) {
+    width: 181px;
+    /* margin-right: 32px; */
+    margin-bottom: 0;
+  }
+  &:focus-visible {
+    
+    outline: none;
+    /* border-bottom: 1px solid var(--btn-teal-color);
+    background-color: var(--text-white-color); */
+  }
+`
+
+export const InputData = styled.input`
+margin-left: 32px;
+  width: 280px;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+  margin-top: 42px;
+  @media screen and (min-width: 768px) {
+    width: 181px;
+    margin-top: 0;
+  }
+  &:focus-visible {
+    outline: none;
+    border-bottom: 1px solid grey;
+  }
+`;
+
+export const Icon = styled.svg`
+  position: relative;
+  height: 20px;
+  width: 18px;
+  @media screen and (min-width: 768px) {
+    top: -6px;
+    left: -40px;
+  }
+  :hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
 `;
 
 const ModalBox = styled.div`
