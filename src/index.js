@@ -9,7 +9,7 @@ import { store } from 'redux/store';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store} loading={null}>
-      <BrowserRouter>
+      <BrowserRouter basename="/Wallet-react-project">
         <App />
       </BrowserRouter>
     </Provider>
