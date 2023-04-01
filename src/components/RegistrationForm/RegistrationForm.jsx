@@ -1,8 +1,9 @@
 import { Logo } from 'components/Logo/Logo';
-import { Formik, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 
 import * as yup from 'yup';
 import {
+  Container,
   FormLayout,
   RegForm,
   ButtonRegister,
@@ -12,37 +13,43 @@ import {
   ButtonLogIn,
   LogoContainer,
   InputIcon,
+  ErrorMessage,
 } from './RegistrationForm.styled';
 import Icons from 'images/icons.svg';
 import { useDispatch } from 'react-redux';
-
 import { Link, useNavigate } from 'react-router-dom';
 import { signUp } from 'redux/operations';
 
 const validationSchema = yup.object().shape({
   email: yup
     .string()
-    .email('E-mail must be valid email')
-    .required('E-mail is a required field'),
+    .email('Пошта має бути робочою, як конячка!')
+    .required('На цю пошту летітимуть голуби з листівками вдачі ;)'),
   password: yup
     .string()
-    .matches(/^[a-zA-Z0-9_-]+$/, 'Password contains invalid characters')
-    .min(6, 'Password must be at least 6 characters')
-    .max(12, 'Password must be at most 12 characters')
-    .required('Password is a required field'),
+    .matches(
+      /^[a-zA-Z0-9_-]+$/,
+      'Ну, ви ж доросла людина, такого не можна писати'
+    )
+    .min(6, 'Гей! це якось замало, давай хоча б 6 символів введемо')
+    .max(12, 'Ого, це ж тобі не Кобзарик, зупинись на 12 символах')
+    .required("Ну, пароль це обов'язково, інакше ми не спрацюємось"),
   passwordConfirmation: yup
     .string()
     .oneOf(
       [yup.ref('password'), null],
       'Confirm password must match the password'
     )
-    .required('Confirm password is a required field'),
+    .required('Шо, забув що там нафантазував у паролі?'),
   username: yup
     .string()
-    .matches(/^[a-zA-Z0-9_-]+$/, 'Name contains invalid characters')
-    .min(1)
-    .max(20, 'First name must be at most 20 characters')
-    .required('Please enter your name'),
+    .matches(
+      /^[a-zA-Z0-9_-]+$/,
+      'Ну, ви ж доросла людина, такого не можна писати'
+    )
+    .min(1, 'Ну, хоч якось тебе кличуть, чи завжди сам приходиш')
+    .max(20, 'Ну, прям УВЕСЬ родовід писати не треба')
+    .required("Мені цікаво дізнатися твоє ім'я"),
 });
 
 export const RegistrationForm = () => {
@@ -60,7 +67,7 @@ export const RegistrationForm = () => {
   };
 
   return (
-    <div>
+    <Container>
       <section>
         <FormLayout>
           <LogoContainer>
@@ -84,7 +91,7 @@ export const RegistrationForm = () => {
                     name="email"
                     placeholder="E-mail:  example@mail.com"
                   />
-                  <ErrorMessage name="email" component="div" />
+                  <ErrorMessage name="email" component="span" />
 
                   <InputIcon width="21" height="16">
                     <use href={`${Icons}#icon-email`} />
@@ -96,7 +103,7 @@ export const RegistrationForm = () => {
                     name="password"
                     placeholder="Password"
                   />
-                  <ErrorMessage name="password" component="div" />
+                  <ErrorMessage name="password" component="span" />
 
                   <InputIcon width="16" height="21">
                     <use href={`${Icons}#icon-lock`} />
@@ -109,7 +116,7 @@ export const RegistrationForm = () => {
                     name="passwordConfirmation"
                     placeholder="Confirm password"
                   />
-                  <ErrorMessage name="passwordConfirmation" component="div" />
+                  <ErrorMessage name="passwordConfirmation" component="span" />
 
                   <InputIcon width="16" height="21">
                     <use href={`${Icons}#icon-lock`} />
@@ -122,7 +129,7 @@ export const RegistrationForm = () => {
                     name="username"
                     placeholder="First name:  Adrian"
                   />
-                  <ErrorMessage name="username" component="div" />
+                  <ErrorMessage name="username" component="span" />
                   <InputIcon width="18" height="18">
                     <use href={`${Icons}#icon-account_box`} />
                   </InputIcon>
@@ -140,9 +147,9 @@ export const RegistrationForm = () => {
                 </ButtonContainer>
               </RegForm>
             )}
-          </Formik>{' '}
+          </Formik>
         </FormLayout>
       </section>
-    </div>
+    </Container>
   );
 };
