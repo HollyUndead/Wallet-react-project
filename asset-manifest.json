@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Wallet-react-project/static/css/main.bab54bd2.css",
-    "main.js": "/Wallet-react-project/static/js/main.10358a76.js",
+    "main.css": "/Wallet-react-project/static/css/main.c245b8e7.css",
+    "main.js": "/Wallet-react-project/static/js/main.5874aa13.js",
     "static/media/bg-image-tablet-2x.png": "/Wallet-react-project/static/media/bg-image-tablet-2x.ccf6f9d5a04ef8610225.png",
     "static/media/bg-image-desktop-2x.png": "/Wallet-react-project/static/media/bg-image-desktop-2x.2795d04ca58b64722447.png",
     "static/media/Circe-Regular.eot": "/Wallet-react-project/static/media/Circe-Regular.13bbfad0e7f851273f3c.eot",
@@ -18,14 +18,14 @@
     "static/media/Poppins-Bold.ttf": "/Wallet-react-project/static/media/Poppins-Bold.13c17db889176bed9ddf.ttf",
     "static/media/Poppins-Regular.woff": "/Wallet-react-project/static/media/Poppins-Regular.7d50cfcb7fdf5bd337a0.woff",
     "static/media/Poppins-Bold.woff": "/Wallet-react-project/static/media/Poppins-Bold.125974335c0c9046c212.woff",
-    "static/media/icons.svg": "/Wallet-react-project/static/media/icons.5750668c56dbf5209ef12542b75ec055.svg",
+    "static/media/icons.svg": "/Wallet-react-project/static/media/icons.8ca94cb4aa4b049d803a4e79599a2882.svg",
     "static/media/symbol-defs.svg": "/Wallet-react-project/static/media/symbol-defs.413fc6b7047c6343bf3c5cc5719a24d3.svg",
     "index.html": "/Wallet-react-project/index.html",
-    "main.bab54bd2.css.map": "/Wallet-react-project/static/css/main.bab54bd2.css.map",
-    "main.10358a76.js.map": "/Wallet-react-project/static/js/main.10358a76.js.map"
+    "main.c245b8e7.css.map": "/Wallet-react-project/static/css/main.c245b8e7.css.map",
+    "main.5874aa13.js.map": "/Wallet-react-project/static/js/main.5874aa13.js.map"
   },
   "entrypoints": [
-    "static/css/main.bab54bd2.css",
-    "static/js/main.10358a76.js"
+    "static/css/main.c245b8e7.css",
+    "static/js/main.5874aa13.js"
   ]
 }
