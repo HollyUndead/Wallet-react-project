@@ -1,11 +1,11 @@
-import { useDispatch } from 'react-redux';
-import { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Logo } from 'components/Logo/Logo';
+import { Formik } from 'formik';
 
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 
 import {
+  Container,
   FormLayout,
   RegForm,
   ButtonRegister,
@@ -15,45 +15,44 @@ import {
   ButtonLogIn,
   LogoContainer,
   InputIcon,
-  Indicator,
-  IndicatorBox,
-  EyeBox,
-  ConfirmBox,
-  ConfirmIndicator,
+  ErrorMessage,
 } from './RegistrationForm.styled';
 import Icons from 'images/icons.svg';
-import { toast } from 'react-toastify';
-import { BsEye, BsEyeSlash } from 'react-icons/bs';
-
-import { Logo } from 'components/Logo/Logo';
-import { handleValidation } from './Validation';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { signUp } from 'redux/operations';
 
 const validationSchema = yup.object().shape({
   email: yup
     .string()
-    .email('E-mail must be valid email')
-    .required('E-mail is a required field'),
+    .email('Пошта має бути робочою, як конячка!')
+    .required('На цю пошту летітимуть голуби з листівками вдачі ;)'),
   password: yup
     .string()
-    .min(6, 'Password should be at least 6 characters')
-    .max(12, 'Password should be up to 12 characters')
-    .matches(/\d+/, 'Should include number')
-    .matches(/[a-z]+/, 'Should include lowercase')
+    .matches(
+      /^[a-zA-Z0-9_-]+$/,
+      'Ну, ви ж доросла людина, такого не можна писати'
+    )
+    .min(6, 'Гей! це якось замало, давай хоча б 6 символів введемо')
     .matches(/[A-Z]+/, 'Should include uppercase')
-    // .transform(value => (/\s/.test(value) ? 'error' : 'wrong'))
-    // .matches(/\s+/, 'Password has spaces')
-    .required('Password is a required field'),
+    .max(12, 'Ого, це ж тобі не Кобзарик, зупинись на 12 символах')
+    .required("Ну, пароль це обов'язково, інакше ми не спрацюємось"),
   passwordConfirmation: yup
     .string()
-    .oneOf([yup.ref('password'), null], 'Passwords should match')
-    .required('Confirm your password'),
+    .oneOf(
+      [yup.ref('password'), null],
+      'Confirm password must match the password'
+    )
+    .required('Шо, забув що там нафантазував у паролі?'),
   username: yup
     .string()
-    .matches(/^[a-zA-Z0-9_-]+$/, 'Name contains invalid characters')
-    .min(1)
-    .max(20, 'First name should be up to 20 characters')
-    .required('Please enter your name'),
+    .matches(
+      /^[a-zA-Z0-9_-]+$/,
+      'Ну, ви ж доросла людина, такого не можна писати'
+    )
+    .min(1, 'Ну, хоч якось тебе кличуть, чи завжди сам приходиш')
+    .max(20, 'Ну, прям УВЕСЬ родовід писати не треба')
+    .required("Мені цікаво дізнатися твоє ім'я"),
 });
 
 export const RegistrationForm = () => {
@@ -111,7 +110,7 @@ export const RegistrationForm = () => {
   };
 
   return (
-    <div>
+    <Container>
       <section>
         <FormLayout>
           <LogoContainer>
@@ -137,7 +136,7 @@ export const RegistrationForm = () => {
                     name="email"
                     placeholder="E-mail:  example@mail.com"
                   />
-                  <ErrorMessage name="email" component="div" />
+                  <ErrorMessage name="email" component="span" />
 
                   <InputIcon width="21" height="16">
                     <use href={`${Icons}#icon-email`} />
@@ -156,7 +155,7 @@ export const RegistrationForm = () => {
                   <IndicatorBox color={bgc}>
                     <Indicator width={width} />
                   </IndicatorBox>
-                  <ErrorMessage name="password" component="div" />
+                  <ErrorMessage name="password" component="span" />
                   <EyeBox onClick={togglePassword}>
                     {passwordType === 'password' ? (
                       <BsEye fill="#e0e0e0" />
@@ -181,7 +180,7 @@ export const RegistrationForm = () => {
                   <ConfirmBox>
                     <ConfirmIndicator width={confirmPass} />
                   </ConfirmBox>
-                  <ErrorMessage name="passwordConfirmation" component="div" />
+                  <ErrorMessage name="passwordConfirmation" component="span" />
                   <EyeBox onClick={togglePassword}>
                     {passwordType === 'password' ? (
                       <BsEye fill="#e0e0e0" />
@@ -201,7 +200,7 @@ export const RegistrationForm = () => {
                     name="username"
                     placeholder="First name:  Adrian"
                   />
-                  <ErrorMessage name="username" component="div" />
+                  <ErrorMessage name="username" component="span" />
                   <InputIcon width="18" height="18">
                     <use href={`${Icons}#icon-account_box`} />
                   </InputIcon>
@@ -222,6 +221,6 @@ export const RegistrationForm = () => {
           </Formik>
         </FormLayout>
       </section>
-    </div>
+    </Container>
   );
 };

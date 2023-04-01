@@ -71,7 +71,7 @@ export const fetchCurrentUser = createAsyncThunk(
 );
 
 export const fetchTransactions = createAsyncThunk(
-  'transactions/fetchTransactions',
+  'finance/fetchTransactions',
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(`/transactions`);
@@ -82,20 +82,20 @@ export const fetchTransactions = createAsyncThunk(
   }
 );
 
-// export const fetchTransactionCategories = createAsyncThunk(
-//   'transactions/fetchTransactionCategories',
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const { data } = await axios.get(`/transaction-categories`);
-//       return data;
-//     } catch (error) {
-//       return rejectWithValue(error);
-//     }
-//   }
-// );
+export const fetchTransactionCategories = createAsyncThunk(
+  'finance/fetchTransactionCategories',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(`/transaction-categories`);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  }
+);
 
 export const addTransaction = createAsyncThunk(
-  'transactions/addTransaction',
+  'finance/addTransaction',
   async (transaction, { rejectWithValue }) => {
     try {
       const { data } = await axios.post(`/transactions`, transaction);
@@ -107,7 +107,7 @@ export const addTransaction = createAsyncThunk(
 );
 
 export const deleteTransaction = createAsyncThunk(
-  'transactions/deleteTransaction',
+  'finance/deleteTransaction',
   async (id, { rejectWithValue }) => {
     try {
       const { data } = await axios.delete(`/transactions/${id}`);
@@ -119,7 +119,7 @@ export const deleteTransaction = createAsyncThunk(
 );
 
 export const editTransaction = createAsyncThunk(
-  'transactions/editTransaction',
+  'finance/editTransaction',
   async ({ id, comment, amount }, { rejectWithValue }) => {
     try {
       const { data } = await axios.patch(`/transactions/${id}`, {
@@ -134,7 +134,7 @@ export const editTransaction = createAsyncThunk(
 );
 
 export const fetchTransactionSummary = createAsyncThunk(
-  'transactions/fetchTransactionSummary',
+  'finance/fetchTransactionSummary',
   async ({ year, month }, { rejectWithValue }) => {
     try {
       const { data } = await axios.get(
@@ -147,15 +147,24 @@ export const fetchTransactionSummary = createAsyncThunk(
   }
 );
 
-export const fetchCurrency = createAsyncThunk(
-  'transactions/fetchCurrency',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await fetch('https://api.monobank.ua/bank/currency');
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      return rejectWithValue(error);
-    }
+// export const fetchCurrency = createAsyncThunk(
+//   'finance/fetchCurrency',
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await fetch('https://api.monobank.ua/bank/currency');
+//       const data = await response.json();
+//       return data;
+//     } catch (error) {
+//       return rejectWithValue(error);
+//     }
+//   }
+// );
+
+export const fetchCurrency = async () => {
+  try {
+    const { data } = await axios.get('https://api.monobank.ua/bank/currency');
+    return data;
+  } catch (error) {
+    console.log(error.message);
   }
-);
+};

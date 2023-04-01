@@ -1,6 +1,7 @@
-import * as yup from 'yup';
-import { ErrorMessage, Formik } from 'formik';
+import * as Yup from 'yup';
+import { Formik } from 'formik';
 import {
+  Container,
   FormLayout,
   Form,
   ButtonLogIn,
@@ -11,6 +12,7 @@ import {
   LogoContainer,
   InputIcon,
   EyeBox,
+  ErrorMessage,
 } from './LoginForm.styled';
 import { Link } from 'react-router-dom';
 import { Logo } from 'components/Logo/Logo';
@@ -22,16 +24,14 @@ import { useDispatch } from 'react-redux';
 import { signIn } from 'redux/operations';
 import { useState } from 'react';
 
-const validationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email('E-mail must be valid email')
-    .required('E-mail is a required field'),
-  password: yup
-    .string()
-    .min(6, 'Password must be at least 6 characters')
-    .max(12, 'Password must be at most 12 characters')
-    .required('Password is a required field'),
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Пошта має бути робочою, як конячка!')
+    .required('На цю пошту летітимуть голуби з листівками вдачі ;)'),
+  password: Yup.string()
+    .min(6, 'Гей! це якось замало, давай хоча б 6 символів введемо')
+    .max(12, 'Ого, це ж тобі не Кобзарик, зупинись на 12 символах')
+    .required("Ну, пароль це обов'язково, інакше ми не спрацюємось"),
 });
 
 export const LoginForm = () => {
@@ -71,65 +71,67 @@ export const LoginForm = () => {
   };
 
   return (
-    <FormLayout>
-      <LogoContainer>
-        <Logo />
-      </LogoContainer>
-      <Formik
-        initialValues={{
-          email: '',
-          password: '',
-        }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ isSubmitting }) => (
-          <Form autoComplete="on">
-            <LogInLabel>
-              <LogInInput
-                autoComplete="off"
-                type="email"
-                name="email"
-                placeholder="E-mail:  example@mail.com"
-              />
-              <ErrorMessage name="email" component="div" />
-              <InputIcon width="21" height="16">
-                <use href={`${Icons}#icon-email`} />
-              </InputIcon>
-            </LogInLabel>
+    <Container>
+      <FormLayout>
+        <LogoContainer>
+          <Logo />
+        </LogoContainer>
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ isSubmitting }) => (
+            <Form autoComplete="on">
+              <LogInLabel>
+                <LogInInput
+                  autoComplete="off"
+                  type="email"
+                  name="email"
+                  placeholder="E-mail:  example@mail.com"
+                />
+                <ErrorMessage name="email" component="span" />
+                <InputIcon width="21" height="16">
+                  <use href={`${Icons}#icon-email`} />
+                </InputIcon>
+              </LogInLabel>
 
-            <LogInLabel>
-              <LogInInput
-                autoComplete="on"
-                type={passwordType}
-                name="password"
-                placeholder="Password"
-              />
-              <ErrorMessage name="password" component="div" />
-              <EyeBox onClick={togglePassword}>
-                {passwordType === 'password' ? (
-                  <BsEye fill="#e0e0e0" />
-                ) : (
-                  <BsEyeSlash fill="#e0e0e0" />
-                )}
-              </EyeBox>
-              <InputIcon width="16" height="21">
-                <use href={`${Icons}#icon-lock`} />
-              </InputIcon>
-            </LogInLabel>
-            <ButtonContainer>
-              <ButtonLogIn type="submit" disabled={isSubmitting}>
-                {'Log in'.toUpperCase()}
-              </ButtonLogIn>
-              <Link to="/register">
-                <ButtonRegister type="button">
-                  {'Register'.toUpperCase()}
-                </ButtonRegister>
-              </Link>
-            </ButtonContainer>
-          </Form>
-        )}
-      </Formik>
-    </FormLayout>
+              <LogInLabel>
+                <LogInInput
+                  autoComplete="on"
+                  type={passwordType}
+                  name="password"
+                  placeholder="Password"
+                />
+                <ErrorMessage name="password" component="span" />
+                <EyeBox onClick={togglePassword}>
+                  {passwordType === 'password' ? (
+                    <BsEye fill="#e0e0e0" />
+                  ) : (
+                    <BsEyeSlash fill="#e0e0e0" />
+                  )}
+                </EyeBox>
+                <InputIcon width="16" height="21">
+                  <use href={`${Icons}#icon-lock`} />
+                </InputIcon>
+              </LogInLabel>
+              <ButtonContainer>
+                <ButtonLogIn type="submit" disabled={isSubmitting}>
+                  {'Log in'.toUpperCase()}
+                </ButtonLogIn>
+                <Link to="/register">
+                  <ButtonRegister type="button">
+                    {'Register'.toUpperCase()}
+                  </ButtonRegister>
+                </Link>
+              </ButtonContainer>
+            </Form>
+          )}
+        </Formik>
+      </FormLayout>
+    </Container>
   );
 };

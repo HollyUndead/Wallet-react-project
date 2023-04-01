@@ -1,36 +1,59 @@
-import { Field, Form } from 'formik';
+import { Field, Form, ErrorMessage as FormikError  } from 'formik';
 import styled from 'styled-components';
 
+export const Container = styled.div`
+@media screen and (min-width: 768px) {
+  height: 100%;
+  padding: 44px;
+  }
+`;
 export const FormLayout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* justify-content: center; */
   width: 100%;
   height: 100%;
-  padding: 32px 20px 36px;
+  padding: 34px 0px ;
   background-color: white;
+  
+  
 
   @media screen and (min-width: 768px) {
-    width: 533px;
-    height: 616px;
-    padding: 40px 60px 65px;
+    max-width: 533px;
+    height: 516px;
+    /* padding: 52px 60px; */
     border-radius: 20px;
+    padding-top: 10px;     
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    align-items: center;
+    justify-content: center;    
   }
   @media screen and (min-width: 1280px) {
+    /* width: 533px;
+    height: 616px; */
   }
+`;
+
+export const ErrorMessage = styled(FormikError)`
+color: red;
+font-size: 12px;
+margin: 4px 0;
 `;
 
 export const LogoContainer = styled.div`
   margin-bottom: 50px;
   @media screen and (min-width: 768px) {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
 `;
 
 export const InputIcon = styled.svg`
   position: absolute;
   left: 10px;
-  top: 50%;
+  top: 17px;
   transform: translateY(-50%);
   fill: #e0e0e0;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -43,8 +66,12 @@ export const InputIcon = styled.svg`
 
 export const RegForm = styled(Form)`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  @media screen and (min-width: 768px){
+    padding-right: 15px;
+  }
 `;
 
 export const RegistrationLabel = styled.label`
@@ -57,21 +84,24 @@ export const RegistrationLabel = styled.label`
   :focus {
     color: #4a56e2;
   }
+  :hover > svg, :focus > svg{
+    fill: #4a56e2;
+  }
   @media screen and (min-width: 768px) {
     width: 410px;
   }
-  @media screen and (min-width: 1280px) {
+  /* @media screen and (min-width: 1280px) {
     width: 410px;
-  }
+  } */
 `;
 
 export const RegistrationInput = styled(Field)`
-  position: relative;
-  width: 100%;
+  /* width: 90%; */
   outline: none;
-  padding: 8px 0 8px 54px;
+  padding: 8px 1px 8px 54px;
   font-family: 'Circe', sans-serif;
   font-size: 18px;
+  line-height: 1.5;
 
   color: #4a56e2;
   border: none;
@@ -79,19 +109,26 @@ export const RegistrationInput = styled(Field)`
   transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &::placeholder {
     font-family: 'Circe', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     color: #bdbdbd;
   }
   &:hover,
   &:focus {
     border-color: #4a56e2;
   }
+   @media screen and (min-width: 768px) {
+    width: 90%; 
+    &::placeholder {
+    font-size: 18px;    
+  }
+  }
 `;
 
 export const ButtonContainer = styled.div`
   width: 220px;
-  height: 120px;
-  margin-top: 20px;
+  height: 115px;
+  margin-top: 26px;
+  padding-left: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -103,7 +140,7 @@ export const ButtonContainer = styled.div`
 export const ButtonRegister = styled.button`
   width: 280px;
   height: 50px;
-  padding: 13px 65px 13px 71px;
+  padding: 13px 68px 13px 68px;
   border: none;
   background-color: #24cca7;
   border-radius: 20px;
@@ -112,9 +149,9 @@ export const ButtonRegister = styled.button`
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
-
+  line-height: 1.5;
   text-align: center;
-  letter-spacing: 0.1em;
+  
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
@@ -137,7 +174,7 @@ export const ButtonRegister = styled.button`
 export const ButtonLogIn = styled.button`
   width: 280px;
   height: 50px;
-  padding: 13px 65px 13px 71px;
+  padding: 13px 68px 13px 68px;
   border: none;
   background-color: white;
   border: 1px solid #4a56e2;
@@ -146,9 +183,10 @@ export const ButtonLogIn = styled.button`
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
+  line-height: 1.5;
 
   text-align: center;
-  letter-spacing: 0.1em;
+  
   color: #4a56e2;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);

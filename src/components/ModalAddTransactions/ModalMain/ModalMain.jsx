@@ -3,18 +3,28 @@ import ModalAdd from '../ModalAdd/ModalAdd';
 import ModalEdit from '../ModalEdit/ModalEdit';
 import styled from 'styled-components';
 import { useRef, useEffect } from 'react';
+import { IoCloseOutline } from 'react-icons/io5';
+import { IconContext } from 'react-icons';
+import { object, string, number, date } from 'yup';
 
-const defaultState = {
-  type: true,
-  category: '',
-  amount: '',
-  date: new Date(),
-  comment: '',
-};
+// const defaultState = {
+//   type: true,
+//   category: '',
+//   amount: '',
+//   transactionDate: new Date(Date.now()),
+//   comment: '',
+// };
+
+export const validationSchema = object().shape({
+  transactionDate: date().required('Data is a required field'),
+  category: string(),
+  amount: number().required('Amount is a required field').positive(),
+  comment: string(),
+});
 
 export const ModalMain = () => {
-  const typeOfModal = 0;
-  const [transaction, setTransaction] = useState(defaultState);
+  const typeOfModal = 1;
+
   const [isModalAddTransactionOpen, setIsModalAddTransactionOpen] =
     useState(true);
   const overlay = useRef();
@@ -33,12 +43,13 @@ export const ModalMain = () => {
     }
   };
 
-  const hendalSubmitForm = evt => {
-    evt.preventDefault();
-    setTransaction({
-      ...transaction,
-      comment: evt.target.elements.comment.value,
-    });
+  const handleSubmitForm = value => {
+    console.log(value);
+
+    // setTransaction({
+    //   ...transaction,
+    //   comment: evt.target.elements.comment.value,
+    // });
   };
 
   useEffect(() => {
@@ -55,12 +66,20 @@ export const ModalMain = () => {
           onClick={closeModalBackdrop}
         >
           <ModalBody>
-            <ButtonClose onClick={closeModalBackdrop}>x</ButtonClose>
+            <ButtonClose type="button" onClick={onModalClose}>
+              <IconContext.Provider value={{ size: '2.5em' }}>
+                <IoCloseOutline />
+              </IconContext.Provider>
+            </ButtonClose>
+
             {typeOfModal ? (
-              <ModalAdd hendalSubmitForm={hendalSubmitForm} />
+              <ModalAdd handleSubmitForm={handleSubmitForm} />
             ) : (
-              <ModalEdit hendalSubmitForm={hendalSubmitForm} />
+              <ModalEdit handleSubmitForm={handleSubmitForm} />
             )}
+            <button type="button" onClick={onModalClose}>
+              CANCEL
+            </button>
           </ModalBody>
         </ModalBackdrop>
       )}
@@ -89,31 +108,32 @@ const ModalBody = styled.div`
 
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
   background-color: #fff;
   border-radius: 20px;
-  padding: 40px;
+  padding: 40px 75px;
   width: 540px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+  }
 `;
 const ButtonClose = styled.button`
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border: none;
-  border-radius: 50%;
-
-  top: 10px;
-  left: calc(100% - 27px);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  box-sizing: border-box;
-
-  &:hover,
-  &:focus {
-    border: 1px solid #000000;
-    transform: rotate(-90deg);
+  opacity: 0;
+  @media screen and (min-width: 768px) {
+    opacity: 1;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    border: none;
+    background-color: #fff;
+    padding: 0;
+    cursor: pointer;
+    :hover {
+      transform: scale(1.1);
+      color: red;
+    }
   }
 `;
