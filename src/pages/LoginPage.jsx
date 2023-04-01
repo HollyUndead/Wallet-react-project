@@ -39,6 +39,7 @@ export const LoginPage = () => {
 };
 
 const Container = styled.div`
+  /* height: 100vh; */
   @media screen and (min-width: 768px) and (max-width: 1279px) {
     display: flex;
     flex-direction: column;

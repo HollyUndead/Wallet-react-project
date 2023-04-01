@@ -1,7 +1,6 @@
 import { Logo } from 'components/Logo/Logo';
-import { Formik } from 'formik';
 
-import { Formik, ErrorMessage } from 'formik';
+import { Formik } from 'formik';
 import * as yup from 'yup';
 
 import {
@@ -16,11 +15,20 @@ import {
   LogoContainer,
   InputIcon,
   ErrorMessage,
+  IndicatorBox,
+  Indicator,
+  ConfirmBox,
+  ConfirmIndicator,
+  EyeBox,
 } from './RegistrationForm.styled';
 import Icons from 'images/icons.svg';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { signUp } from 'redux/operations';
+import { useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+import { handleValidation } from './Validation';
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -128,7 +136,7 @@ export const RegistrationForm = () => {
             onSubmit={handleSubmit}
           >
             {({ isSubmitting }) => (
-              <RegForm autoComplete="off">
+              <RegForm autoComplete="off" noValidate>
                 <RegistrationLabel>
                   <RegistrationInput
                     autoComplete="off"
@@ -158,9 +166,9 @@ export const RegistrationForm = () => {
                   <ErrorMessage name="password" component="span" />
                   <EyeBox onClick={togglePassword}>
                     {passwordType === 'password' ? (
-                      <BsEye fill="#e0e0e0" />
-                    ) : (
                       <BsEyeSlash fill="#e0e0e0" />
+                    ) : (
+                      <BsEye fill="#e0e0e0" />
                     )}
                   </EyeBox>
 
@@ -177,15 +185,18 @@ export const RegistrationForm = () => {
                     placeholder="Confirm password"
                     onInput={e => handleConfirmPasswordBar(e)}
                   />
+
                   <ConfirmBox>
                     <ConfirmIndicator width={confirmPass} />
                   </ConfirmBox>
+
                   <ErrorMessage name="passwordConfirmation" component="span" />
+
                   <EyeBox onClick={togglePassword}>
                     {passwordType === 'password' ? (
-                      <BsEye fill="#e0e0e0" />
-                    ) : (
                       <BsEyeSlash fill="#e0e0e0" />
+                    ) : (
+                      <BsEye fill="#e0e0e0" />
                     )}
                   </EyeBox>
 

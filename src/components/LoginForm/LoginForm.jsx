@@ -85,7 +85,7 @@ export const LoginForm = () => {
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
-            <Form autoComplete="on">
+            <Form autoComplete="on" noValidate>
               <LogInLabel>
                 <LogInInput
                   autoComplete="off"
@@ -109,9 +109,9 @@ export const LoginForm = () => {
                 <ErrorMessage name="password" component="span" />
                 <EyeBox onClick={togglePassword}>
                   {passwordType === 'password' ? (
-                    <BsEye fill="#e0e0e0" />
-                  ) : (
                     <BsEyeSlash fill="#e0e0e0" />
+                  ) : (
+                    <BsEye fill="#e0e0e0" />
                   )}
                 </EyeBox>
                 <InputIcon width="16" height="21">
