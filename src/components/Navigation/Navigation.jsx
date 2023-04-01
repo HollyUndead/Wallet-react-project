@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 export const Navigation = () => {
   const isMobile = useMediaQuery({
-    query: '(max-width: 320px)',
+    query: '(max-width: 767px)',
   });
   return (
     <Nav>
