@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Wallet-react-project/static/css/main.c245b8e7.css",
-    "main.js": "/Wallet-react-project/static/js/main.8256d8e2.js",
+    "main.css": "/Wallet-react-project/static/css/main.cdf8ab32.css",
+    "main.js": "/Wallet-react-project/static/js/main.50c58fd5.js",
     "static/media/bg-image-tablet-2x.png": "/Wallet-react-project/static/media/bg-image-tablet-2x.ccf6f9d5a04ef8610225.png",
     "static/media/bg-image-desktop-2x.png": "/Wallet-react-project/static/media/bg-image-desktop-2x.2795d04ca58b64722447.png",
     "static/media/Circe-Regular.eot": "/Wallet-react-project/static/media/Circe-Regular.13bbfad0e7f851273f3c.eot",
@@ -10,6 +10,7 @@
     "static/media/Circe-Bold.ttf": "/Wallet-react-project/static/media/Circe-Bold.63396ee791f60623acbf.ttf",
     "static/media/bg-image-tablet.png": "/Wallet-react-project/static/media/bg-image-tablet.bd510cf955620c9035fc.png",
     "static/media/bg-image-desktop.png": "/Wallet-react-project/static/media/bg-image-desktop.1edc64490b1ca0567e27.png",
+    "static/media/bg-reg-desk.png": "/Wallet-react-project/static/media/bg-reg-desk.0632278875a94728f0c5.png",
     "static/media/Circe-Bold.woff": "/Wallet-react-project/static/media/Circe-Bold.8a1c4d2d35cdd2d6704b.woff",
     "static/media/Circe-Regular.woff": "/Wallet-react-project/static/media/Circe-Regular.b3583e41e063203a7e74.woff",
     "static/media/Poppins-Regular.eot": "/Wallet-react-project/static/media/Poppins-Regular.dd1ec14243b1116b57a0.eot",
@@ -18,14 +19,22 @@
     "static/media/Poppins-Bold.ttf": "/Wallet-react-project/static/media/Poppins-Bold.13c17db889176bed9ddf.ttf",
     "static/media/Poppins-Regular.woff": "/Wallet-react-project/static/media/Poppins-Regular.7d50cfcb7fdf5bd337a0.woff",
     "static/media/Poppins-Bold.woff": "/Wallet-react-project/static/media/Poppins-Bold.125974335c0c9046c212.woff",
+    "static/media/login-desk-2x.png": "/Wallet-react-project/static/media/login-desk-2x.cff25cf4ec4c4a2a7cb1.png",
+    "static/media/reg-desk-1x.png": "/Wallet-react-project/static/media/reg-desk-1x.dfc261f6c69fd03fb44a.png",
+    "static/media/bg-reg-tab.png": "/Wallet-react-project/static/media/bg-reg-tab.6ab28466b67b687d46b1.png",
+    "static/media/reg-desk-2x.png": "/Wallet-react-project/static/media/reg-desk-2x.955312f13d0d2af98176.png",
+    "static/media/login-tablet-2x.png": "/Wallet-react-project/static/media/login-tablet-2x.d0752eace262567e5edc.png",
+    "static/media/login-desk-1x.png": "/Wallet-react-project/static/media/login-desk-1x.6004ccede158996dfc43.png",
+    "static/media/reg-tablet-2x.png": "/Wallet-react-project/static/media/reg-tablet-2x.a4dbfc31b81e53f046d2.png",
+    "static/media/login-tablet-1x.png": "/Wallet-react-project/static/media/login-tablet-1x.dc0b0efeaec1104d2601.png",
     "static/media/icons.svg": "/Wallet-react-project/static/media/icons.8ca94cb4aa4b049d803a4e79599a2882.svg",
     "static/media/symbol-defs.svg": "/Wallet-react-project/static/media/symbol-defs.413fc6b7047c6343bf3c5cc5719a24d3.svg",
     "index.html": "/Wallet-react-project/index.html",
-    "main.c245b8e7.css.map": "/Wallet-react-project/static/css/main.c245b8e7.css.map",
-    "main.8256d8e2.js.map": "/Wallet-react-project/static/js/main.8256d8e2.js.map"
+    "main.cdf8ab32.css.map": "/Wallet-react-project/static/css/main.cdf8ab32.css.map",
+    "main.50c58fd5.js.map": "/Wallet-react-project/static/js/main.50c58fd5.js.map"
   },
   "entrypoints": [
-    "static/css/main.c245b8e7.css",
-    "static/js/main.8256d8e2.js"
+    "static/css/main.cdf8ab32.css",
+    "static/js/main.50c58fd5.js"
   ]
 }
