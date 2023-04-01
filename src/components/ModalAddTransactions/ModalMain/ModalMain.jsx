@@ -77,6 +77,9 @@ export const ModalMain = () => {
             ) : (
               <ModalEdit handleSubmitForm={handleSubmitForm} />
             )}
+            <button type="button" onClick={onModalClose}>
+              CANCEL
+            </button>
           </ModalBody>
         </ModalBackdrop>
       )}
@@ -106,10 +109,11 @@ const ModalBody = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 
   background-color: #fff;
   border-radius: 20px;
-  padding: 40px;
+  padding: 40px 75px;
   width: 540px;
   @media screen and (max-width: 768px) {
     width: 100%;
