@@ -6,8 +6,10 @@ export const selectTransactionCategories = state =>
 export const selectTransactionSummary = state =>
   state.finance.transactionSummary;
 
-export const selectCurrency = state => state.finance.currency;
+// export const selectCurrency = state => state.finance.currency;
 
 export const selectFinanceIsLoading = state => state.finance.isLoading;
 
 export const selectFinanceError = state => state.finance.error;
+
+export const selectTotalBalance = state => state.finance.totalBalance;
