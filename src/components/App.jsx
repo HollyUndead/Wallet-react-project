@@ -8,8 +8,16 @@ import { CurrencyPage } from 'pages/CurrencyPage';
 import { PrivateRoute } from '../hoc/PrivateRoute';
 import { PublicRoute } from '../hoc/PublicRoute';
 import { ModalMain } from './ModalAddTransactions/ModalMain/ModalMain';
+import { useDispatch } from 'react-redux';
+import { fetchCurrentUser } from 'redux/operations';
+import { useEffect } from 'react';
 
 export const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+    // eslint-disable-next-line
+  }, []);
   return (
     <div>
       <Routes>

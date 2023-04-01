@@ -1,10 +1,10 @@
-import { NavLink } from 'react-router-dom';
+import { LoginForm } from 'components/LoginForm/LoginForm';
 
 export const LoginPage = () => {
   return (
     <>
       <h1>LoginPage</h1>
-      <NavLink to="/register">Register</NavLink>
+      <LoginForm />
     </>
   );
 };
