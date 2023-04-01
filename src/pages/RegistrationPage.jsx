@@ -38,6 +38,8 @@ export const RegistrationPage = () => {
 };
 
 const Container = styled.div`
+  min-height: 100vh;
+  /* overflow: scroll; */
   @media screen and (min-width: 768px) and (max-width: 1279px) {
     display: flex;
     flex-direction: column;
