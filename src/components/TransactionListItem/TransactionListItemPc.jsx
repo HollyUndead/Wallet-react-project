@@ -23,7 +23,7 @@ export const TransactionListItemPc = ({ transaction, categories, last }) => {
       <ItemCategory>{categoryName}</ItemCategory>
       <ItemComment>{comment}</ItemComment>
       <ItemAmount typeStr={typeStr}>
-        {String(amount).replace('-', '')}
+        {Number(String(amount).replace('-', '')).toFixed(2)}
       </ItemAmount>
       <ItemButtons>
         <TransactionEditButton />
