@@ -67,6 +67,10 @@ const validationSchema = yup.object().shape({
 export const RegistrationForm = () => {
   const dispatch = useDispatch();
   const ref = useRef('');
+  const [valid, setValid] = useState({
+    password: false,
+    passwordConfirmation: false,
+  });
   const [passwordType, setPasswordType] = useState('password');
   const [confirmPass, setConfirmPass] = useState('0');
   const [width, setWidth] = useState('3');
@@ -136,100 +140,118 @@ export const RegistrationForm = () => {
             }}
             onSubmit={handleSubmit}
           >
-            {({ isSubmitting }) => (
-              <RegForm autoComplete="off" noValidate>
-                <RegistrationLabel>
-                  <RegistrationInput
-                    autoComplete="off"
-                    type="email"
-                    name="email"
-                    placeholder="E-mail:  example@mail.com"
-                  />
-                  <ErrorMessage name="email" component="span" />
+            {({ isSubmitting }) => {
+              return (
+                <RegForm autoComplete="off" noValidate>
+                  <RegistrationLabel>
+                    <RegistrationInput
+                      autoComplete="off"
+                      type="email"
+                      name="email"
+                      placeholder="E-mail:  example@mail.com"
+                    />
+                    <ErrorMessage name="email" component="span" />
 
-                  <InputIcon width="21" height="16">
-                    <use href={`${Icons}#icon-email`} />
-                  </InputIcon>
-                </RegistrationLabel>
-                <RegistrationLabel>
-                  <RegistrationInput
-                    autoComplete="off"
-                    type={passwordType}
-                    name="password"
-                    placeholder="Password"
-                    onInput={e => {
-                      handleValidation(e, setBgc, setWidth);
-                    }}
-                  />
-                  <IndicatorBox color={bgc}>
-                    <Indicator width={width} />
-                  </IndicatorBox>
-                  <ErrorMessage name="password" component="span" />
-                  <EyeBox onClick={togglePassword}>
-                    {passwordType === 'password' ? (
-                      <BsEyeSlash fill="#e0e0e0" />
-                    ) : (
-                      <BsEye fill="#e0e0e0" />
-                    )}
-                  </EyeBox>
+                    <InputIcon width="21" height="16">
+                      <use href={`${Icons}#icon-email`} />
+                    </InputIcon>
+                  </RegistrationLabel>
+                  <RegistrationLabel>
+                    <RegistrationInput
+                      autoComplete="off"
+                      type={passwordType}
+                      name="password"
+                      placeholder="Password"
+                      onInput={e => {
+                        handleValidation(e, setBgc, setWidth);
+                      }}
+                      onFocus={() =>
+                        setValid(prevState => ({
+                          ...prevState,
+                          password: true,
+                        }))
+                      }
+                    />
 
-                  <InputIcon width="16" height="21">
-                    <use href={`${Icons}#icon-lock`} />
-                  </InputIcon>
-                </RegistrationLabel>
+                    <IndicatorBox color={bgc} show={valid.password}>
+                      <Indicator width={width} />
+                    </IndicatorBox>
 
-                <RegistrationLabel>
-                  <RegistrationInput
-                    autoComplete="off"
-                    type={passwordType}
-                    name="passwordConfirmation"
-                    placeholder="Confirm password"
-                    onInput={e => handleConfirmPasswordBar(e)}
-                  />
+                    <ErrorMessage name="password" component="span" />
+                    <EyeBox onClick={togglePassword}>
+                      {passwordType === 'password' ? (
+                        <BsEyeSlash fill="#e0e0e0" />
+                      ) : (
+                        <BsEye fill="#e0e0e0" />
+                      )}
+                    </EyeBox>
 
-                  <ConfirmBox>
-                    <ConfirmIndicator width={confirmPass} />
-                  </ConfirmBox>
+                    <InputIcon width="16" height="21">
+                      <use href={`${Icons}#icon-lock`} />
+                    </InputIcon>
+                  </RegistrationLabel>
 
-                  <ErrorMessage name="passwordConfirmation" component="span" />
+                  <RegistrationLabel>
+                    <RegistrationInput
+                      autoComplete="off"
+                      type={passwordType}
+                      name="passwordConfirmation"
+                      placeholder="Confirm password"
+                      onInput={e => handleConfirmPasswordBar(e)}
+                      onFocus={() =>
+                        setValid(prevState => ({
+                          ...prevState,
+                          passwordConfirmation: true,
+                        }))
+                      }
+                    />
+                    <ConfirmBox show={valid.passwordConfirmation}>
+                      <ConfirmIndicator width={confirmPass} />
+                    </ConfirmBox>
 
-                  <EyeBox onClick={togglePassword}>
-                    {passwordType === 'password' ? (
-                      <BsEyeSlash fill="#e0e0e0" />
-                    ) : (
-                      <BsEye fill="#e0e0e0" />
-                    )}
-                  </EyeBox>
+                    <ErrorMessage
+                      name="passwordConfirmation"
+                      component="span"
+                    />
 
-                  <InputIcon width="16" height="21">
-                    <use href={`${Icons}#icon-lock`} />
-                  </InputIcon>
-                </RegistrationLabel>
+                    <EyeBox onClick={togglePassword}>
+                      {passwordType === 'password' ? (
+                        <BsEyeSlash fill="#e0e0e0" />
+                      ) : (
+                        <BsEye fill="#e0e0e0" />
+                      )}
+                    </EyeBox>
 
-                <RegistrationLabel>
-                  <RegistrationInput
-                    type="text"
-                    name="username"
-                    placeholder="First name:  Adrian"
-                  />
-                  <ErrorMessage name="username" component="span" />
-                  <InputIcon width="18" height="18">
-                    <use href={`${Icons}#icon-account_box`} />
-                  </InputIcon>
-                </RegistrationLabel>
+                    <InputIcon width="16" height="21">
+                      <use href={`${Icons}#icon-lock`} />
+                    </InputIcon>
+                  </RegistrationLabel>
 
-                <ButtonContainer>
-                  <ButtonRegister type="submit" disabled={isSubmitting}>
-                    {'Register'.toUpperCase()}
-                  </ButtonRegister>
-                  <Link to="/login">
-                    <ButtonLogIn type="ButtonLogIn">
-                      {'Log in'.toUpperCase()}
-                    </ButtonLogIn>
-                  </Link>
-                </ButtonContainer>
-              </RegForm>
-            )}
+                  <RegistrationLabel>
+                    <RegistrationInput
+                      type="text"
+                      name="username"
+                      placeholder="First name:  Adrian"
+                    />
+                    <ErrorMessage name="username" component="span" />
+                    <InputIcon width="18" height="18">
+                      <use href={`${Icons}#icon-account_box`} />
+                    </InputIcon>
+                  </RegistrationLabel>
+
+                  <ButtonContainer>
+                    <ButtonRegister type="submit" disabled={isSubmitting}>
+                      {'Register'.toUpperCase()}
+                    </ButtonRegister>
+                    <Link to="/login">
+                      <ButtonLogIn type="ButtonLogIn">
+                        {'Log in'.toUpperCase()}
+                      </ButtonLogIn>
+                    </Link>
+                  </ButtonContainer>
+                </RegForm>
+              );
+            }}
           </Formik>
         </FormLayout>
       </section>

@@ -83,11 +83,6 @@ export const RegistrationLabel = styled.label`
     color: #4a56e2;
   }
 
-  :focus > div {
-    outline: tomato;
-    width: 100%;
-  }
-
   :hover > svg,
   :focus > svg {
     fill: #4a56e2;
@@ -213,35 +208,17 @@ export const ButtonLogIn = styled.button`
 `;
 
 export const IndicatorBox = styled.div`
-  width: 0;
+  width: ${props => (props.show ? '269px' : '0')};
+  @media screen and (min-width: 768px) {
+    width: ${props => (props.show ? ' 424px' : '0')};
+  }
   transform: translateY(-1px);
   border-radius: 10px;
   height: 3px;
   overflow: hidden;
   background-color: ${props => props.color};
 
-  transition: all 250ms ease-in-out;
-
-  ${RegistrationInput}:focus & {
-    width: 269px;
-    @media screen and (min-width: 768px) {
-      width: 424px;
-    }
-  }
-
-  ${RegistrationLabel}:focus & {
-    width: 269px;
-    @media screen and (min-width: 768px) {
-      width: 424px;
-    }
-  }
-
-  ${RegistrationLabel}:hover & {
-    width: 269px;
-    @media screen and (min-width: 768px) {
-      width: 424px;
-    }
-  }
+  transition: all 400ms ease-in-out;
 `;
 
 export const Indicator = styled.div`
@@ -272,28 +249,17 @@ export const EyeBox = styled.div`
 `;
 
 export const ConfirmBox = styled.div`
-  width: 0;
+  width: ${props => (props.show ? '269px' : '0')};
+  @media screen and (min-width: 768px) {
+    width: ${props => (props.show ? ' 424px' : '0')};
+  }
   transform: translateY(-1px);
   border-radius: 10px;
   height: 3px;
   overflow: hidden;
-  background-color: #ff1b00;
+  background-color: rgba(255, 27, 0, 1);
 
-  transition: all 250ms ease-in-out;
-
-  ${RegistrationLabel}:focus & {
-    width: 269px;
-    @media screen and (min-width: 768px) {
-      width: 424px;
-    }
-  }
-
-  ${RegistrationLabel}:hover & {
-    width: 269px;
-    @media screen and (min-width: 768px) {
-      width: 424px;
-    }
-  }
+  transition: all 400ms ease-in-out;
 `;
 
 export const ConfirmIndicator = styled.div`
@@ -301,6 +267,6 @@ export const ConfirmIndicator = styled.div`
   border-radius: 10px;
   width: ${props => props.width}%;
 
-  background-color: #24cca7;
+  background-color: rgba(36, 204, 167, 1);
   transition: all 500ms ease-in-out; */
 `;
