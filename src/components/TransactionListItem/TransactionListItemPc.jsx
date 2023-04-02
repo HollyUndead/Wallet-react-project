@@ -10,7 +10,7 @@ export const transformDate = date => {
 };
 
 export const TransactionListItemPc = ({ transaction, categories, last }) => {
-  const { transactionDate, type, categoryId, comment, amount } = transaction;
+  const { transactionDate, type, categoryId, comment, amount, id } = transaction;
 
   const typeStr = type === 'INCOME' ? '+' : '-';
   const categoryName =
@@ -26,8 +26,8 @@ export const TransactionListItemPc = ({ transaction, categories, last }) => {
         {Number(String(amount).replace('-', '')).toFixed(2)}
       </ItemAmount>
       <ItemButtons>
-        <TransactionEditButton />
-        <TransactionDeleteButton id={transaction.id} />
+        <TransactionEditButton id={id} />
+        <TransactionDeleteButton id={id} />
       </ItemButtons>
     </Tr>
   );
