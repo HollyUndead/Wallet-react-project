@@ -23,10 +23,12 @@ export const validationSchema = object().shape({
 });
 
 export const ModalMain = () => {
-  const typeOfModal = 1;
+  const typeOfModal = 'add';
 
   const [isModalAddTransactionOpen, setIsModalAddTransactionOpen] =
     useState(true);
+  // const [Categories, setCategories] = useState([]);
+
   const overlay = useRef();
 
   const onModalClose = () => {
@@ -54,6 +56,7 @@ export const ModalMain = () => {
 
   useEffect(() => {
     overlay.current.focus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -71,10 +74,10 @@ export const ModalMain = () => {
                 <IoCloseOutline />
               </IconContext.Provider>
             </ButtonClose>
-
-            {typeOfModal ? (
+            {typeOfModal === 'add' && (
               <ModalAdd handleSubmitForm={handleSubmitForm} />
-            ) : (
+            )}
+            {typeOfModal === 'edit' && (
               <ModalEdit handleSubmitForm={handleSubmitForm} />
             )}
             <ModalButtonCancel type="button" onClick={onModalClose}>

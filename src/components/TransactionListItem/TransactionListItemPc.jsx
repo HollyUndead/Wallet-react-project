@@ -18,7 +18,7 @@ export const TransactionListItemPc = ({ transaction, categories }) => {
       <ListItemTd>{comment}</ListItemTd>
       <ListItemTd>{amount}</ListItemTd>
       <ListItemTd>
-        <TransactionEditButton />
+        <TransactionEditButton id={transaction.id} />
         <TransactionDeleteButton id={transaction.id} />
       </ListItemTd>
     </tr>
