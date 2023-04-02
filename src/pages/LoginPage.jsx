@@ -3,11 +3,9 @@ import { useMediaQuery } from 'react-responsive';
 import bgImageDesk from '../images/bg-reg-desk.png';
 import bgImageTab from '../images/bg-reg-tab.png';
 
-import logDesk1x from '../images/login-desk-1x.png';
-import logDesk2x from '../images/login-desk-2x.png';
-import logTab1x from '../images/login-tablet-1x.png';
-import logTab2x from '../images/login-tablet-2x.png';
 import styled from 'styled-components';
+
+import { LoginImageBox } from 'components/LoginPageImages/LoginImageBox';
 
 export const LoginPage = () => {
   const isTabDesk = useMediaQuery({ query: '(min-width: 768px)' });
@@ -16,19 +14,7 @@ export const LoginPage = () => {
     <Container>
       {isTabDesk && (
         <Picture>
-          <picture>
-            <source
-              srcSet={`${logDesk1x} 1x, ${logDesk2x} 2x`}
-              width="435"
-              media="(min-width:1280px)"
-            />
-            <source
-              srcSet={`${logTab1x} 1x, ${logTab2x} 2x`}
-              width="260"
-              media="(min-width: 768px)"
-            />
-            <img src={logDesk1x} width="435" alt="start page" />
-          </picture>
+          <LoginImageBox />
           <Title>Finance App</Title>
         </Picture>
       )}
@@ -59,8 +45,9 @@ const Container = styled.div`
     display: flex;
     /* height: 100%; */
     align-items: center;
-    justify-content: center;
-    gap: 154px;
+    //  justify-content: center; <------- that was before
+    justify-content: space-evenly;
+    /* gap: 154px; */
     /* padding: 18px; */
     margin-bottom: 0;
     background: url(${bgImageDesk});
