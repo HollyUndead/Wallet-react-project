@@ -18,41 +18,33 @@ export function handleValidation(e, setBgc, setWidth) {
     strength = 0;
   }
 
-  if (strength === 0) {
-    setWidth('10');
-    setBgc('#ff1b00');
-  }
+  switch (strength) {
+    case 0:
+      setWidth('10');
+      setBgc('#ff1b00');
+      break;
+    case 1:
+      setWidth('20');
+      setBgc('#ff1b00');
+      break;
+    case 2:
+      setWidth('40');
+      setBgc('#ff1b00');
+      break;
+    case 3:
+      setWidth('75');
+      setBgc('#ff1b00');
+      break;
+    case 4:
+      setWidth('100');
+      setBgc('#ff1b00');
+      break;
 
-  if (strength === 1) {
-    setWidth('20');
-    setBgc('#ff1b00');
-  }
-  if (strength === 2) {
-    setWidth('40');
-    setBgc('#ff1b00');
-  }
-  if (strength === 3) {
-    setWidth('75');
-    setBgc('#ff1b00');
-  }
-  if (strength === 4) {
-    setWidth('100');
-    setBgc('#ff1b00');
-  }
-  if (strength === 5) {
-    setWidth('125');
-    setBgc('transparent');
+    case 5:
+      setWidth('125');
+      setBgc('transparent');
+      break;
+    default:
+      return;
   }
 }
-
-// export const handleConfirmPasswordBar = (refValues, setConfirmPass) => {
-//   const { password, passwordConfirmation } = refValues.current.values;
-//   if (password !== passwordConfirmation) {
-//     setConfirmPass('0');
-//     return;
-//   }
-//   if (password === passwordConfirmation) {
-//     setConfirmPass('100');
-//     return;
-//   }
-// };
