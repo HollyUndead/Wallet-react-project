@@ -1,11 +1,11 @@
 {
   "files": {
     "main.css": "/Wallet-react-project/static/css/main.d4d4cf57.css",
-    "main.js": "/Wallet-react-project/static/js/main.5986fa45.js",
+    "main.js": "/Wallet-react-project/static/js/main.fc1b75f1.js",
     "static/js/621.b552934c.chunk.js": "/Wallet-react-project/static/js/621.b552934c.chunk.js",
     "static/js/775.a42fa487.chunk.js": "/Wallet-react-project/static/js/775.a42fa487.chunk.js",
     "static/js/357.2b3f69ba.chunk.js": "/Wallet-react-project/static/js/357.2b3f69ba.chunk.js",
-    "static/js/877.d1b9df0f.chunk.js": "/Wallet-react-project/static/js/877.d1b9df0f.chunk.js",
+    "static/js/877.eab01dc6.chunk.js": "/Wallet-react-project/static/js/877.eab01dc6.chunk.js",
     "static/js/126.64a353ce.chunk.js": "/Wallet-react-project/static/js/126.64a353ce.chunk.js",
     "static/js/152.1f258837.chunk.js": "/Wallet-react-project/static/js/152.1f258837.chunk.js",
     "static/js/355.0ce47eae.chunk.js": "/Wallet-react-project/static/js/355.0ce47eae.chunk.js",
@@ -38,17 +38,17 @@
     "static/media/symbol-defs.svg": "/Wallet-react-project/static/media/symbol-defs.413fc6b7047c6343bf3c5cc5719a24d3.svg",
     "index.html": "/Wallet-react-project/index.html",
     "main.d4d4cf57.css.map": "/Wallet-react-project/static/css/main.d4d4cf57.css.map",
-    "main.5986fa45.js.map": "/Wallet-react-project/static/js/main.5986fa45.js.map",
+    "main.fc1b75f1.js.map": "/Wallet-react-project/static/js/main.fc1b75f1.js.map",
     "621.b552934c.chunk.js.map": "/Wallet-react-project/static/js/621.b552934c.chunk.js.map",
     "775.a42fa487.chunk.js.map": "/Wallet-react-project/static/js/775.a42fa487.chunk.js.map",
     "357.2b3f69ba.chunk.js.map": "/Wallet-react-project/static/js/357.2b3f69ba.chunk.js.map",
-    "877.d1b9df0f.chunk.js.map": "/Wallet-react-project/static/js/877.d1b9df0f.chunk.js.map",
+    "877.eab01dc6.chunk.js.map": "/Wallet-react-project/static/js/877.eab01dc6.chunk.js.map",
     "126.64a353ce.chunk.js.map": "/Wallet-react-project/static/js/126.64a353ce.chunk.js.map",
     "152.1f258837.chunk.js.map": "/Wallet-react-project/static/js/152.1f258837.chunk.js.map",
     "355.0ce47eae.chunk.js.map": "/Wallet-react-project/static/js/355.0ce47eae.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d4d4cf57.css",
-    "static/js/main.5986fa45.js"
+    "static/js/main.fc1b75f1.js"
   ]
 }
