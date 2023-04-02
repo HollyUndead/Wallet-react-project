@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SummaryPage = () => {
+const SummaryPage = () => {
   return (
     <SummaryWraper>
       <SummaryTitle>Statistics</SummaryTitle>
@@ -36,3 +36,5 @@ const SummaryTitle = styled.h1`
     padding-bottom: 20px;
   }
 `;
+
+export default SummaryPage;

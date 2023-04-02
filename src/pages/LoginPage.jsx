@@ -9,7 +9,7 @@ import logTab1x from '../images/login-tablet-1x.png';
 import logTab2x from '../images/login-tablet-2x.png';
 import styled from 'styled-components';
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const isTabDesk = useMediaQuery({ query: '(min-width: 768px)' });
 
   return (
@@ -95,3 +95,5 @@ const Title = styled.h1`
     color: #000000;
   }
 `;
+
+export default LoginPage;
