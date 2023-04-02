@@ -103,7 +103,7 @@ const financeSlice = createSlice({
     [fetchCurrentUser.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
-      state.totalBalance = action.payload.balance;
+      state.totalBalance = Number(action.payload.balance).toFixed(2);
     },
   },
 });
