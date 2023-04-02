@@ -10,6 +10,11 @@ body {
   backdrop-filter: blur(25px);
 }
 
+html,
+body {
+  height: 100%;
+}
+
 @font-face {
   font-display: swap;
   font-family: 'Poppins';

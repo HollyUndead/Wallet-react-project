@@ -1,11 +1,10 @@
-import { Form as LoginForm, Field, ErrorMessage as FormikError  } from 'formik';
+import { Form as LoginForm, Field, ErrorMessage as FormikError } from 'formik';
 import styled from 'styled-components';
 
-
 export const Container = styled.div`
-@media screen and (min-width: 768px) {
-  height: 100%;
-  padding: 50px;
+  @media screen and (min-width: 768px) {
+    height: 100%;
+    padding: 50px;
   }
 `;
 
@@ -25,10 +24,10 @@ export const FormLayout = styled.div`
     height: 468px;
     /* padding: 40px 60px 65px; */
     border-radius: 20px;
-    padding-top: 10px;     
+    padding-top: 10px;
     padding-right: 20px;
     padding-bottom: 10px;
-    padding-left: 20px;    
+    padding-left: 20px;
     align-items: center;
     justify-content: center;
   }
@@ -38,9 +37,9 @@ export const FormLayout = styled.div`
 `;
 
 export const ErrorMessage = styled(FormikError)`
-color: red;
-font-size: 12px;
-margin: 4px 0;
+  color: red;
+  font-size: 12px;
+  margin: 4px 0;
 `;
 
 export const LogoContainer = styled.div`
@@ -52,10 +51,10 @@ export const LogoContainer = styled.div`
 
 export const Form = styled(LoginForm)`
   display: flex;
-  flex-direction: column;  
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  @media screen and (min-width: 768px){
+  @media screen and (min-width: 768px) {
     padding-right: 15px;
   }
 `;
@@ -69,7 +68,8 @@ export const LogInLabel = styled.label`
   :focus {
     color: #4a56e2;
   }
-  :hover > svg, :focus > svg{
+  :hover > svg,
+  :focus > svg {
     fill: #4a56e2;
   }
   @media screen and (min-width: 768px) {
@@ -102,7 +102,7 @@ export const LogInInput = styled(Field)`
   line-height: 1.5;
   color: #4a56e2;
   border: none;
-  border-bottom: 1px solid  #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
   transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &::placeholder {
     font-size: 16px;
@@ -112,11 +112,11 @@ export const LogInInput = styled(Field)`
   &:focus {
     border-color: #4a56e2;
   }
-   @media screen and (min-width: 768px) {
-    width: 90%; 
+  @media screen and (min-width: 768px) {
+    width: 90%;
     &::placeholder {
-    font-size: 18px;    
-  }
+      font-size: 18px;
+    }
   }
 `;
 
@@ -147,7 +147,7 @@ export const ButtonLogIn = styled.button`
   font-size: 18px;
   line-height: 1.5;
   text-align: center;
-  
+
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
@@ -180,7 +180,7 @@ export const ButtonRegister = styled.button`
   line-height: 1.5;
 
   text-align: center;
-  
+
   color: #4a56e2;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -196,5 +196,20 @@ export const ButtonRegister = styled.button`
   }
   @media screen and (min-width: 1280px) {
     width: 300px;
+  }
+`;
+
+
+export const EyeBox = styled.div`
+  position: absolute;
+  right: 10px;
+  top: 19px;
+  transform: translateY(-50%);
+  fill: #e0e0e0;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  :hover,
+  :focus {
+    fill: #4a56e2;
   }
 `;

@@ -1,7 +1,8 @@
 import { Logo } from 'components/Logo/Logo';
-import { Formik } from 'formik';
 
+import { Formik } from 'formik';
 import * as yup from 'yup';
+
 import {
   Container,
   FormLayout,
@@ -14,11 +15,20 @@ import {
   LogoContainer,
   InputIcon,
   ErrorMessage,
+  IndicatorBox,
+  Indicator,
+  ConfirmBox,
+  ConfirmIndicator,
+  EyeBox,
 } from './RegistrationForm.styled';
 import Icons from 'images/icons.svg';
+import { BsEye, BsEyeSlash } from 'react-icons/bs';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { signUp } from 'redux/operations';
+import { useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+import { handleValidation } from './Validation';
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -32,13 +42,15 @@ const validationSchema = yup.object().shape({
       'Ну, ви ж доросла людина, такого не можна писати'
     )
     .min(6, 'Гей! це якось замало, давай хоча б 6 символів введемо')
+    .matches(/[A-Z]+/, 'Додай велику літеру, щоб у нас була довіра')
     .max(12, 'Ого, це ж тобі не Кобзарик, зупинись на 12 символах')
+    .matches(/\d+/, 'Хоча б одну цифру')
     .required("Ну, пароль це обов'язково, інакше ми не спрацюємось"),
   passwordConfirmation: yup
     .string()
     .oneOf(
       [yup.ref('password'), null],
-      'Confirm password must match the password'
+      'Шо, забув що там нафантазував у паролі?'
     )
     .required('Шо, забув що там нафантазував у паролі?'),
   username: yup
@@ -53,16 +65,56 @@ const validationSchema = yup.object().shape({
 });
 
 export const RegistrationForm = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const ref = useRef('');
+  const [passwordType, setPasswordType] = useState('password');
+  const [confirmPass, setConfirmPass] = useState('0');
+  const [width, setWidth] = useState('3');
+  const [bgc, setBgc] = useState('#ff1b00');
+
+  const handleConfirmPasswordBar = e => {
+    const matchPass = e.target.value;
+    const mainPass = ref.current.values.password;
+
+    if (mainPass === matchPass) {
+      setConfirmPass('100');
+      return;
+    }
+
+    setConfirmPass('0');
+    return;
+  };
+
+  const togglePassword = () => {
+    if (passwordType === 'password') {
+      setPasswordType('text');
+      return;
+    }
+    setPasswordType('password');
+  };
 
   const handleSubmit = ({ username, email, password }, props) => {
+    const trimmedUser = username.trim();
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
     const user = {
-      username,
-      email,
-      password,
+      username: trimmedUser,
+      email: trimmedEmail,
+      password: trimmedPassword,
     };
-    dispatch(signUp(user)).then(() => navigate('/'));
+    dispatch(signUp(user))
+      .unwrap()
+      .catch(error => {
+        if (error.code === 'ERR_NETWORK') {
+          return toast.error(
+            'Oops, something wrong with network, try again later'
+          );
+        }
+        if (error.code === 'ERR_BAD_REQUEST') {
+          return toast.error('User with such email already exists');
+        }
+      });
+
     props.resetForm();
   };
 
@@ -74,6 +126,7 @@ export const RegistrationForm = () => {
             <Logo />
           </LogoContainer>
           <Formik
+            innerRef={ref}
             validationSchema={validationSchema}
             initialValues={{
               email: '',
@@ -84,9 +137,10 @@ export const RegistrationForm = () => {
             onSubmit={handleSubmit}
           >
             {({ isSubmitting }) => (
-              <RegForm autoComplete="off">
+              <RegForm autoComplete="off" noValidate>
                 <RegistrationLabel>
                   <RegistrationInput
+                    autoComplete="off"
                     type="email"
                     name="email"
                     placeholder="E-mail:  example@mail.com"
@@ -99,11 +153,25 @@ export const RegistrationForm = () => {
                 </RegistrationLabel>
                 <RegistrationLabel>
                   <RegistrationInput
-                    type="text"
+                    autoComplete="off"
+                    type={passwordType}
                     name="password"
                     placeholder="Password"
+                    onInput={e => {
+                      handleValidation(e, setBgc, setWidth);
+                    }}
                   />
+                  <IndicatorBox color={bgc}>
+                    <Indicator width={width} />
+                  </IndicatorBox>
                   <ErrorMessage name="password" component="span" />
+                  <EyeBox onClick={togglePassword}>
+                    {passwordType === 'password' ? (
+                      <BsEyeSlash fill="#e0e0e0" />
+                    ) : (
+                      <BsEye fill="#e0e0e0" />
+                    )}
+                  </EyeBox>
 
                   <InputIcon width="16" height="21">
                     <use href={`${Icons}#icon-lock`} />
@@ -112,11 +180,26 @@ export const RegistrationForm = () => {
 
                 <RegistrationLabel>
                   <RegistrationInput
-                    type="text"
+                    autoComplete="off"
+                    type={passwordType}
                     name="passwordConfirmation"
                     placeholder="Confirm password"
+                    onInput={e => handleConfirmPasswordBar(e)}
                   />
+
+                  <ConfirmBox>
+                    <ConfirmIndicator width={confirmPass} />
+                  </ConfirmBox>
+
                   <ErrorMessage name="passwordConfirmation" component="span" />
+
+                  <EyeBox onClick={togglePassword}>
+                    {passwordType === 'password' ? (
+                      <BsEyeSlash fill="#e0e0e0" />
+                    ) : (
+                      <BsEye fill="#e0e0e0" />
+                    )}
+                  </EyeBox>
 
                   <InputIcon width="16" height="21">
                     <use href={`${Icons}#icon-lock`} />
