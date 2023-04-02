@@ -11,6 +11,9 @@ export function handleValidation(e, setBgc, setWidth) {
   ];
   strength = validations.reduce((acc, cur) => acc + cur);
 
+  if (password.search(/^[a-zA-Z0-9_-]+$/) !== 0) {
+    strength = strength - 1;
+  }
   if (password === '') {
     strength = 0;
   }

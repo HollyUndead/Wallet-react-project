@@ -216,11 +216,25 @@ export const IndicatorBox = styled.div`
   width: 0;
   transform: translateY(-1px);
   border-radius: 10px;
-  height: 2px;
+  height: 3px;
   overflow: hidden;
   background-color: ${props => props.color};
 
   transition: all 250ms ease-in-out;
+
+  ${RegistrationInput}:focus & {
+    width: 269px;
+    @media screen and (min-width: 768px) {
+      width: 424px;
+    }
+  }
+
+  ${RegistrationLabel}:focus & {
+    width: 269px;
+    @media screen and (min-width: 768px) {
+      width: 424px;
+    }
+  }
 
   ${RegistrationLabel}:hover & {
     width: 269px;
@@ -261,7 +275,7 @@ export const ConfirmBox = styled.div`
   width: 0;
   transform: translateY(-1px);
   border-radius: 10px;
-  height: 2px;
+  height: 3px;
   overflow: hidden;
   background-color: #ff1b00;
 

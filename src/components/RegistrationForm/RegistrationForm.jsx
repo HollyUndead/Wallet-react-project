@@ -42,14 +42,15 @@ const validationSchema = yup.object().shape({
       'Ну, ви ж доросла людина, такого не можна писати'
     )
     .min(6, 'Гей! це якось замало, давай хоча б 6 символів введемо')
-    .matches(/[A-Z]+/, 'Should include uppercase')
+    .matches(/[A-Z]+/, 'Додай велику літеру, щоб у нас була довіра')
     .max(12, 'Ого, це ж тобі не Кобзарик, зупинись на 12 символах')
+    .matches(/\d+/, 'Хоча б одну цифру')
     .required("Ну, пароль це обов'язково, інакше ми не спрацюємось"),
   passwordConfirmation: yup
     .string()
     .oneOf(
       [yup.ref('password'), null],
-      'Confirm password must match the password'
+      'Шо, забув що там нафантазував у паролі?'
     )
     .required('Шо, забув що там нафантазував у паролі?'),
   username: yup
