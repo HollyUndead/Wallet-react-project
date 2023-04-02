@@ -62,7 +62,7 @@ const Container = styled.div`
   }
 `;
 const AsideContainer = styled.div`
-  height: calc(100vh - 77px);
+  height: 100vh;
   @media screen and (min-width: 1200px) {
     display: flex;
   }
