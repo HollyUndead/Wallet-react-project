@@ -131,20 +131,17 @@ export const ModalButtonAdd = styled.button`
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
-
   text-align: center;
   letter-spacing: 0.1em;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-
   :hover,
   :focus {
     background-color: #4a56e2;
     color: white;
     transform: scale(1.02);
   }
-
   @media screen and (min-width: 768px) {
     width: 300px;
   }
@@ -196,7 +193,6 @@ const StyledAmountField = styled(Field)`
   border-bottom: 1px solid #e0e0e0;
   text-align: center;
   /* margin-right: 32px; */
-
   @media screen and (min-width: 768px) {
     width: 181px;
     /* margin-right: 32px; */
