@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { deleteTransaction } from 'redux/operations';
 import { deleteTransactionOffline } from 'redux/Finance/financeSlice';
+import styled from 'styled-components';
 
 export const TransactionDeleteButton = ({ id }) => {
   const dispatch = useDispatch();
@@ -9,5 +10,20 @@ export const TransactionDeleteButton = ({ id }) => {
     dispatch(deleteTransaction(id));
     dispatch(deleteTransactionOffline(id));
   };
-  return <button onClick={handleDelete}>Delete</button>;
+  return <Button onClick={handleDelete}>Delete</Button>;
 };
+
+const Button = styled.button`
+  border: 1px solid #24cca7;
+  background-color: #24cca7;
+  border-radius: 18px;
+  color: #ffffff;
+  font-family: 'Circe';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  text-align: center;
+  width: 67px;
+  height: 26px;
+`;

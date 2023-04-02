@@ -32,30 +32,33 @@ const DashboardPage = () => {
     <DashboardContainer>
       {isMobile && <Balance />}
       {!isMobile && (
-        <TransactionListTablePc>
-          <thead>
-            <Th>Date</Th>
-            <Th>Type</Th>
-            <Th>Category</Th>
-            <Th>Comments</Th>
-            <Th>Sum</Th>
-            <Th>Buttons</Th>
-          </thead>
-          <tbody>
-            {transactions.map(transaction => {
+        <Tabel>
+          <Thead>
+            <tr>
+              <ThDate>Date</ThDate>
+              <ThType>Type</ThType>
+              <ThItem>Category</ThItem>
+              <ThItem>Comments</ThItem>
+              <ThSum>Sum</ThSum>
+              <ThButtons>Buttons</ThButtons>
+            </tr>
+          </Thead>
+          <Tbody>
+            {transactions.map((transaction, index) => {
               return (
                 <TransactionListItemPc
                   transaction={transaction}
                   key={transaction.id}
                   categories={categories}
+                  last={index === transactions.length - 1}
                 />
               );
             })}
-          </tbody>
-        </TransactionListTablePc>
+          </Tbody>
+        </Tabel>
       )}
       {isMobile && (
-        <ul>
+        <Ul>
           {transactions.map(transaction => {
             return (
               <TransactionListItemMobile
@@ -65,23 +68,14 @@ const DashboardPage = () => {
               />
             );
           })}
-        </ul>
+        </Ul>
       )}
-      <AddIconWrap>
-        <AiFillPlusCircle
-          style={{
-            width: '44px',
-            height: '44px',
-            fill: '#24CCA7',
-          }}
-        />
-      </AddIconWrap>
+      <AddIconWrap />
     </DashboardContainer>
   );
 };
 
 const DashboardContainer = styled.div`
-  width: '100%';
   padding-top: 15px;
   display: flex;
   flex-direction: column;
@@ -94,18 +88,96 @@ const DashboardContainer = styled.div`
   }
 `;
 
-const AddIconWrap = styled.div`
+const Tabel = styled.table`
+  border-collapse: collapse;
+  width: 100%;
+  @media screen and (min-width: 768px) {
+    margin-rigth: 32px;
+  }
+`;
+
+const Thead = styled.thead`
+  display: table;
+  width: calc(100% - 1px);
+  table-layout: fixed;
+  border: 0px;
+  height: 58px;
+  background-color: #ffffff;
+  border-radius: 30px;
+`;
+
+const Tbody = styled.tbody`
+  display: block;
+  width: 100%;
+  table-layout: table;
+  overflow: auto;
+  height: calc(100vh - 200px);
+  @media screen and (min-width: 768px) {
+    height: calc(100vh - 370px);
+  }
+`;
+
+const ThDate = styled.th`
+  border: 0px solid;
+  padding-left: 25px;
+  text-align: left;
+  font-family: 'Circe';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+`;
+
+const ThType = styled.th`
+  text-align: center;
+  font-family: 'Circe';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+`;
+
+const ThItem = styled.th`
+  text-align: left;
+  font-family: 'Circe';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+`;
+
+const ThSum = styled.th`
+  text-align: right;
+  font-family: 'Circe';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 27px;
+`;
+
+const ThButtons = styled.th`
+  border: 0px solid;
+  padding-right: 20px;
+  text-align: right;
+  color: transparent;
+`;
+
+const AddIconWrap = styled(AiFillPlusCircle)`
+  width: 44px;
+  height: 44px;
+  fill: #24cca7;
   position: absolute;
   right: 40px;
   bottom: 40px;
+  @media screen and (max-width: 767px) {
+    position: sticky;
+    left: calc(100vh - 40px);
+  }
 `;
 
-const TransactionListTablePc = styled.table`
-  width: 100%;
-`;
-
-const Th = styled.th`
-  text-align: left;
+const Ul = styled.ul`
+  width: 280px;
+  margin-top: 32px;
 `;
 
 export default DashboardPage;
