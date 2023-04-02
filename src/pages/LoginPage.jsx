@@ -84,3 +84,5 @@ const Title = styled.h1`
     color: #000000;
   }
 `;
+
+export default LoginPage;

@@ -2,7 +2,7 @@ import { Currency } from '../components/Currency/Currency';
 import { useMediaQuery } from 'react-responsive';
 import styled from 'styled-components';
 
-export const CurrencyPage = () => {
+const CurrencyPage = () => {
   const isMobile = useMediaQuery({
     query: '(max-width: 767px)',
   });
@@ -14,3 +14,5 @@ const CurrencyWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export default CurrencyPage;

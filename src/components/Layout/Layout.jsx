@@ -39,7 +39,6 @@ export const Layout = () => {
 };
 
 const Container = styled.div`
-  height: 100vh;
   @media screen and (min-width: 768px) {
     background-repeat: no-repeat;
     background-position: center;
@@ -62,7 +61,7 @@ const Container = styled.div`
   }
 `;
 const AsideContainer = styled.div`
-  height: 100vh;
+  height: calc(100vh - 77px);
   @media screen and (min-width: 1200px) {
     display: flex;
   }
@@ -98,7 +97,6 @@ const Wraper = styled.div`
   gap: 28px;
 `;
 const OutletContainer = styled.div`
-  width: 100%;
   padding: 0 20px;
   @media screen and (min-width: 768px) {
     padding: 0 32px;
