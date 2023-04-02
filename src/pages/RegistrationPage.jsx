@@ -8,7 +8,7 @@ import regDesk2x from '../images/reg-desk-2x.png';
 import regTab1x from '../images/reg-tablet-1x.png';
 import regTab2x from '../images/reg-tablet-2x.png';
 
-export const RegistrationPage = () => {
+const RegistrationPage = () => {
   const isTabDesk = useMediaQuery({ query: '(min-width: 768px)' });
 
   return (
@@ -38,6 +38,8 @@ export const RegistrationPage = () => {
 };
 
 const Container = styled.div`
+  min-height: 100vh;
+  /* overflow: scroll; */
   @media screen and (min-width: 768px) and (max-width: 1279px) {
     display: flex;
     flex-direction: column;
@@ -94,3 +96,5 @@ const Title = styled.h1`
     color: #000000;
   }
 `;
+
+export default RegistrationPage;

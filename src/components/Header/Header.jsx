@@ -37,7 +37,7 @@ export const Header = () => {
           >
             <Button type="button" onClick={handleLogOut}>
               <RxExit />
-              <span>Exit</span>
+              <ButtonSpan>Exit</ButtonSpan>
             </Button>
           </IconContext.Provider>
         </ProfileContainer>
@@ -50,6 +50,7 @@ const HeaderContainer = styled.section`
   display: flex;
   justify-content: space-between;
   padding: 16px 20px;
+  background: #ffffff;
 `;
 
 const ProfileContainer = styled.div`
@@ -72,6 +73,10 @@ const ProfileSpan = styled.span`
   display: flex;
   padding-right: 12px;
   border-right: 1px solid;
+  @media screen and (max-width: 760px) {
+    border-right: 0;
+    padding-right: 8px;
+  }
 `;
 
 const Button = styled.button`
@@ -84,6 +89,14 @@ const Button = styled.button`
   display: flex;
   transition: color 0.3s ease;
   gap: 8px;
+  @media screen and (max-width: 760px) {
+    padding: 0;
+  }
+`;
+const ButtonSpan = styled.span`
+  @media screen and (max-width: 760px) {
+    display: none;
+  }
 `;
 
 const Link = styled.a`
@@ -98,5 +111,16 @@ const Link = styled.a`
   color: #000000;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
+  svg {
+    @media screen and (max-width: 760px) {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  p {
+    @media screen and (max-width: 760px) {
+      font-size: 25px;
+    }
+  }
 `;

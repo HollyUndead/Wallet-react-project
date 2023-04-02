@@ -9,7 +9,7 @@ import logTab1x from '../images/login-tablet-1x.png';
 import logTab2x from '../images/login-tablet-2x.png';
 import styled from 'styled-components';
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const isTabDesk = useMediaQuery({ query: '(min-width: 768px)' });
 
   return (
@@ -39,6 +39,8 @@ export const LoginPage = () => {
 };
 
 const Container = styled.div`
+  min-height: 100vh;
+  /* padding-bottom: 1px; */
   @media screen and (min-width: 768px) and (max-width: 1279px) {
     display: flex;
     flex-direction: column;
@@ -55,11 +57,11 @@ const Container = styled.div`
   }
   @media screen and (min-width: 1280px) {
     display: flex;
-    height: 100%;
+    /* height: 100%; */
     align-items: center;
     justify-content: center;
     gap: 154px;
-    padding: 18px;
+    /* padding: 18px; */
     margin-bottom: 0;
     background: url(${bgImageDesk});
     background-size: cover;
@@ -95,3 +97,5 @@ const Title = styled.h1`
     color: #000000;
   }
 `;
+
+export default LoginPage;

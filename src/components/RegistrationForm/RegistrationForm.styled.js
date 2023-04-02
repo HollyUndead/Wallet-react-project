@@ -1,10 +1,10 @@
-import { Field, Form, ErrorMessage as FormikError  } from 'formik';
+import { Field, Form, ErrorMessage as FormikError } from 'formik';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-@media screen and (min-width: 768px) {
-  height: 100%;
-  padding: 44px;
+  @media screen and (min-width: 768px) {
+    height: 100%;
+    padding: 44px;
   }
 `;
 export const FormLayout = styled.div`
@@ -14,22 +14,20 @@ export const FormLayout = styled.div`
   /* justify-content: center; */
   width: 100%;
   height: 100%;
-  padding: 34px 0px ;
+  padding: 34px 0px;
   background-color: white;
-  
-  
 
   @media screen and (min-width: 768px) {
     max-width: 533px;
     height: 516px;
     /* padding: 52px 60px; */
     border-radius: 20px;
-    padding-top: 10px;     
+    padding-top: 10px;
     padding-right: 20px;
     padding-bottom: 10px;
     padding-left: 20px;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
   }
   @media screen and (min-width: 1280px) {
     /* width: 533px;
@@ -38,9 +36,9 @@ export const FormLayout = styled.div`
 `;
 
 export const ErrorMessage = styled(FormikError)`
-color: red;
-font-size: 12px;
-margin: 4px 0;
+  color: red;
+  font-size: 12px;
+  margin: 4px 0;
 `;
 
 export const LogoContainer = styled.div`
@@ -53,7 +51,7 @@ export const LogoContainer = styled.div`
 export const InputIcon = styled.svg`
   position: absolute;
   left: 10px;
-  top: 17px;
+  top: 19px;
   transform: translateY(-50%);
   fill: #e0e0e0;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -66,10 +64,10 @@ export const InputIcon = styled.svg`
 
 export const RegForm = styled(Form)`
   display: flex;
-  flex-direction: column; 
-  align-items: center; 
-  justify-content: center; 
-  @media screen and (min-width: 768px){
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  @media screen and (min-width: 768px) {
     padding-right: 15px;
   }
 `;
@@ -84,12 +82,15 @@ export const RegistrationLabel = styled.label`
   :focus {
     color: #4a56e2;
   }
-  :hover > svg, :focus > svg{
+
+  :hover > svg,
+  :focus > svg {
     fill: #4a56e2;
   }
   @media screen and (min-width: 768px) {
     width: 410px;
   }
+
   /* @media screen and (min-width: 1280px) {
     width: 410px;
   } */
@@ -116,11 +117,11 @@ export const RegistrationInput = styled(Field)`
   &:focus {
     border-color: #4a56e2;
   }
-   @media screen and (min-width: 768px) {
-    width: 90%; 
+  @media screen and (min-width: 768px) {
+    width: 90%;
     &::placeholder {
-    font-size: 18px;    
-  }
+      font-size: 18px;
+    }
   }
 `;
 
@@ -151,7 +152,7 @@ export const ButtonRegister = styled.button`
   font-size: 18px;
   line-height: 1.5;
   text-align: center;
-  
+
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
@@ -186,7 +187,7 @@ export const ButtonLogIn = styled.button`
   line-height: 1.5;
 
   text-align: center;
-  
+
   color: #4a56e2;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -204,4 +205,68 @@ export const ButtonLogIn = styled.button`
   @media screen and (min-width: 1280px) {
     width: 300px;
   }
+`;
+
+export const IndicatorBox = styled.div`
+  width: ${props => (props.show ? '269px' : '0')};
+  @media screen and (min-width: 768px) {
+    width: ${props => (props.show ? ' 424px' : '0')};
+  }
+  transform: translateY(-1px);
+  border-radius: 10px;
+  height: 3px;
+  overflow: hidden;
+  background-color: ${props => props.color};
+
+  transition: all 400ms ease-in-out;
+`;
+
+export const Indicator = styled.div`
+  height: 100%;
+  border-radius: 10px;
+  width: ${props => props.width}%;
+
+  background: linear-gradient(
+    90deg,
+    rgba(36, 204, 167, 1) 75%,
+    rgba(255, 27, 0, 1) 100%
+  );
+  transition: all 1000ms ease-in-out;
+`;
+
+export const EyeBox = styled.div`
+  position: absolute;
+  right: 10px;
+  top: 23px;
+  transform: translateY(-50%);
+  fill: #e0e0e0;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  :hover,
+  :focus {
+    color: #4a56e2;
+  }
+`;
+
+export const ConfirmBox = styled.div`
+  width: ${props => (props.show ? '269px' : '0')};
+  @media screen and (min-width: 768px) {
+    width: ${props => (props.show ? ' 424px' : '0')};
+  }
+  transform: translateY(-1px);
+  border-radius: 10px;
+  height: 3px;
+  overflow: hidden;
+  background-color: rgba(255, 27, 0, 1);
+
+  transition: all 400ms ease-in-out;
+`;
+
+export const ConfirmIndicator = styled.div`
+ height: 100%;
+  border-radius: 10px;
+  width: ${props => props.width}%;
+
+  background-color: rgba(36, 204, 167, 1);
+  transition: all 500ms ease-in-out; */
 `;
