@@ -15,7 +15,7 @@ import {
 import { Balance } from 'components/Balance/Balance';
 import styled from 'styled-components';
 
-export const DashboardPage = () => {
+const DashboardPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchTransactions());
@@ -107,3 +107,5 @@ const TransactionListTablePc = styled.table`
 const Th = styled.th`
   text-align: left;
 `;
+
+export default DashboardPage;
