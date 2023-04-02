@@ -77,9 +77,9 @@ export const ModalMain = () => {
             ) : (
               <ModalEdit handleSubmitForm={handleSubmitForm} />
             )}
-            <button type="button" onClick={onModalClose}>
+            <ModalButtonCancel type="button" onClick={onModalClose}>
               CANCEL
-            </button>
+            </ModalButtonCancel>
           </ModalBody>
         </ModalBackdrop>
       )}
@@ -135,5 +135,34 @@ const ButtonClose = styled.button`
       transform: scale(1.1);
       color: red;
     }
+  }
+`;
+
+export const ModalButtonCancel = styled.button`
+  width: 300px;
+  height: 50px;
+  padding: 13px 65px 13px 71px;
+  border: none;
+  background-color: white;
+  border: 1px solid #4a56e2;
+  border-radius: 20px;
+  font-family: 'Circe';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  margin-top: 20px;
+
+  text-align: center;
+  letter-spacing: 0.1em;
+  color: #4a56e2;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+
+  :hover,
+  :focus {
+    background-color: #4a56e2;
+    color: white;
+    transform: scale(1.02);
   }
 `;
