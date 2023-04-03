@@ -6,6 +6,7 @@ import { PrivateRoute } from '../hoc/PrivateRoute';
 import { PublicRoute } from '../hoc/PublicRoute';
 import { ModalMain } from './ModalAddTransactions/ModalMain/ModalMain';
 import { fetchCurrentUser } from 'redux/operations';
+import { Loader } from './Loader/Loader';
 
 const SummaryPage = lazy(() => import('../pages/SummaryPage'));
 const LoginPage = lazy(() => import('../pages/LoginPage'));
@@ -21,7 +22,7 @@ export const App = () => {
   }, []);
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route
             path="/"
