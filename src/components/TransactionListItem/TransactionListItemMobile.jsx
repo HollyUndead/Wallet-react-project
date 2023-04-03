@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import { transformDate } from './TransactionListItemPc';
 
 export const TransactionListItemMobile = ({ transaction, categories }) => {
-  const { transactionDate, type, categoryId, comment, amount } = transaction;
+  const { transactionDate, type, categoryId, comment, amount, id } =
+    transaction;
 
   const typeStr = type === 'INCOME' ? '+' : '-';
   const categoryName =
@@ -34,8 +35,8 @@ export const TransactionListItemMobile = ({ transaction, categories }) => {
         <span>{amount}</span>
       </Li>
       <LiLast typeStr={typeStr}>
-        <TransactionEditButton />
-        <TransactionDeleteButton />
+        <TransactionEditButton id={id} />
+        <TransactionDeleteButton id={id} />
       </LiLast>
     </Ul>
   );
