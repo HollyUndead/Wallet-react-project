@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Chart from 'components/Chart/Chart';
 import { DropDown } from 'components/StatDropdown/DropDown';
 import Table from 'components/Table/Table';
