@@ -5,7 +5,7 @@ import VaseRegTab2x from '../../images/registration/VaseReg/VaseRegTab2x.png';
 
 import styled from 'styled-components';
 
-import { keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/css';
 import { Reveal } from 'react-awesome-reveal';
 
 const customAnimation = keyframes`

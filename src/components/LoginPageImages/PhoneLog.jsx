@@ -4,7 +4,7 @@ import PhoneLogDesk2x from '../../images/login/PhoneLog/PhoneLogDesk2x.png';
 import PhoneLogTab1x from '../../images/login/PhoneLog/PhoneLogTab1x.png';
 import PhoneLogTab2x from '../../images/login/PhoneLog/PhoneLogTab2x.png';
 
-import { keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/css';
 import { Reveal } from 'react-awesome-reveal';
 
 const customAnimation = keyframes`

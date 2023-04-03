@@ -4,7 +4,7 @@ import MoneyDesk2x from '../../images/SpareLoginRegister/Money/MoneyDesk2x.png';
 import MoneyTab1x from '../../images/SpareLoginRegister/Money/MoneyTab1x.png';
 import MoneyTab2x from '../../images/SpareLoginRegister/Money/MoneyTab2x.png';
 
-import { keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/css';
 import { Reveal } from 'react-awesome-reveal';
 
 const customAnimation = keyframes`

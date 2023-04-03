@@ -4,7 +4,7 @@ import WomanDesk2x from '../../images/registration/Woman/WomanDesk2x.png';
 import WomanTab1x from '../../images/registration/Woman/WomanTab1x.png';
 import WomanTab2x from '../../images/registration/Woman/WomanTab2x.png';
 
-import { keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/css';
 import { Reveal } from 'react-awesome-reveal';
 
 const customAnimation = keyframes`

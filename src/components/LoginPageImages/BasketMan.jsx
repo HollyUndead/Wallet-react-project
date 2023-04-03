@@ -4,7 +4,7 @@ import BasketManDesk2x from '../../images/login/BasketMan/BasketManDesk2x.png';
 import BasketManTab1x from '../../images/login/BasketMan/BasketManTab1x.png';
 import BasketManTab2x from '../../images/login/BasketMan/BasketManTab2x.png';
 
-import { keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/css';
 import { Reveal } from 'react-awesome-reveal';
 
 const customAnimation = keyframes`

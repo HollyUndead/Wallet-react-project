@@ -4,7 +4,7 @@ import PhoneRegDesk2x from '../../images/registration/PhoneReg/PhoneRegDesk2x.pn
 import PhoneRegTab1x from '../../images/registration/PhoneReg/PhoneRegTab1x.png';
 import PhoneRegTab2x from '../../images/registration/PhoneReg/PhoneRegTab2x.png';
 
-import { keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/css';
 import { Reveal } from 'react-awesome-reveal';
 
 const customAnimation = keyframes`

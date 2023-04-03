@@ -4,7 +4,7 @@ import CardDesk2x from '../../images/login/Card/CardDesk2x.png';
 import CardTab1x from '../../images/login/Card/CardTab1x.png';
 import CardTab2x from '../../images/login/Card/CardTab2x.png';
 
-import { keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/css';
 import { Reveal } from 'react-awesome-reveal';
 
 const customAnimation = keyframes`

@@ -4,7 +4,7 @@ import RollDesk2x from '../../images/registration/Roll/RollDesk2x.png';
 import RollTab1x from '../../images/registration/Roll/RollTab1x.png';
 import RollTab2x from '../../images/registration/Roll/RollTab2x.png';
 
-import { keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/css';
 import { Reveal } from 'react-awesome-reveal';
 
 const customAnimation = keyframes`
