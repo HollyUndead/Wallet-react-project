@@ -20,12 +20,12 @@ export const FormLayout = styled.div`
   @media screen and (min-width: 768px) {
     max-width: 533px;
     height: 516px;
-    /* padding: 52px 60px; */
+    padding: 30px 20px;
     border-radius: 20px;
-    padding-top: 10px;
+    /* padding-top: 10px;
     padding-right: 20px;
     padding-bottom: 10px;
-    padding-left: 20px;
+    padding-left: 20px; */
     align-items: center;
     justify-content: center;
   }
