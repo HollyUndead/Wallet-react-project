@@ -102,6 +102,7 @@ const OutletContainer = styled.div`
     padding: 0 32px;
   }
   @media screen and (min-width: 1200px) {
+    width: 100%;
     padding: 0px 16px 0px 70px;
   }
 `;
