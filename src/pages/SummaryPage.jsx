@@ -1,4 +1,5 @@
 import Chart from 'components/Chart/Chart';
+import { DropDown } from 'components/StatDropdown/DropDown';
 import Table from 'components/Table/Table';
 import styled from 'styled-components';
 
@@ -7,6 +8,7 @@ const SummaryPage = () => {
     <SummaryWraper>
       <div>
         <SummaryTitle>Statistics</SummaryTitle>
+        <DropDown />
         <Chart />
       </div>
       <Table />
