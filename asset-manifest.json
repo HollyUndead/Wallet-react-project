@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Wallet-react-project/static/css/main.d4d4cf57.css",
-    "main.js": "/Wallet-react-project/static/js/main.ef6dc42d.js",
+    "main.css": "/Wallet-react-project/static/css/main.9fec0fb2.css",
+    "main.js": "/Wallet-react-project/static/js/main.7a6028f1.js",
     "static/js/621.b552934c.chunk.js": "/Wallet-react-project/static/js/621.b552934c.chunk.js",
     "static/js/775.fcc9d563.chunk.js": "/Wallet-react-project/static/js/775.fcc9d563.chunk.js",
     "static/js/357.cb3aa037.chunk.js": "/Wallet-react-project/static/js/357.cb3aa037.chunk.js",
@@ -37,8 +37,8 @@
     "static/media/icons.svg": "/Wallet-react-project/static/media/icons.8ca94cb4aa4b049d803a4e79599a2882.svg",
     "static/media/symbol-defs.svg": "/Wallet-react-project/static/media/symbol-defs.413fc6b7047c6343bf3c5cc5719a24d3.svg",
     "index.html": "/Wallet-react-project/index.html",
-    "main.d4d4cf57.css.map": "/Wallet-react-project/static/css/main.d4d4cf57.css.map",
-    "main.ef6dc42d.js.map": "/Wallet-react-project/static/js/main.ef6dc42d.js.map",
+    "main.9fec0fb2.css.map": "/Wallet-react-project/static/css/main.9fec0fb2.css.map",
+    "main.7a6028f1.js.map": "/Wallet-react-project/static/js/main.7a6028f1.js.map",
     "621.b552934c.chunk.js.map": "/Wallet-react-project/static/js/621.b552934c.chunk.js.map",
     "775.fcc9d563.chunk.js.map": "/Wallet-react-project/static/js/775.fcc9d563.chunk.js.map",
     "357.cb3aa037.chunk.js.map": "/Wallet-react-project/static/js/357.cb3aa037.chunk.js.map",
@@ -48,7 +48,7 @@
     "355.0ce47eae.chunk.js.map": "/Wallet-react-project/static/js/355.0ce47eae.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d4d4cf57.css",
-    "static/js/main.ef6dc42d.js"
+    "static/css/main.9fec0fb2.css",
+    "static/js/main.7a6028f1.js"
   ]
 }
