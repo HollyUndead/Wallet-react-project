@@ -126,7 +126,7 @@ export const TableWrapper = styled.div`
   }
   @media screen and (min-width: 1200px) {
     width: 393px;
-    min-height: 331px;
+    min-height: 290px;
   }
 `;
 
