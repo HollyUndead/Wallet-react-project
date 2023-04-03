@@ -1,9 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import {
-  selectTotalBalance,
-  selectTransactionSummary,
-} from '../../redux/Finance/financeSelectors';
+import {} from '../../redux/Finance/financeSelectors';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import styled from 'styled-components';
