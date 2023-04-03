@@ -10,7 +10,8 @@ export const transformDate = date => {
 };
 
 export const TransactionListItemPc = ({ transaction, categories, last }) => {
-  const { transactionDate, type, categoryId, comment, amount, id } = transaction;
+  const { transactionDate, type, categoryId, comment, amount, id } =
+    transaction;
 
   const typeStr = type === 'INCOME' ? '+' : '-';
   const categoryName =

@@ -59,7 +59,7 @@ const Count = styled.p`
 `;
 
 const Simbol = styled.span`
-  font-weight: 400;
-  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-family: 'Noto Sans', sans-serif;
   padding-right: 8px;
 `;

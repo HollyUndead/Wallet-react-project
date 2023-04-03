@@ -6,6 +6,9 @@ import { useRef, useEffect } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
 import { object, string, number, date } from 'yup';
+import { useDispatch } from 'react-redux';
+import { addTransaction } from 'redux/operations';
+
 
 // const defaultState = {
 //   type: true,
@@ -17,13 +20,14 @@ import { object, string, number, date } from 'yup';
 
 export const validationSchema = object().shape({
   transactionDate: date().required('Data is a required field'),
-  category: string(),
+  categoryId: string(),
   amount: number().required('Amount is a required field').positive(),
   comment: string(),
 });
 
 export const ModalMain = () => {
   const typeOfModal = 'add';
+  const dispatch = useDispatch()
 
   const [isModalAddTransactionOpen, setIsModalAddTransactionOpen] =
     useState(true);
@@ -45,8 +49,23 @@ export const ModalMain = () => {
     }
   };
 
-  const handleSubmitForm = value => {
-    console.log(value);
+  const handleSubmitForm = (values) => {
+    dispatch(
+      addTransaction({
+        transactionDate:values.transactionDate,
+        type: values.type ? 'INCOME' : 'EXPENSE',
+        categoryId: values.categoryId,
+        comment: values.comment,
+        amount: values.type
+          ? Number(values.amount)
+          : -Number(values.amount),
+      })
+    );
+    // if (error) {
+    //   toast.error('Oops...something is wrong, try again!');
+    // }
+    // resetForm();
+  
 
     // setTransaction({
     //   ...transaction,

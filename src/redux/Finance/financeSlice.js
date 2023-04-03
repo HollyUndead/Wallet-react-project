@@ -18,6 +18,11 @@ const financeInitialState = {
   totalBalance: null,
   isLoading: false,
   error: null,
+  modal: {
+    isModalOpen: false,
+    modalType: '',
+    editModalTransactionId: '',
+  },
 };
 
 const handlePending = state => {
@@ -43,6 +48,15 @@ const financeSlice = createSlice({
         transaction => transaction.id === action.payload
       );
       state.transactions.splice(index, 1);
+    },
+    toggleModal(state) {
+      state.modal.isModalOpen = !state.modal.isModalOpen;
+    },
+    setModalType(state, action) {
+      state.modal.modalType = action.payload;
+    },
+    setEditModalTransactionId(state, action) {
+      state.modal.editModalTransactionId = action.payload;
     },
   },
   extraReducers: {
@@ -108,6 +122,11 @@ const financeSlice = createSlice({
   },
 });
 
-export const { deleteTransactionOffline } = financeSlice.actions;
+export const {
+  deleteTransactionOffline,
+  toggleModal,
+  setModalType,
+  setEditModalTransactionId,
+} = financeSlice.actions;
 
 export const financeReducer = financeSlice.reducer;
