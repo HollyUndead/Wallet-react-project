@@ -6,11 +6,17 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   error: null,
+  isModalOpen: false,
 };
 
 export const authSlice = createSlice({
   name: 'authSlice',
   initialState,
+  reducers: {
+    toggleModal(state, action) {
+      state.isModalOpen = !state.isModalOpen;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(signIn.fulfilled, (state, action) => {
@@ -51,3 +57,5 @@ export const authSlice = createSlice({
       });
   },
 });
+
+export const { toggleModal } = authSlice.reducer;
