@@ -14,7 +14,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     toggleModal(state, action) {
-      state.isModalOpen = action.payload;
+      state.isModalOpen = !state.isModalOpen;
     },
   },
   extraReducers: builder => {
@@ -57,3 +57,5 @@ export const authSlice = createSlice({
       });
   },
 });
+
+export const { toggleModal } = authSlice.reducer;
