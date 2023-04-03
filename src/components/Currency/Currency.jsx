@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { fetchCurrency } from '../../redux/operations';
 import styled from 'styled-components';
-const currencyIMG = require('../../img/currency-images/currencyIMG.png');
+// const currencyIMG = require('../../img/currency-images/currencyIMG.png');
+import Wave from 'react-wavify';
 
 const USD_CURRENCU_CODE = 840;
 const EUR_CURRENCU_CODE = 978;
@@ -59,7 +60,7 @@ export const Currency = () => {
 
   return (
     <TableWrapper>
-      <ImgCurrency src={currencyIMG} alt="img" />
+      {/* <ImgCurrency src={currencyIMG} alt="img" /> */}
       <TableCurrency>
         <TableHeader>
           <tr>
@@ -78,10 +79,35 @@ export const Currency = () => {
           ))}
         </TableBody>
       </TableCurrency>
+      <Wavewrap>
+        <Wave mask="url(#mask)" fill="#fff">
+          <defs>
+            <linearGradient id="gradient" gradientTransform="rotate(90)">
+              <stop offset="0" stopColor="white" />
+              <stop offset="0.5" stopColor="black" />
+            </linearGradient>
+            <mask id="mask">
+              <rect
+                x="0"
+                y="-20"
+                width="2000"
+                height="200"
+                fill="url(#gradient)"
+              />
+            </mask>
+          </defs>
+        </Wave>
+      </Wavewrap>
       <LastUpdate>Last update &nbsp;: &nbsp; {getFormattedDate()}</LastUpdate>
     </TableWrapper>
   );
 };
+
+export const Wavewrap = styled.div`
+  position: absolute;
+  width: 100%;
+  top: 55%;
+`;
 
 export const TableWrapper = styled.div`
   /* display: flex;
@@ -90,17 +116,17 @@ export const TableWrapper = styled.div`
   justify-content: center;  */
   position: relative;
   background: #4a56e2;
-  width: 280px;
-  height: 174px;
+  min-width: 280px;
+  min-height: 174px;
   border-radius: 30px;
   overflow: hidden;
   @media screen and (min-width: 768px) {
     width: 336px;
-    height: 182px;
+    min-height: 182px;
   }
   @media screen and (min-width: 1200px) {
     width: 393px;
-    height: 331px;
+    min-height: 331px;
   }
 `;
 
@@ -176,20 +202,25 @@ export const TableBody = styled.tbody`
 
 export const LastUpdate = styled.p`
   color: #fff;
-  padding-top: 20px;
-  padding-right: 10px;
+  position: absolute;
+  top: 85%;
+  left: 20%;
+  /* padding-top: 20px;
+  padding-right: 10px; */
   font-size: 10px;
   text-align: center;
 
   @media screen and (min-width: 768px) {
-    padding-right: 15px;
+    top: 89%;
+    left: 27%;
+    /* padding-right: 15px; */
     /* text-align: center; */
   }
   @media screen and (min-width: 1200px) {
     /* padding: 82px; */
-
-    padding-top: 123px;
-    padding-right: 10px;
+    left: 18%;
+    /* padding-top: 123px;
+    padding-right: 10px; */
     font-size: 16px;
   }
 `;
