@@ -41,7 +41,7 @@ const initialValues = {
   amount: '',
   comment: '',
 };
-const ModalAdd = ({ handleSubmitForm }) => {
+const ModalEdit = ({ handleSubmitForm }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [transactionDate, setTransactionDate] = useState(new Date(Date.now()));
 
@@ -111,7 +111,7 @@ const ModalAdd = ({ handleSubmitForm }) => {
   );
 };
 
-export default ModalAdd;
+export default ModalEdit;
 
 
 
