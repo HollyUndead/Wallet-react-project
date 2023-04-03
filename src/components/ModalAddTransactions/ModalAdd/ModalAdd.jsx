@@ -13,16 +13,13 @@ import { fetchTransactionCategories } from '../../../redux/operations.js';
 import { selectTransactionCategories } from '../../../redux/Finance/financeSelectors.js';
 import { useSelector, useDispatch } from 'react-redux';
 
-const initialValues = {
-  type: false,
-  category: '',
-  amount: '',
-  comment: '',
-};
 const ModalAdd = ({ handleSubmitForm }) => {
   const [checked, setChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [transactionDate, setTransactionDate] = useState(new Date(Date.now()));
+  const [transactionDate, setTransactionDate] = useState(() => {
+    const date = new Date();
+    return moment(date.toISOString());
+  });
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -40,78 +37,116 @@ const ModalAdd = ({ handleSubmitForm }) => {
     setIsOpen(!isOpen);
   };
 
+  const handleChangeDate = date => {
+    setTransactionDate(date);
+    setIsOpen(false);
+  };
+
   const onSubmit = values => {
     handleSubmitForm({ ...values, type: checked });
   };
   return (
     <ModalBox>
       <ModalTitle>Add transactions</ModalTitle>
-      <StyledCheckbox>
-        <Checkbox type="checkbox" checked={checked} onChange={handleChange} />
-      </StyledCheckbox>
 
       <Formik
-        initialValues={initialValues}
+        initialValues={{
+          transactionDate,
+          type: false,
+          categoryId: '',
+          amount: '',
+          comment: '',
+        }}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        <StyledForm>
-          <StyledSelectField
-            name="category"
-            placeholder="Select a category"
-            as="select"
-          >
-            {!checked && <option value=""></option>}
+        {({ isSubmitting, setFieldValue }) => (
+          <>
+            <StyledCheckbox>
+              <Checkbox
+                type="checkbox"
+                checked={checked}
+                onChange={() => {
+                  handleChange();
+                  setFieldValue('type', !checked);
+                  if (!checked) {
+                    setFieldValue('categoryId', Categories[Categories.length -1].id )
+                  }
 
-            {!checked &&
-              Categories.filter(Categorie => Categorie.type === 'EXPENSE').map(
-                Categorie => {
-                  return (
-                    <option key={Categorie.id} value={Categorie.id}>
-                      {Categorie.name}
-                    </option>
-                  );
-                }
-              )}
-            {checked &&
-              Categories.filter(Categorie => Categorie.type === 'INCOME').map(
-                Categorie => {
-                  return (
-                    <option key={Categorie.id} value={Categorie.id}>
-                      {Categorie.name}
-                    </option>
-                  );
-                }
-              )}
-          </StyledSelectField>
-          <ErrorMessage name="category" />
-          <DataBox>
-            <StyledAmountField name="amount" placeholder="0.00" />
-            <ErrorMessage name="amount" />
-            <Datetime
-              open={isOpen}
-              timeFormat={false}
-              name={transactionDate}
-              value={transactionDate}
-              id="date"
-              type="date"
-              input={true}
-              selected={transactionDate}
-              maxDate={new Date()}
-              // dateFormat = "dd-MM-yyyy"
-              onChange={newValue => {
-                setTransactionDate(moment(newValue).toISOString());
-              }}
-              renderInput={params => <InputData {...params} />}
-            />
-            <Icon onClick={handleClick}>
-              <use href={`${Icons}#icon-calendar`} />
-            </Icon>
-          </DataBox>
-          <StyledCommentField name="comment" placeholder="Comment" />
-          <ErrorMessage name="comment" />
-          <ModalButtonAdd type="submit">ADD</ModalButtonAdd>
-        </StyledForm>
+                }}
+              />
+            </StyledCheckbox>
+            <StyledForm>
+              <StyledSelectField
+                name="categoryId"
+                placeholder="Select a category"
+                as="select"
+                
+                onChange={event => {
+                  setFieldValue('categoryId', event.target.value);
+                }}
+              >
+                {!checked && <option value=""></option>}
+
+                {!checked &&
+                  Categories.filter(
+                    Categorie => Categorie.type === 'EXPENSE'
+                  ).map(Categorie => {
+                    return (
+                      <option key={Categorie.id} value={Categorie.id}>
+                        {Categorie.name}
+                      </option>
+                    );
+                  })}
+                {checked &&
+                  Categories.filter(
+                    Categorie => Categorie.type === 'INCOME'
+                  ).map(Categorie => {
+                    return (
+                      <option key={Categorie.id} value={Categorie.id}>
+                        {Categorie.name}
+                      </option>
+                    );
+                  })}
+              </StyledSelectField>
+              <ErrorMessage name="category" />
+              <DataBox>
+                <StyledAmountField name="amount" placeholder="0.00" />
+                <ErrorMessage name="amount" />
+                <Datetime
+                  open={isOpen}
+                  timeFormat={false}
+                  name="transactionDate"
+                  value={transactionDate}
+                  // id="date"
+                  type="date"
+                  // closeOnSelect={true}
+                  // closeOnClickOutside={true}
+                  // maxDate={new Date()}
+                  input={true}
+                  selected={transactionDate}
+                  dateFormat="DD-MM-yyyy"
+                  onChange={newValue => {
+                    setFieldValue(
+                      'transactionDate',
+                      moment(newValue).toISOString()
+                    );
+                    handleChangeDate(moment(newValue).toISOString());
+                  }}
+                  renderInput={params => <InputData {...params} />}
+                />
+                <Icon onClick={handleClick}>
+                  <use href={`${Icons}#icon-calendar`} />
+                </Icon>
+              </DataBox>
+              <StyledCommentField name="comment" placeholder="Comment" />
+              <ErrorMessage name="comment" />
+              <ModalButtonAdd type="submit" disabled={isSubmitting}>
+                ADD
+              </ModalButtonAdd>
+            </StyledForm>
+          </>
+        )}
       </Formik>
     </ModalBox>
   );
@@ -178,6 +213,7 @@ const StyledCheckbox = styled.div`
 `;
 
 const DataBox = styled.div`
+  position: relative;
   width: 398px;
   display: flex;
   /* justify-content: center; */
@@ -223,12 +259,12 @@ export const InputData = styled.input`
 `;
 
 export const Icon = styled.svg`
-  position: relative;
+  position: absolute;
   height: 20px;
   width: 18px;
   @media screen and (min-width: 768px) {
     top: -6px;
-    left: -40px;
+    right: 20px;
   }
   :hover {
     transform: scale(1.1);
