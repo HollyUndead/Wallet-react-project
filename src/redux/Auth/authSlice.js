@@ -6,11 +6,24 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   error: null,
+  isModalOpen: false,
 };
+
 
 export const authSlice = createSlice({
   name: 'authSlice',
   initialState,
+  reducers: {
+    openModalLogOut(state) {
+      state.isModalOpen = true;
+    },
+    closeModalLogOut(state) {
+      state.isModalOpen = false;
+    },
+    //  toggleModal(state) {
+    //   state.isModalOpen = !state.isModalOpen;
+    // },
+  },
   extraReducers: builder => {
     builder
       .addCase(signIn.fulfilled, (state, action) => {
@@ -51,3 +64,9 @@ export const authSlice = createSlice({
       });
   },
 });
+
+export const {
+  openModalLogOut,
+  closeModalLogOut,
+  // toggleModal
+} = authSlice.actions;
