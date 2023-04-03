@@ -9,13 +9,20 @@ const initialState = {
   isModalOpen: false,
 };
 
+
 export const authSlice = createSlice({
   name: 'authSlice',
   initialState,
   reducers: {
-    toggleModal(state, action) {
-      state.isModalOpen = !state.isModalOpen;
+    openModalLogOut(state) {
+      state.isModalOpen = true;
     },
+    closeModalLogOut(state) {
+      state.isModalOpen = false;
+    },
+    //  toggleModal(state) {
+    //   state.isModalOpen = !state.isModalOpen;
+    // },
   },
   extraReducers: builder => {
     builder
@@ -58,4 +65,9 @@ export const authSlice = createSlice({
   },
 });
 
-export const { toggleModal } = authSlice.reducer;
+export const {
+  openModalLogOut,
+  closeModalLogOut,
+  // toggleModal
+} = authSlice.actions;
+

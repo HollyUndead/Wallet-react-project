@@ -4,14 +4,20 @@ import { RxExit } from 'react-icons/rx';
 import { IconContext } from 'react-icons';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { signOut } from 'redux/operations';
-import { selectUserName } from 'redux/Auth/authSelector';
+// import { signOut } from 'redux/operations';
+import { selectIsModalOpen, selectUserName } from 'redux/Auth/authSelector';
+
+import { ModalLogoOut } from 'components/ModalLogOut/ModalLogOut';
+import { openModalLogOut } from 'redux/Auth/authSlice';
 
 export const Header = () => {
+  const isModalOpen = useSelector(selectIsModalOpen);
   const dispatch = useDispatch();
-  const handleLogOut = () => {
-    dispatch(signOut());
-  };
+
+  // const handleLogOut = () => {
+  //   // dispatch(signOut());
+  //   // dispatch(toggleModal());
+  // };
 
   return (
     <header>
@@ -35,10 +41,15 @@ export const Header = () => {
           <IconContext.Provider
             value={{ className: 'global-class-name', size: '24px' }}
           >
-            <Button type="button" onClick={handleLogOut}>
+            <Button
+              type="button"
+              onClick={() => dispatch(openModalLogOut())}
+              // onClick={handleLogOut}
+            >
               <RxExit />
               <ButtonSpan>Exit</ButtonSpan>
             </Button>
+            {isModalOpen && <ModalLogoOut />}
           </IconContext.Provider>
         </ProfileContainer>
       </HeaderContainer>
