@@ -97,6 +97,7 @@ const Wraper = styled.div`
   gap: 28px;
 `;
 const OutletContainer = styled.div`
+  width: 100%;
   padding: 0 20px;
   @media screen and (min-width: 768px) {
     padding: 0 32px;

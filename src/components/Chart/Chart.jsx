@@ -1,28 +1,29 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectTotalBalance } from '../../redux/Finance/financeSelectors';
+import {
+  selectTotalBalance,
+  selectTransactionSummary,
+} from '../../redux/Finance/financeSelectors';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import styled from 'styled-components';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const dataNull = {
-  labels: [],
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [0.001],
-      backgroundColor: ['#ff6596'],
-      hoverOffset: 0,
-      borderColor: [],
-      borderWidth: 0,
-    },
-  ],
-};
-
-const Chart = ({ data, expenseSummaryChart, show }) => {
-  const totalBalance = useSelector(selectTotalBalance);
+const Chart = ({ data, diference, show, colors }) => {
+  const dataNull = {
+    labels: [],
+    datasets: [
+      {
+        label: '# of Votes',
+        data: data,
+        backgroundColor: colors,
+        hoverOffset: 0,
+        borderColor: colors,
+        borderWidth: 0,
+      },
+    ],
+  };
   return (
     <WrapperChart>
       {show ? (
@@ -40,7 +41,11 @@ const Chart = ({ data, expenseSummaryChart, show }) => {
             />
             <Balance>
               <Symbol>&#8372;</Symbol>
-              {totalBalance}
+              {
+                <Span diference={diference}>
+                  {String(diference).replace('-', '')}
+                </Span>
+              }
             </Balance>
           </>
         </DoughnutContainer>
@@ -61,7 +66,9 @@ const Chart = ({ data, expenseSummaryChart, show }) => {
             />
             <Balance>
               <Symbol>&#8372;</Symbol>
-              {totalBalance}
+              <Span diference={diference}>
+                {String(diference).replace('-', '')}
+              </Span>
             </Balance>
           </>
         </DoughnutContainer>
@@ -70,30 +77,13 @@ const Chart = ({ data, expenseSummaryChart, show }) => {
   );
 };
 
-const WrapperChart = styled.div`
-  width: 320px;
-  @media screen and (min-width: 768px) {
-    width: 336px;
-  }
-`;
+const WrapperChart = styled.div``;
 
 const DoughnutContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 280px;
-  height: 280px;
-
-  @media screen and (min-width: 768px) {
-    width: 336px;
-    height: 336px;
-  }
-
-  @media screen and (min-width: 1280px) {
-    width: 288px;
-    height: 288px;
-  }
 `;
 const Symbol = styled.span`
   font-weight: 400;
@@ -111,6 +101,12 @@ const Balance = styled.div`
   display: flex;
   align-items: center;
   color: black;
+`;
+
+const Span = styled.span`
+  color: ${props => {
+    return props.diference > 0 ? '#24CCA7' : '#FF6596';
+  }};
 `;
 
 export default Chart;

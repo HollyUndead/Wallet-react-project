@@ -1,5 +1,9 @@
 import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchTransactionSummary } from 'redux/operations';
+import styled from 'styled-components';
+import './DropDown.css';
 
 let listOfYears = [];
 const listOfMonth = [
@@ -22,43 +26,71 @@ for (let i = 2000; i <= curYear; i += 1) {
 }
 
 export const DropDown = () => {
-  const [selectedMonth, setSelectedMonth] = useState('');
-  const [selectedYear, setSelectedYear] = useState('');
+  const date = new Date();
+  const [selectedMonth, setSelectedMonth] = useState(date.getMonth());
+  const [selectedYear, setSelectedYear] = useState(date.getFullYear());
+  const dispatch = useDispatch();
 
-  const onSubmit = e => {
-    console.log(e);
-  };
+  useEffect(() => {
+    dispatch(
+      fetchTransactionSummary({ year: selectedYear, month: selectedMonth + 1 })
+    );
+  }, [selectedMonth, selectedYear]);
+
   return (
-    <div>
-      <Formik
-        initialValues={{ month: '', year: '' }}
-        onChange={onSubmit}
-        // validationSchema={validationSchema}
+    <DropDownWrap>
+      <DropDownSelect
+        className="custom-select"
+        name="month"
+        defaultValue={selectedMonth}
+        onChange={e => {
+          setSelectedMonth(Number(e.target.value));
+          fetch();
+        }}
       >
-        <Form>
-          <Field name="month" as="select">
-            <option value="">Month</option>
-            {listOfMonth.map((month, index) => {
-              return (
-                <option key={index} value={index + 1}>
-                  {month}
-                </option>
-              );
-            })}
-          </Field>
+        {listOfMonth.map((month, index) => {
+          return (
+            <Option key={index} value={index}>
+              {month}
+            </Option>
+          );
+        })}
+      </DropDownSelect>
 
-          <Field name="year" placeholder="Select a year" as="select">
-            <option value=""></option>
-            {listOfYears.map((year, index) => {
-              return (
-                <option key={index} value={year}>
-                  {year}
-                </option>
-              );
-            })}
-          </Field>
-        </Form>
-      </Formik>
-    </div>
+      <DropDownSelect
+        className="custom-select"
+        name="year"
+        defaultValue={selectedYear}
+        onChange={e => {
+          setSelectedYear(Number(e.target.value));
+        }}
+      >
+        {listOfYears.map((year, index) => {
+          return (
+            <option key={index} value={year}>
+              {year}
+            </option>
+          );
+        })}
+      </DropDownSelect>
+    </DropDownWrap>
   );
 };
+
+const Option = styled.option`
+  border: 10px solid red;
+`;
+
+const DropDownWrap = styled.div`
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const DropDownSelect = styled.select`
+  width: 150px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: transparent;
+`;
