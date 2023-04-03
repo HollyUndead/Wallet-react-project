@@ -1,5 +1,5 @@
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { validationSchema } from '../ModalMain/ModalMain';
 import Checkbox from './Checkbox';
@@ -8,6 +8,10 @@ import 'react-datetime/css/react-datetime.css';
 import moment from 'moment';
 
 import Icons from 'images/icons.svg';
+
+import { fetchTransactionCategories } from '../../../redux/operations.js';
+import { selectTransactionCategories } from '../../../redux/Finance/financeSelectors.js';
+import { useSelector, useDispatch } from 'react-redux';
 
 const initialValues = {
   type: false,
@@ -19,6 +23,13 @@ const ModalAdd = ({ handleSubmitForm }) => {
   const [checked, setChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [transactionDate, setTransactionDate] = useState(new Date(Date.now()));
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTransactionCategories());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const Categories = useSelector(selectTransactionCategories);
 
   const handleChange = () => {
     setChecked(!checked);
@@ -50,13 +61,28 @@ const ModalAdd = ({ handleSubmitForm }) => {
             placeholder="Select a category"
             as="select"
           >
-            <option value=""></option>
-            <option value="value1">Main expenses</option>
-            <option value="value2">Products</option>
-            <option value="value4">Car</option>
-            <option value="value5">Self care</option>
-            <option value="value6">Child care</option>
-            <option value="value7">Household products</option>
+            {!checked && <option value=""></option>}
+
+            {!checked &&
+              Categories.filter(Categorie => Categorie.type === 'EXPENSE').map(
+                Categorie => {
+                  return (
+                    <option key={Categorie.id} value={Categorie.id}>
+                      {Categorie.name}
+                    </option>
+                  );
+                }
+              )}
+            {checked &&
+              Categories.filter(Categorie => Categorie.type === 'INCOME').map(
+                Categorie => {
+                  return (
+                    <option key={Categorie.id} value={Categorie.id}>
+                      {Categorie.name}
+                    </option>
+                  );
+                }
+              )}
           </StyledSelectField>
           <ErrorMessage name="category" />
           <DataBox>
@@ -85,7 +111,6 @@ const ModalAdd = ({ handleSubmitForm }) => {
           <StyledCommentField name="comment" placeholder="Comment" />
           <ErrorMessage name="comment" />
           <ModalButtonAdd type="submit">ADD</ModalButtonAdd>
-
         </StyledForm>
       </Formik>
     </ModalBox>
@@ -93,8 +118,6 @@ const ModalAdd = ({ handleSubmitForm }) => {
 };
 
 export default ModalAdd;
-
-
 
 export const ModalButtonAdd = styled.button`
   width: 280px;
@@ -108,20 +131,17 @@ export const ModalButtonAdd = styled.button`
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
-
   text-align: center;
   letter-spacing: 0.1em;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-
   :hover,
   :focus {
     background-color: #4a56e2;
     color: white;
     transform: scale(1.02);
   }
-
   @media screen and (min-width: 768px) {
     width: 300px;
   }
@@ -130,8 +150,6 @@ export const ModalButtonAdd = styled.button`
   }
 `;
 
-
-
 const StyledSelectField = styled(Field)`
   width: 394px;
   height: 30px;
@@ -139,14 +157,9 @@ const StyledSelectField = styled(Field)`
   border: none;
   border-bottom: 1px solid #e0e0e0;
   &:focus-visible {
-    
     outline: none;
-    /* border-bottom: 1px solid var(--btn-teal-color);
-    background-color: var(--text-white-color); */
   }
 `;
-
-
 
 const StyledCommentField = styled(Field)`
   width: 394px;
@@ -180,22 +193,20 @@ const StyledAmountField = styled(Field)`
   border-bottom: 1px solid #e0e0e0;
   text-align: center;
   /* margin-right: 32px; */
-  
   @media screen and (min-width: 768px) {
     width: 181px;
     /* margin-right: 32px; */
     margin-bottom: 0;
   }
   &:focus-visible {
-    
     outline: none;
     /* border-bottom: 1px solid var(--btn-teal-color);
     background-color: var(--text-white-color); */
   }
-`
+`;
 
 export const InputData = styled.input`
-margin-left: 32px;
+  margin-left: 32px;
   width: 280px;
   border: none;
   border-bottom: 1px solid #e0e0e0;

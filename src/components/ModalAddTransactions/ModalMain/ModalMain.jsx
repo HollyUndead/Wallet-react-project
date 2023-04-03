@@ -23,10 +23,12 @@ export const validationSchema = object().shape({
 });
 
 export const ModalMain = () => {
-  const typeOfModal = 1;
+  const typeOfModal = 'add';
 
   const [isModalAddTransactionOpen, setIsModalAddTransactionOpen] =
     useState(true);
+  // const [Categories, setCategories] = useState([]);
+
   const overlay = useRef();
 
   const onModalClose = () => {
@@ -54,6 +56,7 @@ export const ModalMain = () => {
 
   useEffect(() => {
     overlay.current.focus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -71,10 +74,10 @@ export const ModalMain = () => {
                 <IoCloseOutline />
               </IconContext.Provider>
             </ButtonClose>
-
-            {typeOfModal ? (
+            {typeOfModal === 'add' && (
               <ModalAdd handleSubmitForm={handleSubmitForm} />
-            ) : (
+            )}
+            {typeOfModal === 'edit' && (
               <ModalEdit handleSubmitForm={handleSubmitForm} />
             )}
             <ModalButtonCancel type="button" onClick={onModalClose}>
@@ -96,21 +99,17 @@ const ModalBackdrop = styled.div`
   overflow: auto;
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
-
   z-index: 20;
 `;
 const ModalBody = styled.div`
   position: absolute;
-
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
   background-color: #fff;
   border-radius: 20px;
   padding: 40px 75px;
@@ -151,14 +150,12 @@ export const ModalButtonCancel = styled.button`
   font-weight: 400;
   font-size: 18px;
   margin-top: 20px;
-
   text-align: center;
   letter-spacing: 0.1em;
   color: #4a56e2;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-
   :hover,
   :focus {
     background-color: #4a56e2;

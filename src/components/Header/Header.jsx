@@ -107,7 +107,6 @@ const Link = styled.a`
   line-height: 45px;
   display: flex;
   align-items: center;
-
   color: #000000;
   display: flex;
   align-items: center;
