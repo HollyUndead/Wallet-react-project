@@ -86,6 +86,9 @@ const DropDownWrap = styled.div`
   gap: 15px;
   justify-content: center;
   align-items: center;
+  @media screen and (max-width: 767px) {
+    margin-top: 32px;
+  }
 `;
 
 const DropDownSelect = styled.select`

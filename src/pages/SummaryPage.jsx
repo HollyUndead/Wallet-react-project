@@ -18,6 +18,10 @@ const SummaryPage = () => {
         }
       });
     }
+    if (transactionSummary.categoriesSummary.length === 0) {
+      data = [1];
+      diference = 0;
+    }
     return { data, diference };
   };
   const colors = [
@@ -50,16 +54,17 @@ const SummaryPage = () => {
 };
 
 const SummaryWraper = styled.div`
-  width: '100%';
+  display: flex;
+  flex-direction: column;
   padding-top: 43px;
   display: flex;
   flex-diraction: column;
   @media screen and (min-width: 768px) {
     padding-top: 20px;
+    flex-direction: row;
   }
   @media screen and (min-width: 1200px) {
     padding-top: 32px;
-    flex-diraction: row;
   }
 `;
 

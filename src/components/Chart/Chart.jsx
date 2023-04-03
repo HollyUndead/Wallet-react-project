@@ -77,7 +77,9 @@ const Chart = ({ data, diference, show, colors }) => {
   );
 };
 
-const WrapperChart = styled.div``;
+const WrapperChart = styled.div`
+  margin-right: 20px;
+`;
 
 const DoughnutContainer = styled.div`
   position: relative;

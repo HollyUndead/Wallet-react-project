@@ -17,7 +17,7 @@ const Table = ({ colors }) => {
             {CategorySummary.categoriesSummary !== undefined ? (
               CategorySummary.categoriesSummary.map((el, index) => {
                 if (el.type !== 'INCOME') {
-                  const color = colors[index - 1];
+                  const color = colors[index];
                   console.log(color);
                   return (
                     <LiItem>
