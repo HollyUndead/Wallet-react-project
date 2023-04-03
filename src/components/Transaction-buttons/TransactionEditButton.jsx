@@ -1,17 +1,26 @@
 import { useMediaQuery } from 'react-responsive';
-import { FaPen } from 'react-icons/fa';
+import { BsPen } from 'react-icons/bs';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import {
+  setEditModalTransactionId,
+  setModalType,
+  toggleModal,
+} from 'redux/Finance/financeSlice';
 
-export const TransactionEditButton = () => {
+export const TransactionEditButton = props => {
   const isMobile = useMediaQuery({
     query: '(max-width: 767px)',
   });
+  const dispatch = useDispatch();
   const handleTransactionEdit = () => {
-    console.log('edit');
+    dispatch(toggleModal());
+    dispatch(setModalType('edit'));
+    dispatch(setEditModalTransactionId(props.id));
   };
   return (
     <Span onClick={handleTransactionEdit}>
-      <FaPen style={{ verticalAlign: 'middle' }} />
+      <PenSvg />
       {isMobile && 'Edit'}
     </Span>
   );
@@ -27,4 +36,11 @@ const Span = styled.span`
   line-height: 21px;
   text-align: center;
   letter-spacing: 0.02em;
+`;
+
+const PenSvg = styled(BsPen)`
+  verticalalign: 'middle';
+  &:hover {
+    fill: #ff6596;
+  }
 `;
