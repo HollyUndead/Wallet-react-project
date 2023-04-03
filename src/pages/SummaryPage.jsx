@@ -11,6 +11,11 @@ const SummaryPage = () => {
   const getData = () => {
     let data, diference;
     if (transactionSummary.categoriesSummary !== undefined) {
+      if (transactionSummary.categoriesSummary.length === 0) {
+        data = [1];
+        diference = 0;
+        return { data, diference };
+      }
       diference =
         transactionSummary.expenseSummary + transactionSummary.incomeSummary;
       data = transactionSummary.categoriesSummary.map(el => {
@@ -18,10 +23,6 @@ const SummaryPage = () => {
           return Number(String(el.total).replace('-', ''));
         }
       });
-    }
-    if (transactionSummary.categoriesSummary.length === 0) {
-      data = [1];
-      diference = 0;
     }
     return { data, diference };
   };
