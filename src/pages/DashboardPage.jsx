@@ -14,6 +14,7 @@ import {
 } from 'redux/operations';
 import { Balance } from 'components/Balance/Balance';
 import styled from 'styled-components';
+import { toggleModal } from 'redux/Finance/financeSlice';
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,9 @@ const DashboardPage = () => {
   const isMobile = useMediaQuery({
     query: '(max-width: 767px)',
   });
+  const openModalAdd = () => {
+    dispatch(toggleModal());
+  };
 
   return (
     <DashboardContainer>
@@ -70,7 +74,7 @@ const DashboardPage = () => {
           })}
         </Ul>
       )}
-      <AddIconWrap />
+      <AddIconWrap onClick={openModalAdd} />
     </DashboardContainer>
   );
 };
@@ -109,6 +113,7 @@ const Thead = styled.thead`
 const Tbody = styled.tbody`
   display: block;
   width: 100%;
+  min-height: 200px;
   table-layout: table;
   overflow: auto;
   height: calc(100vh - 200px);
@@ -163,6 +168,9 @@ const ThButtons = styled.th`
 `;
 
 const AddIconWrap = styled(AiFillPlusCircle)`
+  cursor: pointer;
+  background-color: white;
+  border-radius: 50%;
   width: 44px;
   height: 44px;
   fill: #24cca7;
@@ -172,6 +180,9 @@ const AddIconWrap = styled(AiFillPlusCircle)`
   @media screen and (max-width: 767px) {
     position: sticky;
     left: calc(100vh - 40px);
+  }
+  &:hover {
+    fill: #ff6596;
   }
 `;
 

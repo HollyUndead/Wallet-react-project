@@ -70,3 +70,4 @@ export const {
   closeModalLogOut,
   // toggleModal
 } = authSlice.actions;
+

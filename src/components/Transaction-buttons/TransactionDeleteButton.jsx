@@ -26,4 +26,8 @@ const Button = styled.button`
   text-align: center;
   width: 67px;
   height: 26px;
+  &:hover {
+    background-color: #ff6596;
+    border: 1px solid #ff6596;
+  }
 `;
