@@ -1,9 +1,15 @@
+import Chart from 'components/Chart/Chart';
+import Table from 'components/Table/Table';
 import styled from 'styled-components';
 
 const SummaryPage = () => {
   return (
     <SummaryWraper>
-      <SummaryTitle>Statistics</SummaryTitle>
+      <div>
+        <SummaryTitle>Statistics</SummaryTitle>
+        <Chart />
+      </div>
+      <Table />
     </SummaryWraper>
   );
 };
@@ -11,6 +17,7 @@ const SummaryPage = () => {
 const SummaryWraper = styled.div`
   width: '100%';
   padding-top: 43px;
+  display: flex;
   @media screen and (min-width: 768px) {
     padding-top: 20px;
   }
