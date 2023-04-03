@@ -1,7 +1,7 @@
-import VaseDesk1x from '../../images/login/Vase/VaseDesk1x.png';
-import VaseDesk2x from '../../images/login/Vase/VaseDesk2x.png';
-import VaseTab1x from '../../images/login/Vase/VaseTab1x.png';
-import VaseTab2x from '../../images/login/Vase/VaseTab2x.png';
+import VaseRegDesk1x from '../../images/registration/VaseReg/VaseRegDesk1x.png';
+import VaseRegDesk2x from '../../images/registration/VaseReg/VaseRegDesk2x.png';
+import VaseRegTab1x from '../../images/registration/VaseReg/VaseRegTab1x.png';
+import VaseRegTab2x from '../../images/registration/VaseReg/VaseRegTab2x.png';
 
 import styled from 'styled-components';
 
@@ -45,36 +45,37 @@ const customAnimation = keyframes`
   }
 `;
 
-export const Vase = () => {
+export const VaseReg = () => {
   return (
-    <VaseWrapper>
+    <VaseRegWrapper>
       <Reveal keyframes={customAnimation} triggerOnce={true} delay={500}>
         <picture>
           <source
-            srcSet={`${VaseDesk1x} 1x, ${VaseDesk2x} 2x`}
-            width="95"
-            height="186"
+            srcSet={`${VaseRegDesk1x} 1x, ${VaseRegDesk2x} 2x`}
+            width="123"
+            height="241"
             media="(min-width:1280px)"
           />
           <source
-            srcSet={`${VaseTab1x} 1x, ${VaseTab2x} 2x`}
-            width="56"
-            height="111"
+            srcSet={`${VaseRegTab1x} 1x, ${VaseRegTab2x} 2x`}
+            width="74"
+            height="146"
             media="(min-width: 768px)"
           />
-          <img src={VaseDesk1x} width="95" alt="start page" />
+          <img src={VaseRegDesk1x} width="123" alt="start page" />
         </picture>
       </Reveal>
-    </VaseWrapper>
+    </VaseRegWrapper>
   );
 };
 
-const VaseWrapper = styled.div`
+const VaseRegWrapper = styled.div`
   position: absolute;
-  bottom: 20px;
-  left: 1;
+  bottom: 45px;
+  left: 17px;
   @media screen and (min-width: 1280px) {
-    bottom: 35px;
+    bottom: 76px;
+    left: 24px;
   }
 `;
 

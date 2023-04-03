@@ -7,6 +7,7 @@ import regDesk1x from '../images/reg-desk-1x.png';
 import regDesk2x from '../images/reg-desk-2x.png';
 import regTab1x from '../images/reg-tablet-1x.png';
 import regTab2x from '../images/reg-tablet-2x.png';
+import { RegistrationImageBox } from 'components/RegistrationPageImages/RegistrationImageBox';
 
 const RegistrationPage = () => {
   const isTabDesk = useMediaQuery({ query: '(min-width: 768px)' });
@@ -15,19 +16,7 @@ const RegistrationPage = () => {
     <Container>
       {isTabDesk && (
         <Picture>
-          <picture>
-            <source
-              srcSet={`${regDesk1x} 1x, ${regDesk2x} 2x`}
-              width="435"
-              media="(min-width:1280px)"
-            />
-            <source
-              srcSet={`${regTab1x} 1x, ${regTab2x} 2x`}
-              width="260"
-              media="(min-width: 768px)"
-            />
-            <img src={regDesk1x} width="435" alt="start page" />
-          </picture>
+          <RegistrationImageBox />
           <Title>Finance App</Title>
         </Picture>
       )}

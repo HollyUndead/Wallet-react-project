@@ -21,7 +21,7 @@ const customAnimation = keyframes`
 
 `;
 
-export const Money = () => {
+export const MoneyReg = () => {
   return (
     <MoneyWrapper>
       <Reveal keyframes={customAnimation} triggerOnce={true} delay={500}>
@@ -47,10 +47,10 @@ export const Money = () => {
 
 const MoneyWrapper = styled.div`
   position: absolute;
-  top: 102px;
-  right: 0;
+  top: 0;
+  right: 17px;
   @media screen and (min-width: 1280px) {
-    top: 171px;
-    right: 0;
+    top: 0;
+    right: 27px;
   }
 `;

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import PhoneLogDesk1x from '../../images/login/PhoneLog/PhoneLogDesk1x.png';
-import PhoneLogDesk2x from '../../images/login/PhoneLog/PhoneLogDesk2x.png';
-import PhoneLogTab1x from '../../images/login/PhoneLog/PhoneLogTab1x.png';
-import PhoneLogTab2x from '../../images/login/PhoneLog/PhoneLogTab2x.png';
+import PhoneRegDesk1x from '../../images/registration/PhoneReg/PhoneRegDesk1x.png';
+import PhoneRegDesk2x from '../../images/registration/PhoneReg/PhoneRegDesk2x.png';
+import PhoneRegTab1x from '../../images/registration/PhoneReg/PhoneRegTab1x.png';
+import PhoneRegTab2x from '../../images/registration/PhoneReg/PhoneRegTab2x.png';
 
 import { keyframes } from '@emotion/react';
 import { Reveal } from 'react-awesome-reveal';
@@ -38,36 +38,36 @@ const customAnimation = keyframes`
 
 `;
 
-export const PhoneLog = () => {
+export const PhoneReg = () => {
   return (
-    <PhoneLogWrapper>
+    <PhoneRegWrapper>
       <Reveal keyframes={customAnimation} triggerOnce={true}>
         <picture>
           <source
-            srcSet={`${PhoneLogDesk1x} 1x, ${PhoneLogDesk2x} 2x`}
-            width="193"
-            height="363"
+            srcSet={`${PhoneRegDesk1x} 1x, ${PhoneRegDesk2x} 2x`}
+            width="200"
+            height="360"
             media="(min-width:1280px)"
           />
           <source
-            srcSet={`${PhoneLogTab1x} 1x, ${PhoneLogTab2x} 2x`}
-            width="115"
+            srcSet={`${PhoneRegTab1x} 1x, ${PhoneRegTab2x} 2x`}
+            width="121"
             height="216"
             media="(min-width: 768px)"
           />{' '}
-          <img src={PhoneLogDesk1x} width="193" alt="start page" />
+          <img src={PhoneRegDesk1x} width="200" alt="start page" />
         </picture>
       </Reveal>
-    </PhoneLogWrapper>
+    </PhoneRegWrapper>
   );
 };
 
-const PhoneLogWrapper = styled.div`
+const PhoneRegWrapper = styled.div`
   position: absolute;
-  bottom: 20px;
-  right: 95px;
+  top: 8px;
+  right: 76px;
   @media screen and (min-width: 1280px) {
-    bottom: 35px;
-    right: 159px;
+    top: 10px;
+    right: 126px;
   }
 `;

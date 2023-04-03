@@ -10,7 +10,7 @@ import { Reveal } from 'react-awesome-reveal';
 const customAnimation = keyframes`
 
   0% {
-    transform: translateY(200px);
+    transform: translateY(100px);
     opacity: 0;
   }
   100% {
@@ -21,35 +21,36 @@ const customAnimation = keyframes`
 
 `;
 
-export const SmallLoginSpot = () => {
+export const RegSpot = () => {
   return (
-    <SmallSpotWrapper>
+    <SpotWrapper>
       <Reveal keyframes={customAnimation} triggerOnce={true} delay={500}>
         <picture>
           <source
             srcSet={`${BigLoginSpotDesk1x} 1x, ${BigLoginSpotDesk2x} 2x`}
-            width="106"
-            height="20"
+            width="396"
+            height="57"
             media="(min-width:1280px)"
           />
           <source
             srcSet={`${BigLoginSpotTab1x} 1x, ${BigLoginSpotTab2x} 2x`}
-            width="63"
-            height="12"
+            width="240"
+            height="35"
             media="(min-width: 768px)"
           />
-          <img src={BigLoginSpotDesk1x} width="106" alt="start page" />
+          <img src={BigLoginSpotDesk1x} width="396" alt="start page" />
         </picture>
       </Reveal>
-    </SmallSpotWrapper>
+    </SpotWrapper>
   );
 };
 
-const SmallSpotWrapper = styled.div`
+const SpotWrapper = styled.div`
   position: absolute;
-  bottom: 16px;
-  left: 1px;
+  bottom: 0px;
+  right: 11px;
   @media screen and (min-width: 1280px) {
-    bottom: 27px;
+    bottom: 0px;
+    right: 18px;
   }
 `;
