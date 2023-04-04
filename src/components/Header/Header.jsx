@@ -22,7 +22,7 @@ export const Header = () => {
   return (
     <header>
       <HeaderContainer>
-        <Link href="/home">
+        <Link href="/Wallet-react-project/">
           <Logo />
           <p>Wallet</p>
         </Link>

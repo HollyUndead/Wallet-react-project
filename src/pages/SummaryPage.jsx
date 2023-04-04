@@ -41,6 +41,7 @@ const SummaryPage = () => {
     '#81E1FF',
     '#24CCA7',
     '#00AD84',
+    '#ff2d65',
   ];
 
   return (
