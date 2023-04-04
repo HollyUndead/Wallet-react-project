@@ -20,6 +20,7 @@ export const App = () => {
     dispatch(fetchCurrentUser());
     // eslint-disable-next-line
   }, []);
+
   return (
     <div>
       <Suspense fallback={<Loader />}>

@@ -10,7 +10,7 @@ export const Balance = () => {
     <Wrapper>
       <Text>Your balance</Text>
       <Count>
-        <Simbol>{'\u20B4'}</Simbol> {currentBalance}
+        <Simbol>{'\u20B4'}</Simbol> {Number(currentBalance).toFixed(2)}
       </Count>
     </Wrapper>
   );
