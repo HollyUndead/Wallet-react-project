@@ -15,15 +15,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toggleModal } from 'redux/Finance/financeSlice';
 
-// const defaultState = {
-//   type: true,
-//   category: '',
-//   amount: '',
-//   transactionDate: new Date(Date.now()),
-//   comment: '',
-// };
-// selectIsModalOpen
-
 export const validationSchema = object().shape({
   transactionDate: date().required('Data is a required field'),
   categoryId: string(),
@@ -38,11 +29,6 @@ export const ModalMain = () => {
   const error = useSelector(selectFinanceError);
 
   const dispatch = useDispatch();
-
-  // const [isModalAddTransactionOpen, setIsModalAddTransactionOpen] = useState(true);
-  // const [Categories, setCategories] = useState([]);
-
-  // const overlay = useRef();
 
   const onModalClose = (e) => {
     dispatch(toggleModal())
@@ -74,23 +60,12 @@ export const ModalMain = () => {
     if (error) {
       toast.error('Oops...something is wrong, try again!');
     }
-
-    // setTransaction({
-    //   ...transaction,
-    //   comment: evt.target.elements.comment.value,
-    // });
   };
-
-  // useEffect(() => {
-  //   overlay.current.focus();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   return (
     <>
       {isModalOpen && (
         <ModalBackdrop
-          // ref={overlay}
           tabIndex={-1}
           onKeyDown={handlePressKey}
           onClick={closeModalBackdrop}

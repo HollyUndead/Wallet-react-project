@@ -42,6 +42,9 @@ const ModalAdd = ({ handleSubmitForm }) => {
     dispatch(editTransaction({ id: id, transaction: values }));
     dispatch(toggleModal());
   };
+
+  const renderError = message => <Span>{message}</Span>;
+
   return (
     <ModalBox>
       <ModalTitle>Edit transactions</ModalTitle>
@@ -95,7 +98,7 @@ const ModalAdd = ({ handleSubmitForm }) => {
               <ErrorMessage name="category" />
               <DataBox>
                 <StyledAmountField name="amount" placeholder="0.00" />
-                <ErrorMessage name="amount" />
+                <ErrorMessage name="amount" render={renderError} />
                 <Datetime
                   // open={isOpen}
                   timeFormat={false}
@@ -297,4 +300,17 @@ const ModalTitle = styled.h2`
   font-weight: 400;
   font-size: 30px;
   line-height: 1.35;
+`;
+
+export const Span = styled.span`
+  color: red;
+  font-size: 12px;
+  margin: 4px 0;
+  position: absolute;
+  right: 127px;
+  top: 20px;
+  @media screen and (min-width: 768px) {
+    right: 232px;
+    top: 22px;
+  }
 `;
