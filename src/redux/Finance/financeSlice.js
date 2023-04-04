@@ -88,6 +88,7 @@ const financeSlice = createSlice({
     [addTransaction.fulfilled](state, action) {
       state.isLoading = false;
       state.error = null;
+      state.totalBalance = action.payload.balanceAfter;
       state.transactions.push(action.payload);
     },
     [editTransaction.fulfilled](state, action) {

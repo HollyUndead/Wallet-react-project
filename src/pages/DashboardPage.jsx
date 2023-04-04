@@ -14,7 +14,7 @@ import {
 } from 'redux/operations';
 import { Balance } from 'components/Balance/Balance';
 import styled from 'styled-components';
-import { toggleModal } from 'redux/Finance/financeSlice';
+import { setModalType, toggleModal } from 'redux/Finance/financeSlice';
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
@@ -30,6 +30,7 @@ const DashboardPage = () => {
   });
   const openModalAdd = () => {
     dispatch(toggleModal());
+    dispatch(setModalType('add'))
   };
 
   return (
