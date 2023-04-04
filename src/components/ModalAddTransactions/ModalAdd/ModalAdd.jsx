@@ -13,15 +13,13 @@ import Icons from 'images/icons.svg';
 import { fetchTransactionCategories } from '../../../redux/operations.js';
 import { selectTransactionCategories } from '../../../redux/Finance/financeSelectors.js';
 import { useSelector, useDispatch } from 'react-redux';
-// import { selectIsModalOpen } from 'redux/Auth/authSelector';
 import { toast } from 'react-toastify';
 import { toggleModal } from 'redux/Finance/financeSlice';
 
 const ModalAdd = ({ handleSubmitForm }) => {
   const [checked, setChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCategorie, setSelectedCategorie] =
-    useState('Select a category');
+  const [selectedCategorie, setSelectedCategorie] = useState('Select a category');
   const [isCategorieDropdownOpen, setIsCatgorieDropdownOpen] = useState(false);
   const categorieDropdownRef = useRef(null);
 
@@ -30,7 +28,6 @@ const ModalAdd = ({ handleSubmitForm }) => {
     return moment(date.toISOString());
   });
   const dispatch = useDispatch();
-  // selectIsModalOpen
 
   useEffect(() => {
     dispatch(fetchTransactionCategories());
@@ -54,7 +51,6 @@ const ModalAdd = ({ handleSubmitForm }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-    // eslint-disable-next-line
   }, [categorieDropdownRef, isCategorieDropdownOpen]);
 
   const toggleCategorieDropdown = () => {
@@ -162,14 +158,13 @@ const ModalAdd = ({ handleSubmitForm }) => {
                 <StyledAmountField name="amount" placeholder="0.00" />
                 <ErrorMessage name="amount" render={renderError} />
 
-                <Datetime
+                <StyledDatetime
                   open={isOpen}
                   timeFormat={false}
                   name="transactionDate"
                   value={transactionDate}
                   type="date"
                   // closeOnSelect={true}
-                  // closeOnClickOutside={true}
                   // maxDate={new Date()}
                   input={true}
                   selected={transactionDate}
@@ -231,20 +226,6 @@ export const ModalButtonAdd = styled.button`
   }
 `;
 
-// const StyledSelectField = styled(Field)`
-//   width: 394px;
-//   height: 30px;
-//   margin-bottom: 40px;
-//   border: none;
-//   border-bottom: 1px solid #e0e0e0;
-//   &:focus-visible {
-//     outline: none;
-//   }
-//   @media screen and (max-width: 768px) {
-//     width: 270px;
-//   }
-// `;
-
 const StyledCommentField = styled(Field)`
   width: 394px;
   /* height: 30px; */
@@ -253,9 +234,6 @@ const StyledCommentField = styled(Field)`
   border-bottom: 1px solid #e0e0e0;
   &:focus-visible {
     outline: none;
-
-    /* border-bottom: 1px solid var(--btn-teal-color);
-    background-color: var(--text-white-color); */
   }
   @media screen and (max-width: 768px) {
     width: 270px;
@@ -282,16 +260,12 @@ const StyledAmountField = styled(Field)`
   border: none;
   border-bottom: 1px solid #e0e0e0;
   text-align: center;
-  /* margin-right: 32px; */
   @media screen and (min-width: 768px) {
     width: 181px;
-    /* margin-right: 32px; */
     margin-bottom: 0;
   }
   &:focus-visible {
     outline: none;
-    /* border-bottom: 1px solid var(--btn-teal-color);
-    background-color: var(--text-white-color); */
   }
 `;
 
@@ -439,4 +413,9 @@ export const Span = styled.span`
     right: 232px;
     top: 22px;
   }
+`;
+
+const StyledDatetime = styled(Datetime)`
+    font-size: 14px;
+    color: #4A56E2;
 `;
