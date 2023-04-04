@@ -7,7 +7,6 @@ import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import moment from 'moment';
 import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
-
 import Icons from 'images/icons.svg';
 
 import { fetchTransactionCategories } from '../../../redux/operations.js';
@@ -38,7 +37,6 @@ const ModalAdd = ({ handleSubmitForm }) => {
 
   useEffect(() => {
     const handleClickOutside = event => {
-      // console.log(categorieDropdownRef);
       if (
         categorieDropdownRef.current &&
         !categorieDropdownRef.current.contains(event.target) &&
