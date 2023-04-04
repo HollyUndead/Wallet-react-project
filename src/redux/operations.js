@@ -120,11 +120,13 @@ export const deleteTransaction = createAsyncThunk(
 
 export const editTransaction = createAsyncThunk(
   'finance/editTransaction',
-  async ({ id, comment, amount }, { rejectWithValue }) => {
+  async ({ id, transaction }, { rejectWithValue }) => {
     try {
       const { data } = await axios.patch(`/transactions/${id}`, {
-        amount,
-        comment,
+        amount: transaction.amount,
+        comment: transaction.comment,
+        categoryId: transaction.categoryId,
+        transactionDate: transaction.transactionDate,
       });
       return data;
     } catch (error) {
