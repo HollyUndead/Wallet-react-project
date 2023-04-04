@@ -6,6 +6,7 @@ import Checkbox from './Checkbox';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import moment from 'moment';
+import { BsFillCaretDownFill } from 'react-icons/bs';
 
 import Icons from 'images/icons.svg';
 
@@ -119,51 +120,39 @@ const ModalAdd = ({ handleSubmitForm }) => {
               />
             </StyledCheckbox>
             <StyledForm>
-              <DropDownWrap>
-                <DropDownButton type="button" onClick={toggleCategorieDropdown}>
-                  {selectedCategorie}
-                </DropDownButton>
-                {isCategorieDropdownOpen ? (
-                  <DropDownList ref={categorieDropdownRef}>
-                    {!checked &&
-                      Categories.filter(
-                        Categorie => Categorie.type === 'EXPENSE'
-                      ).map(categorie => {
-                        return (
-                          <DropDownItem
-                            key={categorie.id}
-                            onClick={() => {
-                              setSelectedCategorie(categorie.name);
-                              setFieldValue('type', categorie.type);
-                              setFieldValue('categoryId', categorie.id);
-                            }}
-                          >
-                            {categorie.name}
-                          </DropDownItem>
-                        );
-                      })}
-                    {checked &&
-                      Categories.filter(
-                        Categorie => Categorie.type === 'INCOME'
-                      ).map(categorie => {
-                        return (
-                          <DropDownItem
-                            key={categorie.id}
-                            onClick={() => {
-                              setFieldValue('type', categorie.type);
-                              setFieldValue(
-                                'categoryId',
-                                Categories[Categories.length - 1].id
-                              );
-                            }}
-                          >
-                            {categorie.name}
-                          </DropDownItem>
-                        );
-                      })}
-                  </DropDownList>
-                ) : null}
-              </DropDownWrap>
+              {!checked && (
+                <DropDownWrap>
+                  <DropDownButton
+                    type="button"
+                    onClick={toggleCategorieDropdown}
+                  >
+                    {selectedCategorie}
+                    <ArrowDown />
+                    {isCategorieDropdownOpen ? (
+                      <DropDownList ref={categorieDropdownRef}>
+                        {Categories.filter(
+                          Categorie => Categorie.type === 'EXPENSE'
+                        ).map(categorie => {
+                          return (
+                            <DropDownItem
+                              key={categorie.id}
+                              onClick={() => {
+                                toggleCategorieDropdown();
+                                setSelectedCategorie(categorie.name);
+                                setFieldValue('type', categorie.type);
+                                setFieldValue('categoryId', categorie.id);
+                              }}
+                            >
+                              {categorie.name}
+                            </DropDownItem>
+                          );
+                        })}
+                      </DropDownList>
+                    ) : null}
+                  </DropDownButton>
+                </DropDownWrap>
+              )}
+
               {/* <ErrorMessage name="category" /> */}
               <DataBox>
                 <StyledAmountField name="amount" placeholder="0.00" />
@@ -207,6 +196,10 @@ const ModalAdd = ({ handleSubmitForm }) => {
 };
 
 export default ModalAdd;
+
+export const ArrowDown = styled(BsFillCaretDownFill)`
+  margin-left: auto;
+`;
 
 export const ModalButtonAdd = styled.button`
   width: 300px;
@@ -361,6 +354,9 @@ const DropDownWrap = styled.div`
 `;
 
 const DropDownButton = styled.button`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   text-align: left;
   width: 394px;
   height: 30px;
@@ -370,7 +366,7 @@ const DropDownButton = styled.button`
   background-color: transparent;
   font-family: 'Circe';
   font-size: 18px;
-  color: #bdbdbd;
+  color: #000000;
   @media screen and (max-width: 768px) {
     width: 270px;
   }
@@ -381,14 +377,14 @@ box-sizing: border-box;
  padding 5px 20px;
   position: absolute;
   width: 100%;
-  height: 250px;
+  height: 280px;
   top: 30px;
   left: 0;
   z-index: 3;
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.5);
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.7);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 15px;
   backdrop-filter: blur(25px);
 
   border-radius: 20px;
