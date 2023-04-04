@@ -12,6 +12,9 @@ import Icons from 'images/icons.svg';
 import { fetchTransactionCategories } from '../../../redux/operations.js';
 import { selectTransactionCategories } from '../../../redux/Finance/financeSelectors.js';
 import { useSelector, useDispatch } from 'react-redux';
+// import { selectIsModalOpen } from 'redux/Auth/authSelector';
+import { ToastContainer } from 'react-toastify';
+import { toggleModal } from 'redux/Finance/financeSlice';
 
 const ModalAdd = ({ handleSubmitForm }) => {
   const [checked, setChecked] = useState(false);
@@ -21,6 +24,7 @@ const ModalAdd = ({ handleSubmitForm }) => {
     return moment(date.toISOString());
   });
   const dispatch = useDispatch();
+  // selectIsModalOpen
 
   useEffect(() => {
     dispatch(fetchTransactionCategories());
@@ -42,11 +46,16 @@ const ModalAdd = ({ handleSubmitForm }) => {
     setIsOpen(false);
   };
 
-  const onSubmit = values => {
+  const onSubmit = (values, props) => {
     handleSubmitForm({ ...values, type: checked });
+  
+    dispatch(toggleModal())
+    props.resetForm()
   };
   return (
     <ModalBox>
+      <ToastContainer />
+
       <ModalTitle>Add transactions</ModalTitle>
 
       <Formik
@@ -58,6 +67,7 @@ const ModalAdd = ({ handleSubmitForm }) => {
           comment: '',
         }}
         onSubmit={onSubmit}
+
         validationSchema={validationSchema}
       >
         {({ isSubmitting, setFieldValue }) => (
@@ -70,9 +80,11 @@ const ModalAdd = ({ handleSubmitForm }) => {
                   handleChange();
                   setFieldValue('type', !checked);
                   if (!checked) {
-                    setFieldValue('categoryId', Categories[Categories.length -1].id )
+                    setFieldValue(
+                      'categoryId',
+                      Categories[Categories.length - 1].id
+                    );
                   }
-
                 }}
               />
             </StyledCheckbox>
@@ -81,12 +93,11 @@ const ModalAdd = ({ handleSubmitForm }) => {
                 name="categoryId"
                 placeholder="Select a category"
                 as="select"
-                
                 onChange={event => {
                   setFieldValue('categoryId', event.target.value);
                 }}
               >
-                {!checked && <option value=""></option>}
+                {!checked && <option value="">Select category</option>}
 
                 {!checked &&
                   Categories.filter(
@@ -118,7 +129,6 @@ const ModalAdd = ({ handleSubmitForm }) => {
                   timeFormat={false}
                   name="transactionDate"
                   value={transactionDate}
-                  // id="date"
                   type="date"
                   // closeOnSelect={true}
                   // closeOnClickOutside={true}
@@ -155,7 +165,7 @@ const ModalAdd = ({ handleSubmitForm }) => {
 export default ModalAdd;
 
 export const ModalButtonAdd = styled.button`
-  width: 280px;
+  width: 300px;
   height: 50px;
   padding: 13px 65px 13px 71px;
   border: none;
@@ -177,12 +187,6 @@ export const ModalButtonAdd = styled.button`
     color: white;
     transform: scale(1.02);
   }
-  @media screen and (min-width: 768px) {
-    width: 300px;
-  }
-  @media screen and (min-width: 1280px) {
-    width: 300px;
-  }
 `;
 
 const StyledSelectField = styled(Field)`
@@ -194,6 +198,9 @@ const StyledSelectField = styled(Field)`
   &:focus-visible {
     outline: none;
   }
+  @media screen and (max-width: 768px) {
+    width: 270px;
+  }
 `;
 
 const StyledCommentField = styled(Field)`
@@ -204,8 +211,12 @@ const StyledCommentField = styled(Field)`
   border-bottom: 1px solid #e0e0e0;
   &:focus-visible {
     outline: none;
+
     /* border-bottom: 1px solid var(--btn-teal-color);
     background-color: var(--text-white-color); */
+  }
+  @media screen and (max-width: 768px) {
+    width: 270px;
   }
 `;
 const StyledCheckbox = styled.div`
@@ -216,11 +227,12 @@ const DataBox = styled.div`
   position: relative;
   width: 398px;
   display: flex;
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* flex-direction: row; */
   margin-bottom: 40px;
-  /* gap: 30px; */
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const StyledAmountField = styled(Field)`
@@ -242,7 +254,6 @@ const StyledAmountField = styled(Field)`
 `;
 
 export const InputData = styled.input`
-  margin-left: 32px;
   width: 280px;
   border: none;
   border-bottom: 1px solid #e0e0e0;
@@ -251,6 +262,8 @@ export const InputData = styled.input`
   @media screen and (min-width: 768px) {
     width: 181px;
     margin-top: 0;
+  margin-left: 32px;
+
   }
   &:focus-visible {
     outline: none;
@@ -262,8 +275,10 @@ export const Icon = styled.svg`
   position: absolute;
   height: 20px;
   width: 18px;
+  top: 52px;
+    right: 70px;
   @media screen and (min-width: 768px) {
-    top: -6px;
+    top: -4px;
     right: 20px;
   }
   :hover {

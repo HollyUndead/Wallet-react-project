@@ -1,13 +1,28 @@
-import { useState } from 'react';
 import ModalAdd from '../ModalAdd/ModalAdd';
 import ModalEdit from '../ModalEdit/ModalEdit';
 import styled from 'styled-components';
-import { useRef, useEffect } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
 import { object, string, number, date } from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTransaction, editTransaction } from 'redux/operations';
+import { addTransaction } from 'redux/operations';
+import {
+  selectFinanceError,
+  selectIsModalOpen,
+  selectModalType,
+} from 'redux/Finance/financeSelectors';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { toggleModal } from 'redux/Finance/financeSlice';
+
+// const defaultState = {
+//   type: true,
+//   category: '',
+//   amount: '',
+//   transactionDate: new Date(Date.now()),
+//   comment: '',
+// };
+// selectIsModalOpen
 
 export const validationSchema = object().shape({
   transactionDate: date().required('Data is a required field'),
@@ -17,30 +32,36 @@ export const validationSchema = object().shape({
 });
 
 export const ModalMain = () => {
-  const typeOfModal = 'edit';
+  const isModalOpen = useSelector(selectIsModalOpen);
+  const typeOfModal = useSelector(selectModalType)
+
+  const error = useSelector(selectFinanceError);
+
   const dispatch = useDispatch();
 
-  const [isModalAddTransactionOpen, setIsModalAddTransactionOpen] =
-    useState(true);
+  // const [isModalAddTransactionOpen, setIsModalAddTransactionOpen] = useState(true);
   // const [Categories, setCategories] = useState([]);
 
-  const overlay = useRef();
+  // const overlay = useRef();
 
-  const onModalClose = () => {
-    setIsModalAddTransactionOpen(!isModalAddTransactionOpen);
+  const onModalClose = (e) => {
+    dispatch(toggleModal())
   };
+
   const closeModalBackdrop = event => {
-    if (event.target === event.currentTarget) {
+    if (event.currentTarget === event.target) {
       onModalClose();
+    event.resetForm();
     }
   };
   const handlePressKey = event => {
     if (event.code === 'Escape') {
       onModalClose();
+    event.resetForm();
     }
   };
 
-  const handleSubmitFormAdd = values => {
+  const handleSubmitForm = values => {
     dispatch(
       addTransaction({
         transactionDate: values.transactionDate,
@@ -50,38 +71,26 @@ export const ModalMain = () => {
         amount: values.type ? Number(values.amount) : -Number(values.amount),
       })
     );
-
-    // if (error) {
-    //   toast.error('Oops...something is wrong, try again!');
-    // }
-    // resetForm();
+    if (error) {
+      toast.error('Oops...something is wrong, try again!');
+    }
 
     // setTransaction({
     //   ...transaction,
     //   comment: evt.target.elements.comment.value,
     // });
   };
-  // <<<============transactionId?????============>>>
-  const handleSubmitFormEdit = values => {
-    dispatch(
-      editTransaction({
-        transactionId: values.transactionDate,
-        comment: values.comment,
-        amount: values.type ? Number(values.amount) : -Number(values.amount),
-      })
-    );
-  };
 
-  useEffect(() => {
-    overlay.current.focus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   overlay.current.focus();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <>
-      {isModalAddTransactionOpen && (
+      {isModalOpen && (
         <ModalBackdrop
-          ref={overlay}
+          // ref={overlay}
           tabIndex={-1}
           onKeyDown={handlePressKey}
           onClick={closeModalBackdrop}
@@ -93,10 +102,10 @@ export const ModalMain = () => {
               </IconContext.Provider>
             </ButtonClose>
             {typeOfModal === 'add' && (
-              <ModalAdd handleSubmitForm={handleSubmitFormAdd} />
+              <ModalAdd handleSubmitForm={handleSubmitForm} />
             )}
             {typeOfModal === 'edit' && (
-              <ModalEdit handleSubmitForm={handleSubmitFormEdit} />
+              <ModalEdit handleSubmitForm={handleSubmitForm} />
             )}
             <ModalButtonCancel type="button" onClick={onModalClose}>
               CANCEL
@@ -131,7 +140,6 @@ const ModalBody = styled.div`
   background-color: #fff;
   border-radius: 20px;
   padding: 40px 75px;
-  width: 540px;
   @media screen and (max-width: 768px) {
     width: 100%;
     height: 100%;
