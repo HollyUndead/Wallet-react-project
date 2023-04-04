@@ -1,9 +1,7 @@
-/* eslint-disable */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchTransactionSummary } from 'redux/operations';
 import styled from 'styled-components';
-import './DropDown.css';
 
 let listOfYears = [];
 const listOfMonth = [
@@ -29,71 +27,163 @@ export const DropDown = () => {
   const date = new Date();
   const [selectedMonth, setSelectedMonth] = useState(date.getMonth());
   const [selectedYear, setSelectedYear] = useState(date.getFullYear());
+  const [isMonthDropdownOpen, setIsMonthDropdownOpen] = useState(false);
+  const [isYearDropdownOpen, setIsYearDropdownOpen] = useState(false);
   const dispatch = useDispatch();
+  const monthDropdownRef = useRef(null);
+  const yearDropdownRef = useRef(null);
 
   useEffect(() => {
     dispatch(
       fetchTransactionSummary({ year: selectedYear, month: selectedMonth + 1 })
     );
+    // eslint-disable-next-line
   }, [selectedMonth, selectedYear]);
+
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (
+        monthDropdownRef.current &&
+        !monthDropdownRef.current.contains(event.target) &&
+        isMonthDropdownOpen
+      ) {
+        setIsMonthDropdownOpen(false);
+      }
+      if (
+        yearDropdownRef.current &&
+        !yearDropdownRef.current.contains(event.target) &&
+        isYearDropdownOpen
+      ) {
+        setIsYearDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+    // eslint-disable-next-line
+  }, [
+    monthDropdownRef,
+    yearDropdownRef,
+    isMonthDropdownOpen,
+    isYearDropdownOpen,
+  ]);
+
+  const toggleMonthDropdown = () => {
+    setIsMonthDropdownOpen(!isMonthDropdownOpen);
+  };
+
+  const toggleYearDropdown = () => {
+    setIsYearDropdownOpen(!isYearDropdownOpen);
+  };
 
   return (
     <DropDownWrap>
-      <DropDownSelect
-        className="custom-select"
-        name="month"
-        defaultValue={selectedMonth}
-        onChange={e => {
-          setSelectedMonth(Number(e.target.value));
-          fetch();
-        }}
-      >
-        {listOfMonth.map((month, index) => {
-          return (
-            <Option key={index} value={index}>
-              {month}
-            </Option>
-          );
-        })}
-      </DropDownSelect>
+      <DropDownButton onClick={toggleMonthDropdown}>
+        {listOfMonth[selectedMonth]}
+        {isMonthDropdownOpen ? (
+          <DropDownList ref={monthDropdownRef}>
+            {listOfMonth.map((month, index) => (
+              <DropDownItem
+                key={index}
+                onClick={() => {
+                  setSelectedMonth(index);
+                  setIsMonthDropdownOpen(false);
+                }}
+              >
+                {month}
+              </DropDownItem>
+            ))}
+          </DropDownList>
+        ) : null}
+      </DropDownButton>
 
-      <DropDownSelect
-        className="custom-select"
-        name="year"
-        defaultValue={selectedYear}
-        onChange={e => {
-          setSelectedYear(Number(e.target.value));
-        }}
-      >
-        {listOfYears.map((year, index) => {
-          return (
-            <option key={index} value={year}>
-              {year}
-            </option>
-          );
-        })}
-      </DropDownSelect>
+      <DropDownButton onClick={toggleYearDropdown}>
+        {selectedYear}
+        {isYearDropdownOpen ? (
+          <DropDownList ref={yearDropdownRef}>
+            {listOfYears.map((year, index) => (
+              <DropDownItem
+                key={index}
+                onClick={() => {
+                  setSelectedYear(year);
+                  setIsYearDropdownOpen(false);
+                }}
+              >
+                {year}
+              </DropDownItem>
+            ))}
+          </DropDownList>
+        ) : null}
+      </DropDownButton>
     </DropDownWrap>
   );
 };
 
-const Option = styled.option`
-  border: 10px solid red;
-`;
-
 const DropDownWrap = styled.div`
   display: flex;
-  gap: 15px;
+  gap: 32px;
   justify-content: center;
   align-items: center;
   @media screen and (max-width: 767px) {
     margin-top: 32px;
   }
 `;
-
-const DropDownSelect = styled.select`
-  width: 150px;
-  height: 60px;
+const DropDownButton = styled.button`
+  position: relative;
   border-radius: 30px;
   background-color: transparent;
+  width: 182px;
+  height: 50px;
+  border: 1px solid #000000;
+  font-family: 'Circe';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #000000;
+`;
+const DropDownList = styled.div`
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  left: -1px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(25px);
+
+  border-radius: 20px;
+  gap: 6px;
+  max-width: 300px;
+
+  max-height: 165px;
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const DropDownItem = styled.span`
+  font-family: 'Circe';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  color: #000000;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  height: 28px;
+  &:hover {
+    background: #ffffff;
+    border-radius: 30px;
+  }
 `;
