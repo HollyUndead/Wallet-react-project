@@ -6,8 +6,7 @@ import Checkbox from './Checkbox';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import moment from 'moment';
-import { BsFillCaretDownFill } from 'react-icons/bs';
-
+import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
 import Icons from 'images/icons.svg';
 
 import { fetchTransactionCategories } from '../../../redux/operations.js';
@@ -19,7 +18,8 @@ import { toggleModal } from 'redux/Finance/financeSlice';
 const ModalAdd = ({ handleSubmitForm }) => {
   const [checked, setChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCategorie, setSelectedCategorie] = useState('Select a category');
+  const [selectedCategorie, setSelectedCategorie] =
+    useState('Select a category');
   const [isCategorieDropdownOpen, setIsCatgorieDropdownOpen] = useState(false);
   const categorieDropdownRef = useRef(null);
 
@@ -40,7 +40,8 @@ const ModalAdd = ({ handleSubmitForm }) => {
       if (
         categorieDropdownRef.current &&
         !categorieDropdownRef.current.contains(event.target) &&
-        isCategorieDropdownOpen
+        isCategorieDropdownOpen &&
+        event.target.className.indexOf('categorieDropDown') === -1
       ) {
         setIsCatgorieDropdownOpen(false);
       }
@@ -51,10 +52,10 @@ const ModalAdd = ({ handleSubmitForm }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [categorieDropdownRef, isCategorieDropdownOpen]);
+  });
 
-  const toggleCategorieDropdown = () => {
-    setIsCatgorieDropdownOpen(!isCategorieDropdownOpen);
+  const toggleCategorieDropdown = e => {
+    return setIsCatgorieDropdownOpen(!isCategorieDropdownOpen);
   };
 
   const handleChange = () => {
@@ -86,7 +87,6 @@ const ModalAdd = ({ handleSubmitForm }) => {
 
   return (
     <ModalBox>
-
       <ModalTitle>Add transactions</ModalTitle>
 
       <Formik
@@ -121,14 +121,15 @@ const ModalAdd = ({ handleSubmitForm }) => {
               />
             </StyledCheckbox>
             <StyledForm>
-              {!checked && (
+              {!checked ? (
                 <DropDownWrap>
                   <DropDownButton
                     type="button"
                     onClick={toggleCategorieDropdown}
+                    className="categorieDropDown"
                   >
                     {selectedCategorie}
-                    <ArrowDown />
+                    {isCategorieDropdownOpen ? <ArrowUp /> : <ArrowDown />}
                     {isCategorieDropdownOpen ? (
                       <DropDownList ref={categorieDropdownRef}>
                         {Categories.filter(
@@ -152,6 +153,8 @@ const ModalAdd = ({ handleSubmitForm }) => {
                     ) : null}
                   </DropDownButton>
                 </DropDownWrap>
+              ) : (
+                <Empty></Empty>
               )}
 
               <DataBox>
@@ -197,7 +200,16 @@ const ModalAdd = ({ handleSubmitForm }) => {
 
 export default ModalAdd;
 
-export const ArrowDown = styled(BsFillCaretDownFill)`
+const Empty = styled.div`
+  height: 70px;
+  width: 100%;
+`;
+
+export const ArrowDown = styled(SlArrowDown)`
+  margin-left: auto;
+`;
+
+export const ArrowUp = styled(SlArrowUp)`
   margin-left: auto;
 `;
 
@@ -304,6 +316,7 @@ export const Icon = styled.svg`
 
 const ModalBox = styled.div`
   width: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -416,6 +429,6 @@ export const Span = styled.span`
 `;
 
 const StyledDatetime = styled(Datetime)`
-    font-size: 14px;
-    color: #4A56E2;
+  font-size: 14px;
+  color: #4a56e2;
 `;
