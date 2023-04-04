@@ -43,13 +43,10 @@ export const DropDown = () => {
 
   useEffect(() => {
     const handleClickOutside = event => {
-      // console.log(111);
-      console.log();
       if (
         monthDropdownRef.current &&
         !monthDropdownRef.current.contains(event.target) &&
-        isMonthDropdownOpen &&
-        event.target.className.indexOf('monthDropDown') === -1
+        isMonthDropdownOpen
       ) {
         setIsMonthDropdownOpen(false);
       }
@@ -57,8 +54,7 @@ export const DropDown = () => {
       if (
         yearDropdownRef.current &&
         !yearDropdownRef.current.contains(event.target) &&
-        isYearDropdownOpen &&
-        event.target.className.indexOf('yearDropDown') === -1
+        isYearDropdownOpen
       ) {
         setIsYearDropdownOpen(false);
       }
@@ -81,11 +77,11 @@ export const DropDown = () => {
 
   return (
     <DropDownWrap>
-      <DropDownButton className="monthDropDown" onClick={toggleMonthDropdown}>
+      <DropDownButton ref={monthDropdownRef} onClick={toggleMonthDropdown}>
         {listOfMonth[selectedMonth]}
         {isMonthDropdownOpen ? <SlArrowUp /> : <SlArrowDown />}
         {isMonthDropdownOpen ? (
-          <DropDownList ref={monthDropdownRef}>
+          <DropDownList>
             {listOfMonth.map((month, index) => (
               <DropDownItem
                 key={index}
@@ -101,11 +97,11 @@ export const DropDown = () => {
         ) : null}
       </DropDownButton>
 
-      <DropDownButton className="yearDropDown" onClick={toggleYearDropdown}>
+      <DropDownButton ref={yearDropdownRef} onClick={toggleYearDropdown}>
         {selectedYear}
         {isYearDropdownOpen ? <SlArrowUp /> : <SlArrowDown />}
         {isYearDropdownOpen ? (
-          <DropDownList ref={yearDropdownRef}>
+          <DropDownList>
             {listOfYears.map((year, index) => (
               <DropDownItem
                 key={index}
