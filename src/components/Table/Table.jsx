@@ -19,9 +19,8 @@ const Table = ({ colors }) => {
               CategorySummary.categoriesSummary.map((el, index) => {
                 if (el.type !== 'INCOME') {
                   const color = colors[index];
-                  console.log(color);
                   return (
-                    <LiItem>
+                    <LiItem key={index}>
                       <ColorWrpaDiv>
                         <ColorDiv
                           color={color}

@@ -1,11 +1,12 @@
 import { Formik, Form, ErrorMessage, Field } from 'formik';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { validationSchema } from '../ModalMain/ModalMain';
 import Checkbox from './Checkbox';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import moment from 'moment';
+import { BsFillCaretDownFill } from 'react-icons/bs';
 
 import Icons from 'images/icons.svg';
 
@@ -19,6 +20,11 @@ import { toggleModal } from 'redux/Finance/financeSlice';
 const ModalAdd = ({ handleSubmitForm }) => {
   const [checked, setChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedCategorie, setSelectedCategorie] =
+    useState('Select a category');
+  const [isCategorieDropdownOpen, setIsCatgorieDropdownOpen] = useState(false);
+  const categorieDropdownRef = useRef(null);
+
   const [transactionDate, setTransactionDate] = useState(() => {
     const date = new Date();
     return moment(date.toISOString());
@@ -31,6 +37,29 @@ const ModalAdd = ({ handleSubmitForm }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const Categories = useSelector(selectTransactionCategories);
+
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (
+        categorieDropdownRef.current &&
+        !categorieDropdownRef.current.contains(event.target) &&
+        isCategorieDropdownOpen
+      ) {
+        setIsCatgorieDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+    // eslint-disable-next-line
+  }, [categorieDropdownRef, isCategorieDropdownOpen]);
+
+  const toggleCategorieDropdown = () => {
+    setIsCatgorieDropdownOpen(!isCategorieDropdownOpen);
+  };
 
   const handleChange = () => {
     setChecked(!checked);
@@ -76,9 +105,11 @@ const ModalAdd = ({ handleSubmitForm }) => {
                 type="checkbox"
                 checked={checked}
                 onChange={() => {
+                  setSelectedCategorie('Select a category');
                   handleChange();
                   setFieldValue('type', !checked);
                   if (!checked) {
+                    setSelectedCategorie('Income');
                     setFieldValue(
                       'categoryId',
                       Categories[Categories.length - 1].id
@@ -88,38 +119,40 @@ const ModalAdd = ({ handleSubmitForm }) => {
               />
             </StyledCheckbox>
             <StyledForm>
-              <StyledSelectField
-                name="categoryId"
-                placeholder="Select a category"
-                as="select"
-                onChange={event => {
-                  setFieldValue('categoryId', event.target.value);
-                }}
-              >
-                {!checked && <option value="">Select category</option>}
+              {!checked && (
+                <DropDownWrap>
+                  <DropDownButton
+                    type="button"
+                    onClick={toggleCategorieDropdown}
+                  >
+                    {selectedCategorie}
+                    <ArrowDown />
+                    {isCategorieDropdownOpen ? (
+                      <DropDownList ref={categorieDropdownRef}>
+                        {Categories.filter(
+                          Categorie => Categorie.type === 'EXPENSE'
+                        ).map(categorie => {
+                          return (
+                            <DropDownItem
+                              key={categorie.id}
+                              onClick={() => {
+                                toggleCategorieDropdown();
+                                setSelectedCategorie(categorie.name);
+                                setFieldValue('type', categorie.type);
+                                setFieldValue('categoryId', categorie.id);
+                              }}
+                            >
+                              {categorie.name}
+                            </DropDownItem>
+                          );
+                        })}
+                      </DropDownList>
+                    ) : null}
+                  </DropDownButton>
+                </DropDownWrap>
+              )}
 
-                {!checked &&
-                  Categories.filter(
-                    Categorie => Categorie.type === 'EXPENSE'
-                  ).map(Categorie => {
-                    return (
-                      <option key={Categorie.id} value={Categorie.id}>
-                        {Categorie.name}
-                      </option>
-                    );
-                  })}
-                {checked &&
-                  Categories.filter(
-                    Categorie => Categorie.type === 'INCOME'
-                  ).map(Categorie => {
-                    return (
-                      <option key={Categorie.id} value={Categorie.id}>
-                        {Categorie.name}
-                      </option>
-                    );
-                  })}
-              </StyledSelectField>
-              <ErrorMessage name="category" />
+              {/* <ErrorMessage name="category" /> */}
               <DataBox>
                 <StyledAmountField name="amount" placeholder="0.00" />
                 <ErrorMessage name="amount" />
@@ -163,6 +196,10 @@ const ModalAdd = ({ handleSubmitForm }) => {
 
 export default ModalAdd;
 
+export const ArrowDown = styled(BsFillCaretDownFill)`
+  margin-left: auto;
+`;
+
 export const ModalButtonAdd = styled.button`
   width: 300px;
   height: 50px;
@@ -188,19 +225,19 @@ export const ModalButtonAdd = styled.button`
   }
 `;
 
-const StyledSelectField = styled(Field)`
-  width: 394px;
-  height: 30px;
-  margin-bottom: 40px;
-  border: none;
-  border-bottom: 1px solid #e0e0e0;
-  &:focus-visible {
-    outline: none;
-  }
-  @media screen and (max-width: 768px) {
-    width: 270px;
-  }
-`;
+// const StyledSelectField = styled(Field)`
+//   width: 394px;
+//   height: 30px;
+//   margin-bottom: 40px;
+//   border: none;
+//   border-bottom: 1px solid #e0e0e0;
+//   &:focus-visible {
+//     outline: none;
+//   }
+//   @media screen and (max-width: 768px) {
+//     width: 270px;
+//   }
+// `;
 
 const StyledCommentField = styled(Field)`
   width: 394px;
@@ -309,4 +346,77 @@ const ModalTitle = styled.h2`
   font-weight: 400;
   font-size: 30px;
   line-height: 1.35;
+`;
+
+const DropDownWrap = styled.div`
+  position: relative;
+`;
+
+const DropDownButton = styled.button`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  text-align: left;
+  width: 394px;
+  height: 30px;
+  margin-bottom: 40px;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: transparent;
+  font-family: 'Circe';
+  font-size: 18px;
+  color: #000000;
+  @media screen and (max-width: 768px) {
+    width: 270px;
+  }
+`;
+
+const DropDownList = styled.div`
+box-sizing: border-box;
+ padding 5px 20px;
+  position: absolute;
+  width: 100%;
+  height: 280px;
+  top: 30px;
+  left: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.7);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 15px;
+  backdrop-filter: blur(25px);
+
+  border-radius: 20px;
+  gap: 6px;
+
+  overflow-y: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 394px; 
+  }
+`;
+
+const DropDownItem = styled.span`
+  font-family: 'Circe';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  padding-left: 5px;
+  padding-top: 3px;
+
+  color: #000000;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  height: 28px;
+  &:hover {
+    background: #ffffff;
+    border-radius: 30px;
+    color: #ff6596;
+  }
 `;

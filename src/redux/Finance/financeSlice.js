@@ -97,8 +97,12 @@ const financeSlice = createSlice({
       const index = state.transactions.findIndex(
         transaction => transaction.id === action.payload.id
       );
+      state.totalBalance =
+        state.totalBalance - state.transactions[index].amount;
       state.transactions[index].comment = action.payload.comment;
       state.transactions[index].amount = action.payload.amount;
+      state.totalBalance =
+        state.totalBalance + state.transactions[index].amount;
     },
     [fetchTransactionCategories.fulfilled](state, action) {
       state.isLoading = false;

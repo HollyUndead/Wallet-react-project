@@ -30,7 +30,7 @@ const DashboardPage = () => {
   });
   const openModalAdd = () => {
     dispatch(toggleModal());
-    dispatch(setModalType('add'))
+    dispatch(setModalType('add'));
   };
 
   return (
@@ -75,10 +75,24 @@ const DashboardPage = () => {
           })}
         </Ul>
       )}
-      <AddIconWrap onClick={openModalAdd} />
+      <AddIconWrap>
+        <ButtonIcon onClick={openModalAdd} />
+      </AddIconWrap>
     </DashboardContainer>
   );
 };
+
+const ButtonIcon = styled(AiFillPlusCircle)`
+  width: 44px;
+  height: 44px;
+  fill: #24cca7;
+  &:hover {
+    fill: #4a56e2;
+  }
+  &:active {
+    fill: #4a56e2;
+  }
+`;
 
 const DashboardContainer = styled.div`
   padding-top: 15px;
@@ -168,22 +182,24 @@ const ThButtons = styled.th`
   color: transparent;
 `;
 
-const AddIconWrap = styled(AiFillPlusCircle)`
+const AddIconWrap = styled.div`
+  box-sizing: border-box;
   cursor: pointer;
   background-color: white;
   border-radius: 50%;
   width: 44px;
   height: 44px;
-  fill: #24cca7;
   position: absolute;
   right: 40px;
   bottom: 40px;
+  padding: 0;
+  border: 0;
   @media screen and (max-width: 767px) {
     position: sticky;
     left: calc(100vh - 40px);
   }
-  &:hover {
-    fill: #ff6596;
+  &:active {
+    outline: 3px solid black;
   }
 `;
 

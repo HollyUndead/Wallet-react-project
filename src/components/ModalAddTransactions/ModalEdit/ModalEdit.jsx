@@ -37,7 +37,8 @@ const ModalAdd = ({ handleSubmitForm }) => {
   const handleClick = e => {};
 
   const onSubmit = values => {
-    values.amount = Number(values.amount);
+    values.amount =
+      values.type === 'INCOME' ? Number(values.amount) : -Number(values.amount);
     dispatch(editTransaction({ id: id, transaction: values }));
     dispatch(toggleModal());
   };
