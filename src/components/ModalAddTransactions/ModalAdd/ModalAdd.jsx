@@ -40,6 +40,8 @@ const ModalAdd = ({ handleSubmitForm }) => {
 
   useEffect(() => {
     const handleClickOutside = event => {
+      console.log(event.currentTarget);
+      // console.log(categorieDropdownRef);
       if (
         categorieDropdownRef.current &&
         !categorieDropdownRef.current.contains(event.target) &&
@@ -55,10 +57,15 @@ const ModalAdd = ({ handleSubmitForm }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
     // eslint-disable-next-line
-  }, [categorieDropdownRef, isCategorieDropdownOpen]);
+  }, [categorieDropdownRef]);
 
-  const toggleCategorieDropdown = () => {
-    setIsCatgorieDropdownOpen(!isCategorieDropdownOpen);
+  const toggleCategorieDropdown = e => {
+    if (isCategorieDropdownOpen) {
+      return setIsCatgorieDropdownOpen(false);
+    }
+    if (!isCategorieDropdownOpen) {
+      return setIsCatgorieDropdownOpen(true);
+    }
   };
 
   const handleChange = () => {
@@ -82,7 +89,7 @@ const ModalAdd = ({ handleSubmitForm }) => {
     props.resetForm();
   };
   return (
-    <ModalBox>
+    <ModalBox onClick={toggleCategorieDropdown}>
       <ToastContainer />
 
       <ModalTitle>Add transactions</ModalTitle>
@@ -119,11 +126,17 @@ const ModalAdd = ({ handleSubmitForm }) => {
               />
             </StyledCheckbox>
             <StyledForm>
-              {!checked && (
-                <DropDownWrap>
+              {!checked ? (
+                <DropDownWrap
+                // onClick={e => {
+                //   toggleCategorieDropdown(e);
+                // }}
+                >
                   <DropDownButton
                     type="button"
-                    onClick={toggleCategorieDropdown}
+                    onClick={e => {
+                      toggleCategorieDropdown(e);
+                    }}
                   >
                     {selectedCategorie}
                     <ArrowDown />
@@ -150,6 +163,8 @@ const ModalAdd = ({ handleSubmitForm }) => {
                     ) : null}
                   </DropDownButton>
                 </DropDownWrap>
+              ) : (
+                <Empty></Empty>
               )}
 
               {/* <ErrorMessage name="category" /> */}
@@ -196,6 +211,11 @@ const ModalAdd = ({ handleSubmitForm }) => {
 
 export default ModalAdd;
 
+const Empty = styled.div`
+  height: 70px;
+  width: 100%;
+`;
+
 export const ArrowDown = styled(BsFillCaretDownFill)`
   margin-left: auto;
 `;
@@ -224,20 +244,6 @@ export const ModalButtonAdd = styled.button`
     transform: scale(1.02);
   }
 `;
-
-// const StyledSelectField = styled(Field)`
-//   width: 394px;
-//   height: 30px;
-//   margin-bottom: 40px;
-//   border: none;
-//   border-bottom: 1px solid #e0e0e0;
-//   &:focus-visible {
-//     outline: none;
-//   }
-//   @media screen and (max-width: 768px) {
-//     width: 270px;
-//   }
-// `;
 
 const StyledCommentField = styled(Field)`
   width: 394px;
@@ -324,6 +330,7 @@ export const Icon = styled.svg`
 
 const ModalBox = styled.div`
   width: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -372,8 +379,8 @@ const DropDownButton = styled.button`
 `;
 
 const DropDownList = styled.div`
-box-sizing: border-box;
- padding 5px 20px;
+  box-sizing: border-box;
+  padding: 5px 20px;
   position: absolute;
   width: 100%;
   height: 280px;
@@ -383,7 +390,7 @@ box-sizing: border-box;
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.7);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 15px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 15px;
   backdrop-filter: blur(25px);
 
   border-radius: 20px;
@@ -395,7 +402,7 @@ box-sizing: border-box;
   }
 
   @media screen and (min-width: 768px) {
-    width: 394px; 
+    width: 394px;
   }
 `;
 
