@@ -6,17 +6,8 @@ import { useRef, useEffect } from 'react';
 import { IoCloseOutline } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
 import { object, string, number, date } from 'yup';
-import { useDispatch } from 'react-redux';
-import { addTransaction } from 'redux/operations';
-
-
-// const defaultState = {
-//   type: true,
-//   category: '',
-//   amount: '',
-//   transactionDate: new Date(Date.now()),
-//   comment: '',
-// };
+import { useDispatch, useSelector } from 'react-redux';
+import { addTransaction, editTransaction } from 'redux/operations';
 
 export const validationSchema = object().shape({
   transactionDate: date().required('Data is a required field'),
@@ -26,8 +17,8 @@ export const validationSchema = object().shape({
 });
 
 export const ModalMain = () => {
-  const typeOfModal = 'add';
-  const dispatch = useDispatch()
+  const typeOfModal = 'edit';
+  const dispatch = useDispatch();
 
   const [isModalAddTransactionOpen, setIsModalAddTransactionOpen] =
     useState(true);
@@ -49,28 +40,36 @@ export const ModalMain = () => {
     }
   };
 
-  const handleSubmitForm = (values) => {
+  const handleSubmitFormAdd = values => {
     dispatch(
       addTransaction({
-        transactionDate:values.transactionDate,
+        transactionDate: values.transactionDate,
         type: values.type ? 'INCOME' : 'EXPENSE',
         categoryId: values.categoryId,
         comment: values.comment,
-        amount: values.type
-          ? Number(values.amount)
-          : -Number(values.amount),
+        amount: values.type ? Number(values.amount) : -Number(values.amount),
       })
     );
+
     // if (error) {
     //   toast.error('Oops...something is wrong, try again!');
     // }
     // resetForm();
-  
 
     // setTransaction({
     //   ...transaction,
     //   comment: evt.target.elements.comment.value,
     // });
+  };
+  // <<<============transactionId?????============>>>
+  const handleSubmitFormEdit = values => {
+    dispatch(
+      editTransaction({
+        transactionId: values.transactionDate,
+        comment: values.comment,
+        amount: values.type ? Number(values.amount) : -Number(values.amount),
+      })
+    );
   };
 
   useEffect(() => {
@@ -94,10 +93,10 @@ export const ModalMain = () => {
               </IconContext.Provider>
             </ButtonClose>
             {typeOfModal === 'add' && (
-              <ModalAdd handleSubmitForm={handleSubmitForm} />
+              <ModalAdd handleSubmitForm={handleSubmitFormAdd} />
             )}
             {typeOfModal === 'edit' && (
-              <ModalEdit handleSubmitForm={handleSubmitForm} />
+              <ModalEdit handleSubmitForm={handleSubmitFormEdit} />
             )}
             <ModalButtonCancel type="button" onClick={onModalClose}>
               CANCEL
