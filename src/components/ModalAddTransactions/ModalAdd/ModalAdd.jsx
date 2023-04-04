@@ -48,9 +48,9 @@ const ModalAdd = ({ handleSubmitForm }) => {
 
   const onSubmit = (values, props) => {
     handleSubmitForm({ ...values, type: checked });
-  
-    dispatch(toggleModal())
-    props.resetForm()
+
+    dispatch(toggleModal());
+    props.resetForm();
   };
   return (
     <ModalBox>
@@ -67,7 +67,6 @@ const ModalAdd = ({ handleSubmitForm }) => {
           comment: '',
         }}
         onSubmit={onSubmit}
-
         validationSchema={validationSchema}
       >
         {({ isSubmitting, setFieldValue }) => (
@@ -262,8 +261,7 @@ export const InputData = styled.input`
   @media screen and (min-width: 768px) {
     width: 181px;
     margin-top: 0;
-  margin-left: 32px;
-
+    margin-left: 32px;
   }
   &:focus-visible {
     outline: none;
@@ -276,7 +274,7 @@ export const Icon = styled.svg`
   height: 20px;
   width: 18px;
   top: 52px;
-    right: 70px;
+  right: 70px;
   @media screen and (min-width: 768px) {
     top: -4px;
     right: 20px;

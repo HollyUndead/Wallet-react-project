@@ -96,11 +96,9 @@ const ModalAdd = ({ handleSubmitForm }) => {
                 <StyledAmountField name="amount" placeholder="0.00" />
                 <ErrorMessage name="amount" />
                 <Datetime
-                  // open={isOpen}
                   timeFormat={false}
                   name="transactionDate"
                   value={transactionDate}
-                  // id="date"
                   type="date"
                   // closeOnSelect={true}
                   // closeOnClickOutside={true}
