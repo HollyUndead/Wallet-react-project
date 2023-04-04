@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchTransactionSummary } from 'redux/operations';
+import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
 import styled from 'styled-components';
 
 let listOfYears = [];
@@ -19,7 +20,7 @@ const listOfMonth = [
   'December',
 ];
 let curYear = new Date().getFullYear();
-for (let i = 2000; i <= curYear; i += 1) {
+for (let i = 2017; i <= curYear; i += 1) {
   listOfYears.push(i);
 }
 
@@ -42,34 +43,33 @@ export const DropDown = () => {
 
   useEffect(() => {
     const handleClickOutside = event => {
+      // console.log(111);
+      console.log();
       if (
         monthDropdownRef.current &&
         !monthDropdownRef.current.contains(event.target) &&
-        isMonthDropdownOpen
+        isMonthDropdownOpen &&
+        event.target.className.indexOf('monthDropDown') === -1
       ) {
         setIsMonthDropdownOpen(false);
       }
+
       if (
         yearDropdownRef.current &&
         !yearDropdownRef.current.contains(event.target) &&
-        isYearDropdownOpen
+        isYearDropdownOpen &&
+        event.target.className.indexOf('yearDropDown') === -1
       ) {
         setIsYearDropdownOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
     // eslint-disable-next-line
-  }, [
-    monthDropdownRef,
-    yearDropdownRef,
-    isMonthDropdownOpen,
-    isYearDropdownOpen,
-  ]);
+  });
 
   const toggleMonthDropdown = () => {
     setIsMonthDropdownOpen(!isMonthDropdownOpen);
@@ -81,8 +81,9 @@ export const DropDown = () => {
 
   return (
     <DropDownWrap>
-      <DropDownButton onClick={toggleMonthDropdown}>
+      <DropDownButton className="monthDropDown" onClick={toggleMonthDropdown}>
         {listOfMonth[selectedMonth]}
+        {isMonthDropdownOpen ? <SlArrowUp /> : <SlArrowDown />}
         {isMonthDropdownOpen ? (
           <DropDownList ref={monthDropdownRef}>
             {listOfMonth.map((month, index) => (
@@ -100,8 +101,9 @@ export const DropDown = () => {
         ) : null}
       </DropDownButton>
 
-      <DropDownButton onClick={toggleYearDropdown}>
+      <DropDownButton className="yearDropDown" onClick={toggleYearDropdown}>
         {selectedYear}
+        {isYearDropdownOpen ? <SlArrowUp /> : <SlArrowDown />}
         {isYearDropdownOpen ? (
           <DropDownList ref={yearDropdownRef}>
             {listOfYears.map((year, index) => (
@@ -133,6 +135,9 @@ const DropDownWrap = styled.div`
 `;
 const DropDownButton = styled.button`
   position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   border-radius: 30px;
   background-color: transparent;
   width: 182px;
