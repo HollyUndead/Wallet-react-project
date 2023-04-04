@@ -76,7 +76,6 @@ const ModalAdd = ({ handleSubmitForm }) => {
   };
 
   const onSubmit = (values, props) => {
-    console.log(values);
     handleSubmitForm({ ...values, type: checked });
 
     dispatch(toggleModal());
