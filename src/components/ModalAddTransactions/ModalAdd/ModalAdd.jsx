@@ -6,7 +6,7 @@ import Checkbox from './Checkbox';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import moment from 'moment';
-import { BsFillCaretDownFill } from 'react-icons/bs';
+import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
 
 import Icons from 'images/icons.svg';
 
@@ -38,12 +38,12 @@ const ModalAdd = ({ handleSubmitForm }) => {
 
   useEffect(() => {
     const handleClickOutside = event => {
-      console.log(event.currentTarget);
       // console.log(categorieDropdownRef);
       if (
         categorieDropdownRef.current &&
         !categorieDropdownRef.current.contains(event.target) &&
-        isCategorieDropdownOpen
+        isCategorieDropdownOpen &&
+        event.target.className.indexOf('categorieDropDown') === -1
       ) {
         setIsCatgorieDropdownOpen(false);
       }
@@ -54,15 +54,10 @@ const ModalAdd = ({ handleSubmitForm }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [categorieDropdownRef, isCategorieDropdownOpen]);
+  });
 
   const toggleCategorieDropdown = e => {
-    if (isCategorieDropdownOpen) {
-      return setIsCatgorieDropdownOpen(false);
-    }
-    if (!isCategorieDropdownOpen) {
-      return setIsCatgorieDropdownOpen(true);
-    }
+    return setIsCatgorieDropdownOpen(!isCategorieDropdownOpen);
   };
 
   const handleChange = () => {
@@ -129,19 +124,14 @@ const ModalAdd = ({ handleSubmitForm }) => {
             </StyledCheckbox>
             <StyledForm>
               {!checked ? (
-                <DropDownWrap
-                // onClick={e => {
-                //   toggleCategorieDropdown(e);
-                // }}
-                >
+                <DropDownWrap>
                   <DropDownButton
                     type="button"
-                    onClick={e => {
-                      toggleCategorieDropdown(e);
-                    }}
+                    onClick={toggleCategorieDropdown}
+                    className="categorieDropDown"
                   >
                     {selectedCategorie}
-                    <ArrowDown />
+                    {isCategorieDropdownOpen ? <ArrowUp /> : <ArrowDown />}
                     {isCategorieDropdownOpen ? (
                       <DropDownList ref={categorieDropdownRef}>
                         {Categories.filter(
@@ -217,7 +207,11 @@ const Empty = styled.div`
   width: 100%;
 `;
 
-export const ArrowDown = styled(BsFillCaretDownFill)`
+export const ArrowDown = styled(SlArrowDown)`
+  margin-left: auto;
+`;
+
+export const ArrowUp = styled(SlArrowUp)`
   margin-left: auto;
 `;
 

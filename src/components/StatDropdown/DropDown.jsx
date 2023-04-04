@@ -43,8 +43,6 @@ export const DropDown = () => {
 
   useEffect(() => {
     const handleClickOutside = event => {
-      // console.log(111);
-      console.log();
       if (
         monthDropdownRef.current &&
         !monthDropdownRef.current.contains(event.target) &&
