@@ -13,8 +13,7 @@ import Icons from 'images/icons.svg';
 import { fetchTransactionCategories } from '../../../redux/operations.js';
 import { selectTransactionCategories } from '../../../redux/Finance/financeSelectors.js';
 import { useSelector, useDispatch } from 'react-redux';
-// import { selectIsModalOpen } from 'redux/Auth/authSelector';
-import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { toggleModal } from 'redux/Finance/financeSlice';
 
 const ModalAdd = ({ handleSubmitForm }) => {
@@ -30,7 +29,6 @@ const ModalAdd = ({ handleSubmitForm }) => {
     return moment(date.toISOString());
   });
   const dispatch = useDispatch();
-  // selectIsModalOpen
 
   useEffect(() => {
     dispatch(fetchTransactionCategories());
@@ -56,8 +54,7 @@ const ModalAdd = ({ handleSubmitForm }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-    // eslint-disable-next-line
-  }, [categorieDropdownRef]);
+  }, [categorieDropdownRef, isCategorieDropdownOpen]);
 
   const toggleCategorieDropdown = e => {
     if (isCategorieDropdownOpen) {
@@ -83,15 +80,20 @@ const ModalAdd = ({ handleSubmitForm }) => {
   };
 
   const onSubmit = (values, props) => {
+    if (values.categoryId === '') {
+      return toast.error('select a category');
+    }
+
     handleSubmitForm({ ...values, type: checked });
 
     dispatch(toggleModal());
     props.resetForm();
   };
-  return (
-    <ModalBox onClick={toggleCategorieDropdown}>
-      <ToastContainer />
 
+  const renderError = message => <Span>{message}</Span>;
+
+  return (
+    <ModalBox>
       <ModalTitle>Add transactions</ModalTitle>
 
       <Formik
@@ -167,18 +169,17 @@ const ModalAdd = ({ handleSubmitForm }) => {
                 <Empty></Empty>
               )}
 
-              {/* <ErrorMessage name="category" /> */}
               <DataBox>
                 <StyledAmountField name="amount" placeholder="0.00" />
-                <ErrorMessage name="amount" />
-                <Datetime
+                <ErrorMessage name="amount" render={renderError} />
+
+                <StyledDatetime
                   open={isOpen}
                   timeFormat={false}
                   name="transactionDate"
                   value={transactionDate}
                   type="date"
                   // closeOnSelect={true}
-                  // closeOnClickOutside={true}
                   // maxDate={new Date()}
                   input={true}
                   selected={transactionDate}
@@ -253,9 +254,6 @@ const StyledCommentField = styled(Field)`
   border-bottom: 1px solid #e0e0e0;
   &:focus-visible {
     outline: none;
-
-    /* border-bottom: 1px solid var(--btn-teal-color);
-    background-color: var(--text-white-color); */
   }
   @media screen and (max-width: 768px) {
     width: 270px;
@@ -282,16 +280,12 @@ const StyledAmountField = styled(Field)`
   border: none;
   border-bottom: 1px solid #e0e0e0;
   text-align: center;
-  /* margin-right: 32px; */
   @media screen and (min-width: 768px) {
     width: 181px;
-    /* margin-right: 32px; */
     margin-bottom: 0;
   }
   &:focus-visible {
     outline: none;
-    /* border-bottom: 1px solid var(--btn-teal-color);
-    background-color: var(--text-white-color); */
   }
 `;
 
@@ -381,6 +375,7 @@ const DropDownButton = styled.button`
 const DropDownList = styled.div`
   box-sizing: border-box;
   padding: 5px 20px;
+  height: 300px;
   position: absolute;
   width: 100%;
   height: 280px;
@@ -426,4 +421,22 @@ const DropDownItem = styled.span`
     border-radius: 30px;
     color: #ff6596;
   }
+`;
+
+export const Span = styled.span`
+  color: red;
+  font-size: 12px;
+  margin: 4px 0;
+  position: absolute;
+  right: 127px;
+  top: 20px;
+  @media screen and (min-width: 768px) {
+    right: 232px;
+    top: 22px;
+  }
+`;
+
+const StyledDatetime = styled(Datetime)`
+  font-size: 14px;
+  color: #4a56e2;
 `;

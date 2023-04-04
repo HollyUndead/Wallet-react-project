@@ -1,13 +1,18 @@
 /* eslint-disable */
 import Chart from 'components/Chart/Chart';
 import { DropDown } from 'components/StatDropdown/DropDown';
+import { Loader } from '../components/Loader/Loader.jsx';
 import Table from 'components/Table/Table';
 import { useSelector } from 'react-redux';
-import { selectTransactionSummary } from 'redux/Finance/financeSelectors';
+import {
+  selectTransactionSummary,
+  selectFinanceIsLoading,
+} from 'redux/Finance/financeSelectors';
 import styled from 'styled-components';
 
 const SummaryPage = () => {
   const transactionSummary = useSelector(selectTransactionSummary);
+  const isLoading = useSelector(selectFinanceIsLoading);
   const getData = () => {
     let data, diference;
     if (transactionSummary.categoriesSummary !== undefined) {
@@ -37,15 +42,20 @@ const SummaryPage = () => {
     '#24CCA7',
     '#00AD84',
   ];
+
   return (
     <SummaryWraper>
       <div>
         <SummaryTitle>Statistics</SummaryTitle>
-        <Chart
-          diference={getData().diference}
-          data={getData().data}
-          colors={colors}
-        />
+        {!isLoading ? (
+          <Chart
+            diference={getData().diference}
+            data={getData().data}
+            colors={colors}
+          />
+        ) : (
+          <Loader />
+        )}
       </div>
       <TableWrap>
         <DropDownOnPage />
