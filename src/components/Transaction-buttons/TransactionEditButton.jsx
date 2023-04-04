@@ -18,6 +18,7 @@ export const TransactionEditButton = props => {
     dispatch(setModalType('edit'));
     dispatch(setEditModalTransactionId(props.id));
   };
+
   return (
     <Span onClick={handleTransactionEdit}>
       <PenSvg />

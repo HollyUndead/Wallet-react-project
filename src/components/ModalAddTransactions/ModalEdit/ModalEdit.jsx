@@ -12,6 +12,8 @@ import { fetchTransactionCategories } from '../../../redux/operations.js';
 import {
   selectTransactionCategories,
   selectEditModalTransactionId,
+  selectIsModalOpen,
+  selectTransactions,
 } from '../../../redux/Finance/financeSelectors.js';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -29,9 +31,12 @@ const ModalAdd = ({ handleSubmitForm }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const Categories = useSelector(selectTransactionCategories);
+  const transactionId = useSelector(selectEditModalTransactionId);
 
-  const TransactionId = useSelector(selectEditModalTransactionId);
-  console.log(TransactionId);
+  useEffect(() => {
+    console.log(transactionId);
+    console.log(Categories);
+  }, [transactionId, Categories]);
 
   const transactionType = 'INCOME';
 
