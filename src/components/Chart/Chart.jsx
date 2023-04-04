@@ -74,16 +74,15 @@ const Chart = ({ data, diference, show, colors }) => {
 };
 
 const WrapperChart = styled.div`
-  margin-right: 20px;
-  height: 288px;
-  width: 288px;
-`;
-
-const DoughnutContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const DoughnutContainer = styled.div`
+  width: 288px;
+  height: 288px;
 `;
 const Symbol = styled.span`
   font-weight: 400;

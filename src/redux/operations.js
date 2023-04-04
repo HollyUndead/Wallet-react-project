@@ -128,7 +128,6 @@ export const editTransaction = createAsyncThunk(
         categoryId: transaction.categoryId,
         transactionDate: transaction.transactionDate,
       });
-      console.log(data);
       return data;
     } catch (error) {
       return rejectWithValue(error);
