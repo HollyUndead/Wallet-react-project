@@ -10,6 +10,7 @@ export const ModalLogoOut = () => {
 
   const handleLogOut = () => {
     dispatch(signOut());
+    dispatch(closeModalLogOut());
   };
 
   //   const handleCloseModal = () => {
@@ -178,11 +179,12 @@ const BtnYes = styled.button`
     width: 200px;
     font-size: 16px;
   }
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
   :hover {
-    background-color: #ff00ff;
-    border: 1px solid #ff00ff;
+    background-color: #4a56e2;
+    border: 1px solid #4a56e2;
     color: white;
-    transform: scale(1.04);
+    transform: scale(1.05);
     cursor: pointer;
   }
 `;
@@ -208,12 +210,11 @@ export const BtnCancel = styled.button`
     width: 200px;
     font-size: 16px;
   }
+  transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
   :hover {
-    background-color: white;
-    border: 1px solid #ff00ff;
-    color: #ff00ff;
-    font-weight: 600;
-    transform: scale(1.04);
+    background-color: #4a56e2;
+    color: white;
+    transform: scale(1.05);
     cursor: pointer;
   }
 `;
