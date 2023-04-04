@@ -39,10 +39,7 @@ const Icon = styled.svg`
   fill: #6e78e8;
   background-color: #fff;
   transition: all 200ms linear;
-  &:hover {
-    fill: #4a56e2;
-    box-shadow: 0px 6px 25px -3px rgba(110, 120, 232, 1);
-  }
+
   @media screen and (min-width: 768px) {
     width: 18px;
     height: 18px;
@@ -64,7 +61,9 @@ const StyledLink = styled(NavLink)`
   &.active {
     font-weight: 700;
   }
-  &.active > svg {
+  &.active > svg,
+  &:hover > svg,
+  &:focus > svg {
     fill: #4a56e2;
     box-shadow: 0px 6px 25px -3px rgba(110, 120, 232, 1);
   }
