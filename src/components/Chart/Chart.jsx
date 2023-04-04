@@ -55,7 +55,13 @@ const Chart = ({ data, diference, show, colors }) => {
                 plugins: {
                   legend: { display: false },
                   tooltip: {
-                    enabled: false,
+                    callbacks: {
+                      label: function (context) {
+                        let label = context.dataset.label;
+                        let color = context.parsed;
+                        return `${label}: ₴\n${color}`;
+                      },
+                    },
                   },
                 },
               }}
