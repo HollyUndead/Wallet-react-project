@@ -32,7 +32,7 @@ export const TransactionListItemMobile = ({ transaction, categories }) => {
       </Li>
       <Li typeStr={typeStr}>
         <TitleSpan>Sum</TitleSpan>
-        <Span>{amount}</Span>
+        <Span>{Number(String(amount).replace('-', '')).toFixed(2)}</Span>
       </Li>
       <LiLast typeStr={typeStr}>
         <TransactionEditButton id={id} />
