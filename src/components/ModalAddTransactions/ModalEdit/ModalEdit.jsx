@@ -34,6 +34,12 @@ const ModalAdd = ({ handleSubmitForm }) => {
   const { id, transactionDate, type, comment, categoryId, amount } =
     transactions.find(transaction => transaction.id === transactionId);
 
+  const date = new Date(transactionDate);
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const year = String(date.getUTCFullYear());
+  const formattedDate = `${day}-${month}-${year}`;
+
   const handleClick = e => {};
 
   const onSubmit = values => {
@@ -54,7 +60,7 @@ const ModalAdd = ({ handleSubmitForm }) => {
       </StyledTypebox>
       <Formik
         initialValues={{
-          transactionDate,
+          transactionDate: formattedDate,
           type,
           categoryId,
           amount: String(amount).replace('-', ''),
