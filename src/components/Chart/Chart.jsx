@@ -69,7 +69,7 @@ const Chart = ({ data, diference, show, colors }) => {
             <Balance>
               <Symbol>&#8372;</Symbol>
               <Span diference={diference}>
-                {Number(String(diference).replace('-', '')).toFixed(2)}
+                {String(diference).replace('-', '')}
               </Span>
             </Balance>
           </>

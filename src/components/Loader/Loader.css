@@ -28,6 +28,11 @@
   width: 8em;
   height: 8em;
 }
+
+.smileyStat {
+  scale: 1.5;
+}
+
 .smiley__eye1,
 .smiley__eye2,
 .smiley__mouth1,

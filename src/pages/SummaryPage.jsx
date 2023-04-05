@@ -45,26 +45,36 @@ const SummaryPage = () => {
   ];
 
   return (
-    <SummaryWraper>
-      <div>
-        <SummaryTitle>Statistics</SummaryTitle>
-        {!isLoading ? (
-          <Chart
-            diference={getData().diference}
-            data={getData().data}
-            colors={colors}
-          />
-        ) : (
-          <Loader />
-        )}
-      </div>
-      <TableWrap>
-        <DropDownOnPage />
-        <Table colors={colors} />
-      </TableWrap>
-    </SummaryWraper>
+    <SummaryWraperLoader>
+      <SummaryWraper>
+        <div>
+          <SummaryTitle>Statistics</SummaryTitle>
+          {!isLoading ? (
+            <Chart
+              diference={getData().diference}
+              data={getData().data}
+              colors={colors}
+            />
+          ) : (
+            <></>
+          )}
+        </div>
+        <TableWrap>
+          <DropDownOnPage />
+          <Table colors={colors} />
+        </TableWrap>
+      </SummaryWraper>
+      {isLoading ? <Loader stat={true} /> : <></>}
+    </SummaryWraperLoader>
   );
 };
+
+const SummaryWraperLoader = styled.div`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+`;
 
 const SummaryWraper = styled.div`
   display: flex;

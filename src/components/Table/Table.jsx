@@ -1,70 +1,78 @@
 /* eslint-disable */
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectTransactionSummary } from 'redux/Finance/financeSelectors';
+import {
+  selectFinanceIsLoading,
+  selectTransactionSummary,
+} from 'redux/Finance/financeSelectors';
 import styled from 'styled-components';
 
 const Table = ({ colors }) => {
+  const isLoading = useSelector(selectFinanceIsLoading);
   const CategorySummary = useSelector(selectTransactionSummary);
-  return (
-    <div>
+  return !isLoading ? (
+    <>
       <div>
-        <TableContainer>
-          <TableSpan>Category</TableSpan>
-          <TableSpan>Amount</TableSpan>
-        </TableContainer>
         <div>
-          <UlList>
-            {CategorySummary.categoriesSummary !== undefined ? (
-              CategorySummary.categoriesSummary.map((el, index) => {
-                if (el.type !== 'INCOME') {
-                  const color = colors[index];
-                  return (
-                    <LiItem key={index}>
-                      <ColorWrpaDiv>
-                        <ColorDiv
-                          color={color}
-                          lastItem={
-                            index ===
-                            CategorySummary.categoriesSummary.length - 1
-                              ? true
-                              : false
-                          }
-                        ></ColorDiv>
-                        <CatName>{el.name}</CatName>
-                      </ColorWrpaDiv>
-                      <CatTotal>
-                        {Number(String(el.total).replace('-', '')).toFixed(2)}
-                      </CatTotal>
-                    </LiItem>
-                  );
-                }
-              })
-            ) : (
-              <></>
-            )}
-          </UlList>
+          <TableContainer>
+            <TableSpan>Category</TableSpan>
+            <TableSpan>Amount</TableSpan>
+          </TableContainer>
+          <div>
+            <UlList>
+              {CategorySummary.categoriesSummary !== undefined ? (
+                CategorySummary.categoriesSummary.map((el, index) => {
+                  if (el.type !== 'INCOME') {
+                    const color = colors[index];
+                    return (
+                      <LiItem key={index}>
+                        <ColorWrpaDiv>
+                          <ColorDiv
+                            color={color}
+                            lastItem={
+                              index ===
+                              CategorySummary.categoriesSummary.length - 1
+                                ? true
+                                : false
+                            }
+                          ></ColorDiv>
+                          <CatName>{el.name}</CatName>
+                        </ColorWrpaDiv>
+                        <CatTotal>
+                          {Number(String(el.total).replace('-', '')).toFixed(2)}
+                        </CatTotal>
+                      </LiItem>
+                    );
+                  }
+                })
+              ) : (
+                <></>
+              )}
+            </UlList>
+          </div>
         </div>
+        <UlList>
+          <LiTotal>
+            <SpanTotal>Expenses:</SpanTotal>
+            <SpanTotalExpense sum={CategorySummary.expenseSummary}>
+              {Number(
+                String(CategorySummary.expenseSummary).replace('-', '')
+              ).toFixed(2)}
+            </SpanTotalExpense>
+          </LiTotal>
+          <LiTotal>
+            <SpanTotal>Incomes:</SpanTotal>
+            <SpanTotalIncome
+              sum={Number(CategorySummary.incomeSummary).toFixed(2)}
+            >
+              {Number(CategorySummary.incomeSummary).toFixed(2)}
+            </SpanTotalIncome>
+          </LiTotal>
+        </UlList>
       </div>
-      <UlList>
-        <LiTotal>
-          <SpanTotal>Expenses:</SpanTotal>
-          <SpanTotalExpense sum={CategorySummary.expenseSummary}>
-            {Number(
-              String(CategorySummary.expenseSummary).replace('-', '')
-            ).toFixed(2)}
-          </SpanTotalExpense>
-        </LiTotal>
-        <LiTotal>
-          <SpanTotal>Incomes:</SpanTotal>
-          <SpanTotalIncome
-            sum={Number(CategorySummary.incomeSummary).toFixed(2)}
-          >
-            {Number(CategorySummary.incomeSummary).toFixed(2)}
-          </SpanTotalIncome>
-        </LiTotal>
-      </UlList>
-    </div>
+    </>
+  ) : (
+    <></>
   );
 };
 

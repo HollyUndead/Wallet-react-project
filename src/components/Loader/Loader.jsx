@@ -6,13 +6,14 @@ import backgroundTablet from '../../img/bg-images/bg-image-tablet.png';
 import backgroundDesktopRetina from '../../img/bg-images/bg-image-desktop-2x.png';
 import backgroundTabletRetina from '../../img/bg-images/bg-image-tablet-2x.png';
 
-export const Loader = () => {
+export const Loader = ({ stat }) => {
+  console.log(stat);
   return (
-    <LoaderWrap>
+    <LoaderWrap className="Loader" stat={stat}>
       <svg
         role="img"
         aria-label="Mouth and eyes come from 9:00 and rotate clockwise into position, right eye blinks, then all parts rotate and merge into 3:00"
-        className="smiley"
+        className={stat === true ? 'smileyStat' : 'smiley'}
         viewBox="0 0 128 128"
         width="128px"
         height="128px"
@@ -107,31 +108,35 @@ export const Loader = () => {
   );
 };
 
+// margin-left: calc(100% - 172px)
+// pointer-events: none;
 const LoaderWrap = styled.div`
-  pointer-events: none;
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  background-color: #f1f2f7;
-  z-index: 100;
-  @media screen and (min-width: 768px) {
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    background-image: url(${backgroundTablet});
-    @media (min-device-pixel-ratio: 2),
-      (min-resolution: 192dpi),
-      (min-resolution: 2dppx) {
-      background-image: url(${backgroundTabletRetina});
+  background-color: ${props => {
+    return props.stat === true ? 'transparent' : '#f1f2f7';
+  }};
+  z-index: 19;
+  ${props => {
+    return props.stat === true
+      ? 'width: fit-content; margin: 90px auto;'
+      : `@media screen and(min - width: 768px) {
+      background - repeat: no - repeat;
+      background - position: center;
+      background - size: cover;
+      background - image: url(${backgroundTablet});
+      @media(min - device - pixel - ratio: 2),
+      (min - resolution: 192dpi),
+      (min - resolution: 2dppx) {
+        background - image: url(${backgroundTabletRetina});
+      }
     }
-  }
-  @media screen and (min-width: 1200px) {
-    background-size: cover;
-    background-image: url(${backgroundDesktop});
-    @media (min-device-pixel-ratio: 2),
-      (min-resolution: 192dpi),
-      (min-resolution: 2dppx) {
-      background-image: url(${backgroundDesktopRetina});
-    }
-  }
+    @media screen and(min - width: 1200px) {
+      background - size: cover;
+      background - image: url(${backgroundDesktop});
+      @media(min - device - pixel - ratio: 2),
+      (min - resolution: 192dpi),
+      (min - resolution: 2dppx) {
+        background - image: url(${backgroundDesktopRetina});
+      }
+    }`;
+  }}
 `;
