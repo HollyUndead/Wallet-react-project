@@ -44,13 +44,13 @@ const DashboardPage = () => {
     const month2 = obj2.transactionDate.slice(5, 7);
     const year2 = obj2.transactionDate.slice(2, 4);
     if (year1 !== year2) {
-      return year1 <= year2 ? -1 : 1;
+      return year1 >= year2 ? -1 : 1;
     }
     if (month1 !== month2) {
-      return month1 <= month2 ? -1 : 1;
+      return month1 >= month2 ? -1 : 1;
     }
     if (day1 !== day2) {
-      return day1 <= day2 ? -1 : 1;
+      return day1 >= day2 ? -1 : 1;
     }
   });
 
