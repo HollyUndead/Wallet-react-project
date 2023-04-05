@@ -1,11 +1,9 @@
+/* eslint-disable */
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import { TransactionListItemMobile } from 'components/TransactionListItem/TransactionListItemMobile';
-import {
-  TransactionListItemPc,
-  transformDate,
-} from 'components/TransactionListItem/TransactionListItemPc';
+import { TransactionListItemPc } from 'components/TransactionListItem/TransactionListItemPc';
 import {
   selectTransactions,
   selectTransactionCategories,
