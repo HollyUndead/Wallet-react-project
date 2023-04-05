@@ -1,10 +1,10 @@
 {
   "files": {
     "main.css": "/Wallet-react-project/static/css/main.5cad829a.css",
-    "main.js": "/Wallet-react-project/static/js/main.c7e5bffc.js",
+    "main.js": "/Wallet-react-project/static/js/main.3b374f26.js",
     "static/js/273.5fbdd2fa.chunk.js": "/Wallet-react-project/static/js/273.5fbdd2fa.chunk.js",
     "static/js/563.aabaca43.chunk.js": "/Wallet-react-project/static/js/563.aabaca43.chunk.js",
-    "static/js/357.d3d3943d.chunk.js": "/Wallet-react-project/static/js/357.d3d3943d.chunk.js",
+    "static/js/357.60d11759.chunk.js": "/Wallet-react-project/static/js/357.60d11759.chunk.js",
     "static/js/705.957c6cdc.chunk.js": "/Wallet-react-project/static/js/705.957c6cdc.chunk.js",
     "static/js/126.ed69c261.chunk.js": "/Wallet-react-project/static/js/126.ed69c261.chunk.js",
     "static/js/152.87dbcdea.chunk.js": "/Wallet-react-project/static/js/152.87dbcdea.chunk.js",
@@ -48,10 +48,10 @@
     "static/media/symbol-defs.svg": "/Wallet-react-project/static/media/symbol-defs.413fc6b7047c6343bf3c5cc5719a24d3.svg",
     "index.html": "/Wallet-react-project/index.html",
     "main.5cad829a.css.map": "/Wallet-react-project/static/css/main.5cad829a.css.map",
-    "main.c7e5bffc.js.map": "/Wallet-react-project/static/js/main.c7e5bffc.js.map",
+    "main.3b374f26.js.map": "/Wallet-react-project/static/js/main.3b374f26.js.map",
     "273.5fbdd2fa.chunk.js.map": "/Wallet-react-project/static/js/273.5fbdd2fa.chunk.js.map",
     "563.aabaca43.chunk.js.map": "/Wallet-react-project/static/js/563.aabaca43.chunk.js.map",
-    "357.d3d3943d.chunk.js.map": "/Wallet-react-project/static/js/357.d3d3943d.chunk.js.map",
+    "357.60d11759.chunk.js.map": "/Wallet-react-project/static/js/357.60d11759.chunk.js.map",
     "705.957c6cdc.chunk.js.map": "/Wallet-react-project/static/js/705.957c6cdc.chunk.js.map",
     "126.ed69c261.chunk.js.map": "/Wallet-react-project/static/js/126.ed69c261.chunk.js.map",
     "152.87dbcdea.chunk.js.map": "/Wallet-react-project/static/js/152.87dbcdea.chunk.js.map",
@@ -61,6 +61,6 @@
   },
   "entrypoints": [
     "static/css/main.5cad829a.css",
-    "static/js/main.c7e5bffc.js"
+    "static/js/main.3b374f26.js"
   ]
 }
