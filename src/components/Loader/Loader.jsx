@@ -7,7 +7,6 @@ import backgroundDesktopRetina from '../../img/bg-images/bg-image-desktop-2x.png
 import backgroundTabletRetina from '../../img/bg-images/bg-image-tablet-2x.png';
 
 export const Loader = ({ stat }) => {
-  console.log(stat);
   return (
     <LoaderWrap className="Loader" stat={stat}>
       <svg

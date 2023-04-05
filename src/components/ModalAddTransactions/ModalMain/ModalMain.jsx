@@ -53,6 +53,8 @@ export const ModalMain = () => {
 
   useEffect(() => {
     overlay.current.focus();
+    dispatch(toggleModal());
+    // eslint-disable-next-line
   }, []);
 
   const handleSubmitForm = values => {
