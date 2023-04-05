@@ -72,6 +72,7 @@ const SummaryWraper = styled.div`
   padding-top: 43px;
   display: flex;
   flex-diraction: column;
+  padding-bottom: 20px;
   @media screen and (min-width: 768px) {
     padding-top: 20px;
     flex-direction: row;

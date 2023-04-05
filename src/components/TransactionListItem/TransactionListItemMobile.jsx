@@ -16,23 +16,23 @@ export const TransactionListItemMobile = ({ transaction, categories }) => {
     <Ul className="aasas">
       <LiFirst typeStr={typeStr}>
         <TitleSpan>Date</TitleSpan>
-        <span>{transformDate(transactionDate)}</span>
+        <Span>{transformDate(transactionDate)}</Span>
       </LiFirst>
       <Li typeStr={typeStr}>
         <TitleSpan>Type</TitleSpan>
-        <span>{typeStr}</span>
+        <Span>{typeStr}</Span>
       </Li>
       <Li typeStr={typeStr}>
         <TitleSpan>Category</TitleSpan>
-        <span>{categoryName}</span>
+        <Span>{categoryName}</Span>
       </Li>
       <Li typeStr={typeStr}>
         <TitleSpan> Comment</TitleSpan>
-        <span>{comment}</span>
+        <Span>{comment}</Span>
       </Li>
       <Li typeStr={typeStr}>
         <TitleSpan>Sum</TitleSpan>
-        <span>{amount}</span>
+        <Span>{amount}</Span>
       </Li>
       <LiLast typeStr={typeStr}>
         <TransactionEditButton id={id} />
@@ -41,6 +41,10 @@ export const TransactionListItemMobile = ({ transaction, categories }) => {
     </Ul>
   );
 };
+
+const Span = styled.span`
+  text-align: right;
+`;
 
 const Ul = styled.ul`
   wdith: 100%;
