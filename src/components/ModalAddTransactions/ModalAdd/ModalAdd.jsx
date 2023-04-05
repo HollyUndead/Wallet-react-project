@@ -14,7 +14,7 @@ import { fetchTransactionCategories } from '../../../redux/operations.js';
 import { selectTransactionCategories } from '../../../redux/Finance/financeSelectors.js';
 import { useSelector, useDispatch } from 'react-redux';
 // import { selectIsModalOpen } from 'redux/Auth/authSelector';
-import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { toggleModal } from 'redux/Finance/financeSlice';
 
 const ModalAdd = ({ handleSubmitForm }) => {
@@ -76,14 +76,20 @@ const ModalAdd = ({ handleSubmitForm }) => {
   };
 
   const onSubmit = (values, props) => {
+    if (values.categoryId === '') {
+      return toast.error('select a category');
+    }
+
     handleSubmitForm({ ...values, type: checked });
 
     dispatch(toggleModal());
     props.resetForm();
   };
+
+  const renderError = message => <Span>{message}</Span>;
+
   return (
     <ModalBox>
-      <ToastContainer />
 
       <ModalTitle>Add transactions</ModalTitle>
 
@@ -152,10 +158,10 @@ const ModalAdd = ({ handleSubmitForm }) => {
                 </DropDownWrap>
               )}
 
-              {/* <ErrorMessage name="category" /> */}
               <DataBox>
                 <StyledAmountField name="amount" placeholder="0.00" />
-                <ErrorMessage name="amount" />
+                <ErrorMessage name="amount" render={renderError} />
+
                 <Datetime
                   open={isOpen}
                   timeFormat={false}
@@ -374,6 +380,7 @@ const DropDownButton = styled.button`
 const DropDownList = styled.div`
   box-sizing: border-box;
   padding: 5px 20px;
+  height: 300px;
   position: absolute;
   width: 100%;
   height: 280px;
@@ -418,5 +425,18 @@ const DropDownItem = styled.span`
     background: #ffffff;
     border-radius: 30px;
     color: #ff6596;
+  }
+`;
+
+export const Span = styled.span`
+  color: red;
+  font-size: 12px;
+  margin: 4px 0;
+  position: absolute;
+  right: 127px;
+  top: 20px;
+  @media screen and (min-width: 768px) {
+    right: 232px;
+    top: 22px;
   }
 `;
