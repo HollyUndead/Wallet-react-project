@@ -3,7 +3,7 @@ import ModalEdit from '../ModalEdit/ModalEdit';
 import styled from 'styled-components';
 import { IoCloseOutline } from 'react-icons/io5';
 import { IconContext } from 'react-icons';
-import { object, string, number, date } from 'yup';
+import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTransaction } from 'redux/operations';
 import {
@@ -15,35 +15,39 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toggleModal } from 'redux/Finance/financeSlice';
 
-export const validationSchema = object().shape({
-  transactionDate: date().required('Data is a required field'),
-  categoryId: string(),
-  amount: number().required('Amount is a required field').positive(),
-  comment: string(),
+export const validationSchema = Yup.object().shape({
+  transactionDate: Yup.date().required('Data is a required field'),
+  categoryId: Yup.string(),
+  amount: Yup.number()
+    .typeError('We only accept  money!')
+    .required('Amount is a required field')
+    .max(10000000, 'What do you do for a living?!')
+    .positive(),
+  comment: Yup.string(),
 });
 
 export const ModalMain = () => {
   const isModalOpen = useSelector(selectIsModalOpen);
-  const typeOfModal = useSelector(selectModalType)
+  const typeOfModal = useSelector(selectModalType);
 
   const error = useSelector(selectFinanceError);
 
   const dispatch = useDispatch();
 
-  const onModalClose = (e) => {
-    dispatch(toggleModal())
+  const onModalClose = e => {
+    dispatch(toggleModal());
   };
 
   const closeModalBackdrop = event => {
     if (event.currentTarget === event.target) {
       onModalClose();
-    event.resetForm();
+      event.resetForm();
     }
   };
   const handlePressKey = event => {
     if (event.code === 'Escape') {
       onModalClose();
-    event.resetForm();
+      event.resetForm();
     }
   };
 
