@@ -63,35 +63,37 @@ const ModalAdd = ({ handleSubmitForm }) => {
         {({ isSubmitting, setFieldValue }) => (
           <>
             <StyledForm>
-              <StyledSelectField
-                name="categoryId"
-                placeholder="Select a category"
-                defaultValue={categoryId}
-                as="select"
-                onChange={event => {
-                  setFieldValue('categoryId', event.target.value);
-                }}
-              >
-                {type === 'EXPENSE'
-                  ? Categories.filter(
-                      Categorie => Categorie.type === 'EXPENSE'
-                    ).map(Categorie => {
-                      return (
-                        <option key={Categorie.id} value={Categorie.id}>
-                          {Categorie.name}
-                        </option>
-                      );
-                    })
-                  : Categories.filter(
-                      Categorie => Categorie.type === 'INCOME'
-                    ).map(Categorie => {
-                      return (
-                        <option key={Categorie.id} value={Categorie.id}>
-                          {Categorie.name}
-                        </option>
-                      );
-                    })}
-              </StyledSelectField>
+              {type === 'EXPENSE' && (
+                <StyledSelectField
+                  name="categoryId"
+                  placeholder="Select a category"
+                  defaultValue={categoryId}
+                  as="select"
+                  onChange={event => {
+                    setFieldValue('categoryId', event.target.value);
+                  }}
+                >
+                  {type === 'EXPENSE'
+                    ? Categories.filter(
+                        Categorie => Categorie.type === 'EXPENSE'
+                      ).map(Categorie => {
+                        return (
+                          <option key={Categorie.id} value={Categorie.id}>
+                            {Categorie.name}
+                          </option>
+                        );
+                      })
+                    : Categories.filter(
+                        Categorie => Categorie.type === 'INCOME'
+                      ).map(Categorie => {
+                        return (
+                          <option key={Categorie.id} value={Categorie.id}>
+                            {Categorie.name}
+                          </option>
+                        );
+                      })}
+                </StyledSelectField>
+              )}
               <ErrorMessage name="category" />
               <DataBox>
                 <StyledAmountField name="amount" placeholder="0.00" />

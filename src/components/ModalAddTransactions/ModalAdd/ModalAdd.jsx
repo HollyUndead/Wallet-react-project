@@ -372,8 +372,8 @@ const DropDownButton = styled.button`
 `;
 
 const DropDownList = styled.div`
-box-sizing: border-box;
- padding 5px 20px;
+  box-sizing: border-box;
+  padding: 5px 20px;
   position: absolute;
   width: 100%;
   height: 280px;
@@ -383,7 +383,7 @@ box-sizing: border-box;
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.7);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 15px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 6px 15px;
   backdrop-filter: blur(25px);
 
   border-radius: 20px;
@@ -395,7 +395,7 @@ box-sizing: border-box;
   }
 
   @media screen and (min-width: 768px) {
-    width: 394px; 
+    width: 394px;
   }
 `;
 
