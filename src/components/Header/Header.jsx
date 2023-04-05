@@ -22,7 +22,7 @@ export const Header = () => {
   return (
     <header>
       <HeaderContainer>
-        <Link href="/home">
+        <Link href="/Wallet-react-project/">
           <Logo />
           <p>Wallet</p>
         </Link>
@@ -46,7 +46,7 @@ export const Header = () => {
               onClick={() => dispatch(openModalLogOut())}
               // onClick={handleLogOut}
             >
-              <RxExit />
+              <Test />
               <ButtonSpan>Exit</ButtonSpan>
             </Button>
             {isModalOpen && <ModalLogoOut />}
@@ -89,7 +89,9 @@ const ProfileSpan = styled.span`
     padding-right: 8px;
   }
 `;
-
+const Test = styled(RxExit)`
+  color: #bdbdbd;
+`;
 const Button = styled.button`
   font-size: 18px;
   line-height: 27px;
@@ -103,7 +105,13 @@ const Button = styled.button`
   @media screen and (max-width: 760px) {
     padding: 0;
   }
+  &:hover > span,
+  &:focus > span,
+  &:hover > ${Test}, &:focus > ${Test} {
+    color: #4a56e2;
+  }
 `;
+
 const ButtonSpan = styled.span`
   @media screen and (max-width: 760px) {
     display: none;

@@ -27,6 +27,7 @@ export const ModalMain = () => {
   const isModalOpen = useSelector(selectIsModalOpen);
   const typeOfModal = useSelector(selectModalType);
   const overlay = useRef();
+
   const error = useSelector(selectFinanceError);
 
   const dispatch = useDispatch();

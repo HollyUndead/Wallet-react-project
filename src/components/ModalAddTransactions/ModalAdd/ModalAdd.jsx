@@ -6,14 +6,12 @@ import Checkbox from './Checkbox';
 import Datetime from 'react-datetime';
 import 'react-datetime/css/react-datetime.css';
 import moment from 'moment';
-import { BsFillCaretDownFill } from 'react-icons/bs';
-
+import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
 import Icons from 'images/icons.svg';
 
 import { fetchTransactionCategories } from '../../../redux/operations.js';
 import { selectTransactionCategories } from '../../../redux/Finance/financeSelectors.js';
 import { useSelector, useDispatch } from 'react-redux';
-// import { selectIsModalOpen } from 'redux/Auth/authSelector';
 import { toast } from 'react-toastify';
 import { toggleModal } from 'redux/Finance/financeSlice';
 
@@ -30,7 +28,6 @@ const ModalAdd = ({ handleSubmitForm }) => {
     return moment(date.toISOString());
   });
   const dispatch = useDispatch();
-  // selectIsModalOpen
 
   useEffect(() => {
     dispatch(fetchTransactionCategories());
@@ -43,7 +40,8 @@ const ModalAdd = ({ handleSubmitForm }) => {
       if (
         categorieDropdownRef.current &&
         !categorieDropdownRef.current.contains(event.target) &&
-        isCategorieDropdownOpen
+        isCategorieDropdownOpen &&
+        event.target.className.indexOf('categorieDropDown') === -1
       ) {
         setIsCatgorieDropdownOpen(false);
       }
@@ -54,11 +52,10 @@ const ModalAdd = ({ handleSubmitForm }) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-    // eslint-disable-next-line
-  }, [categorieDropdownRef, isCategorieDropdownOpen]);
+  });
 
-  const toggleCategorieDropdown = () => {
-    setIsCatgorieDropdownOpen(!isCategorieDropdownOpen);
+  const toggleCategorieDropdown = e => {
+    return setIsCatgorieDropdownOpen(!isCategorieDropdownOpen);
   };
 
   const handleChange = () => {
@@ -90,7 +87,6 @@ const ModalAdd = ({ handleSubmitForm }) => {
 
   return (
     <ModalBox>
-
       <ModalTitle>Add transactions</ModalTitle>
 
       <Formik
@@ -125,14 +121,15 @@ const ModalAdd = ({ handleSubmitForm }) => {
               />
             </StyledCheckbox>
             <StyledForm>
-              {!checked && (
+              {!checked ? (
                 <DropDownWrap>
                   <DropDownButton
                     type="button"
                     onClick={toggleCategorieDropdown}
+                    className="categorieDropDown"
                   >
                     {selectedCategorie}
-                    <ArrowDown />
+                    {isCategorieDropdownOpen ? <ArrowUp /> : <ArrowDown />}
                     {isCategorieDropdownOpen ? (
                       <DropDownList ref={categorieDropdownRef}>
                         {Categories.filter(
@@ -156,20 +153,21 @@ const ModalAdd = ({ handleSubmitForm }) => {
                     ) : null}
                   </DropDownButton>
                 </DropDownWrap>
+              ) : (
+                <Empty></Empty>
               )}
 
               <DataBox>
                 <StyledAmountField name="amount" placeholder="0.00" />
                 <ErrorMessage name="amount" render={renderError} />
 
-                <Datetime
+                <StyledDatetime
                   open={isOpen}
                   timeFormat={false}
                   name="transactionDate"
                   value={transactionDate}
                   type="date"
                   // closeOnSelect={true}
-                  // closeOnClickOutside={true}
                   // maxDate={new Date()}
                   input={true}
                   selected={transactionDate}
@@ -202,7 +200,16 @@ const ModalAdd = ({ handleSubmitForm }) => {
 
 export default ModalAdd;
 
-export const ArrowDown = styled(BsFillCaretDownFill)`
+const Empty = styled.div`
+  height: 70px;
+  width: 100%;
+`;
+
+export const ArrowDown = styled(SlArrowDown)`
+  margin-left: auto;
+`;
+
+export const ArrowUp = styled(SlArrowUp)`
   margin-left: auto;
 `;
 
@@ -231,20 +238,6 @@ export const ModalButtonAdd = styled.button`
   }
 `;
 
-// const StyledSelectField = styled(Field)`
-//   width: 394px;
-//   height: 30px;
-//   margin-bottom: 40px;
-//   border: none;
-//   border-bottom: 1px solid #e0e0e0;
-//   &:focus-visible {
-//     outline: none;
-//   }
-//   @media screen and (max-width: 768px) {
-//     width: 270px;
-//   }
-// `;
-
 const StyledCommentField = styled(Field)`
   width: 394px;
   /* height: 30px; */
@@ -253,9 +246,6 @@ const StyledCommentField = styled(Field)`
   border-bottom: 1px solid #e0e0e0;
   &:focus-visible {
     outline: none;
-
-    /* border-bottom: 1px solid var(--btn-teal-color);
-    background-color: var(--text-white-color); */
   }
   @media screen and (max-width: 768px) {
     width: 270px;
@@ -282,16 +272,12 @@ const StyledAmountField = styled(Field)`
   border: none;
   border-bottom: 1px solid #e0e0e0;
   text-align: center;
-  /* margin-right: 32px; */
   @media screen and (min-width: 768px) {
     width: 181px;
-    /* margin-right: 32px; */
     margin-bottom: 0;
   }
   &:focus-visible {
     outline: none;
-    /* border-bottom: 1px solid var(--btn-teal-color);
-    background-color: var(--text-white-color); */
   }
 `;
 
@@ -330,6 +316,7 @@ export const Icon = styled.svg`
 
 const ModalBox = styled.div`
   width: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -439,4 +426,9 @@ export const Span = styled.span`
     right: 232px;
     top: 22px;
   }
+`;
+
+const StyledDatetime = styled(Datetime)`
+  font-size: 14px;
+  color: #4a56e2;
 `;

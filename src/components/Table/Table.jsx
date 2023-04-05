@@ -33,7 +33,9 @@ const Table = ({ colors }) => {
                         ></ColorDiv>
                         <CatName>{el.name}</CatName>
                       </ColorWrpaDiv>
-                      <CatTotal>{String(el.total).replace('-', '')}</CatTotal>
+                      <CatTotal>
+                        {Number(String(el.total).replace('-', '')).toFixed(2)}
+                      </CatTotal>
                     </LiItem>
                   );
                 }
@@ -48,13 +50,17 @@ const Table = ({ colors }) => {
         <LiTotal>
           <SpanTotal>Expenses:</SpanTotal>
           <SpanTotalExpense sum={CategorySummary.expenseSummary}>
-            {String(CategorySummary.expenseSummary).replace('-', '')}
+            {Number(
+              String(CategorySummary.expenseSummary).replace('-', '')
+            ).toFixed(2)}
           </SpanTotalExpense>
         </LiTotal>
         <LiTotal>
           <SpanTotal>Incomes:</SpanTotal>
-          <SpanTotalIncome sum={CategorySummary.incomeSummary}>
-            {CategorySummary.incomeSummary}
+          <SpanTotalIncome
+            sum={Number(CategorySummary.incomeSummary).toFixed(2)}
+          >
+            {Number(CategorySummary.incomeSummary).toFixed(2)}
           </SpanTotalIncome>
         </LiTotal>
       </UlList>

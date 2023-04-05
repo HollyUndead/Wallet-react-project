@@ -44,6 +44,7 @@ const Container = styled.div`
     background-position: center;
     background-size: cover;
     background-image: url(${backgroundTablet});
+    background-attachment: fixed;
     @media (min-device-pixel-ratio: 2),
       (min-resolution: 192dpi),
       (min-resolution: 2dppx) {
@@ -53,6 +54,7 @@ const Container = styled.div`
   @media screen and (min-width: 768px) {
     background-size: cover;
     background-image: url(${backgroundDesktop});
+    background-attachment: fixed;
     @media (min-device-pixel-ratio: 2),
       (min-resolution: 192dpi),
       (min-resolution: 2dppx) {
@@ -61,7 +63,7 @@ const Container = styled.div`
   }
 `;
 const AsideContainer = styled.div`
-  height: calc(100vh - 77px);
+  min-height: calc(100vh - 77px);
   @media screen and (min-width: 1200px) {
     display: flex;
   }

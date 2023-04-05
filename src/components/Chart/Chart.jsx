@@ -39,7 +39,7 @@ const Chart = ({ data, diference, show, colors }) => {
               <Symbol>&#8372;</Symbol>
               {
                 <Span diference={diference}>
-                  {String(diference).replace('-', '')}
+                  {Number(String(diference).replace('-', '')).toFixed(2)}
                 </Span>
               }
             </Balance>
@@ -55,7 +55,13 @@ const Chart = ({ data, diference, show, colors }) => {
                 plugins: {
                   legend: { display: false },
                   tooltip: {
-                    enabled: false,
+                    callbacks: {
+                      label: function (context) {
+                        let label = context.dataset.label;
+                        let color = context.parsed;
+                        return `${label}: ₴\n${color}`;
+                      },
+                    },
                   },
                 },
               }}
@@ -63,7 +69,7 @@ const Chart = ({ data, diference, show, colors }) => {
             <Balance>
               <Symbol>&#8372;</Symbol>
               <Span diference={diference}>
-                {String(diference).replace('-', '')}
+                {Number(String(diference).replace('-', '')).toFixed(2)}
               </Span>
             </Balance>
           </>

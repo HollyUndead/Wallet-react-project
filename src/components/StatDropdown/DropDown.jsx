@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchTransactionSummary } from 'redux/operations';
+import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
 import styled from 'styled-components';
 
 let listOfYears = [];
@@ -49,6 +50,7 @@ export const DropDown = () => {
       ) {
         setIsMonthDropdownOpen(false);
       }
+
       if (
         yearDropdownRef.current &&
         !yearDropdownRef.current.contains(event.target) &&
@@ -57,19 +59,13 @@ export const DropDown = () => {
         setIsYearDropdownOpen(false);
       }
     };
-
     document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
     // eslint-disable-next-line
-  }, [
-    monthDropdownRef,
-    yearDropdownRef,
-    isMonthDropdownOpen,
-    isYearDropdownOpen,
-  ]);
+  });
 
   const toggleMonthDropdown = () => {
     setIsMonthDropdownOpen(!isMonthDropdownOpen);
@@ -81,10 +77,11 @@ export const DropDown = () => {
 
   return (
     <DropDownWrap>
-      <DropDownButton onClick={toggleMonthDropdown}>
+      <DropDownButton ref={monthDropdownRef} onClick={toggleMonthDropdown}>
         {listOfMonth[selectedMonth]}
+        {isMonthDropdownOpen ? <SlArrowUp /> : <SlArrowDown />}
         {isMonthDropdownOpen ? (
-          <DropDownList ref={monthDropdownRef}>
+          <DropDownList>
             {listOfMonth.map((month, index) => (
               <DropDownItem
                 key={index}
@@ -100,10 +97,11 @@ export const DropDown = () => {
         ) : null}
       </DropDownButton>
 
-      <DropDownButton onClick={toggleYearDropdown}>
+      <DropDownButton ref={yearDropdownRef} onClick={toggleYearDropdown}>
         {selectedYear}
+        {isYearDropdownOpen ? <SlArrowUp /> : <SlArrowDown />}
         {isYearDropdownOpen ? (
-          <DropDownList ref={yearDropdownRef}>
+          <DropDownList>
             {listOfYears.map((year, index) => (
               <DropDownItem
                 key={index}
@@ -133,6 +131,9 @@ const DropDownWrap = styled.div`
 `;
 const DropDownButton = styled.button`
   position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   border-radius: 30px;
   background-color: transparent;
   width: 182px;
