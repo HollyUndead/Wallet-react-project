@@ -19,9 +19,12 @@ import {
 } from '../../../redux/Finance/financeSelectors.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleModal } from 'redux/Finance/financeSlice';
+import { useState } from 'react';
 
 const ModalAdd = ({ handleSubmitForm }) => {
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+
 
   useEffect(() => {
     dispatch(fetchTransactionCategories());
@@ -40,7 +43,10 @@ const ModalAdd = ({ handleSubmitForm }) => {
   const year = String(date.getUTCFullYear());
   const formattedDate = `${day}-${month}-${year}`;
 
-  const handleClick = e => {};
+  const handleClick = e => {
+    e.preventDefault();
+    setIsOpen(!isOpen);
+  };
 
   const onSubmit = values => {
     values.amount =
@@ -78,6 +84,7 @@ const ModalAdd = ({ handleSubmitForm }) => {
                   placeholder="Select a category"
                   defaultValue={categoryId}
                   as="select"
+                  disabled = {true}
                   onChange={event => {
                     setFieldValue('categoryId', event.target.value);
                   }}
@@ -107,13 +114,13 @@ const ModalAdd = ({ handleSubmitForm }) => {
               <DataBox>
                 <StyledAmountField name="amount" placeholder="0.00" />
                 <ErrorMessage name="amount" render={renderError} />
-                <Datetime
+                <StyledDatetime
+                  open={isOpen}
                   timeFormat={false}
                   name="transactionDate"
                   value={formattedDate}
                   type="date"
                   // closeOnSelect={true}
-                  // closeOnClickOutside={true}
                   // maxDate={new Date()}
                   input={true}
                   selected={transactionDate}
@@ -319,4 +326,9 @@ export const Span = styled.span`
     right: 232px;
     top: 22px;
   }
+`;
+
+const StyledDatetime = styled(Datetime)`
+  font-size: 14px;
+  color: #4a56e2;
 `;
