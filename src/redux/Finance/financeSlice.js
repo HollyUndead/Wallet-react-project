@@ -19,7 +19,7 @@ const financeInitialState = {
   isLoading: false,
   error: null,
   modal: {
-    isModalOpen: false,
+    isModalOpen: true,
     modalType: '',
     editModalTransactionId: '',
   },
