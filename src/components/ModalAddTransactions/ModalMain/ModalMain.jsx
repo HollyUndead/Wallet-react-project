@@ -14,6 +14,7 @@ import {
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toggleModal } from 'redux/Finance/financeSlice';
+import { useEffect, useRef } from 'react';
 
 export const validationSchema = object().shape({
   transactionDate: date().required('Data is a required field'),
@@ -25,27 +26,30 @@ export const validationSchema = object().shape({
 export const ModalMain = () => {
   const isModalOpen = useSelector(selectIsModalOpen);
   const typeOfModal = useSelector(selectModalType);
+  const overlay = useRef();
 
   const error = useSelector(selectFinanceError);
 
   const dispatch = useDispatch();
 
-  const onModalClose = e => {
+  const onModalClose = () => {
     dispatch(toggleModal());
   };
 
   const closeModalBackdrop = event => {
     if (event.currentTarget === event.target) {
       onModalClose();
-      event.resetForm();
     }
   };
   const handlePressKey = event => {
     if (event.code === 'Escape') {
       onModalClose();
-      event.resetForm();
     }
   };
+
+  useEffect(() => {
+    overlay.current.focus();
+  }, []);
 
   const handleSubmitForm = values => {
     dispatch(
@@ -66,6 +70,7 @@ export const ModalMain = () => {
     <>
       {isModalOpen && (
         <ModalBackdrop
+          ref={overlay}
           tabIndex={-1}
           onKeyDown={handlePressKey}
           onClick={closeModalBackdrop}
