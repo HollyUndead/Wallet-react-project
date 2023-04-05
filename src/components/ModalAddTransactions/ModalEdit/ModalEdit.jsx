@@ -34,6 +34,12 @@ const ModalAdd = ({ handleSubmitForm }) => {
   const { id, transactionDate, type, comment, categoryId, amount } =
     transactions.find(transaction => transaction.id === transactionId);
 
+  const date = new Date(transactionDate);
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const year = String(date.getUTCFullYear());
+  const formattedDate = `${day}-${month}-${year}`;
+
   const handleClick = e => {};
 
   const onSubmit = values => {
@@ -66,45 +72,45 @@ const ModalAdd = ({ handleSubmitForm }) => {
         {({ isSubmitting, setFieldValue }) => (
           <>
             <StyledForm>
-              <StyledSelectField
-                name="categoryId"
-                placeholder="Select a category"
-                defaultValue={categoryId}
-                as="select"
-                onChange={event => {
-                  setFieldValue('categoryId', event.target.value);
-                }}
-              >
-                {type === 'EXPENSE'
-                  ? Categories.filter(
-                      Categorie => Categorie.type === 'EXPENSE'
-                    ).map(Categorie => {
-                      return (
-                        <option key={Categorie.id} value={Categorie.id}>
-                          {Categorie.name}
-                        </option>
-                      );
-                    })
-                  : Categories.filter(
-                      Categorie => Categorie.type === 'INCOME'
-                    ).map(Categorie => {
-                      return (
-                        <option key={Categorie.id} value={Categorie.id}>
-                          {Categorie.name}
-                        </option>
-                      );
-                    })}
-              </StyledSelectField>
+              {type === 'EXPENSE' && (
+                <StyledSelectField
+                  name="categoryId"
+                  placeholder="Select a category"
+                  defaultValue={categoryId}
+                  as="select"
+                  onChange={event => {
+                    setFieldValue('categoryId', event.target.value);
+                  }}
+                >
+                  {type === 'EXPENSE'
+                    ? Categories.filter(
+                        Categorie => Categorie.type === 'EXPENSE'
+                      ).map(Categorie => {
+                        return (
+                          <option key={Categorie.id} value={Categorie.id}>
+                            {Categorie.name}
+                          </option>
+                        );
+                      })
+                    : Categories.filter(
+                        Categorie => Categorie.type === 'INCOME'
+                      ).map(Categorie => {
+                        return (
+                          <option key={Categorie.id} value={Categorie.id}>
+                            {Categorie.name}
+                          </option>
+                        );
+                      })}
+                </StyledSelectField>
+              )}
               <ErrorMessage name="category" />
               <DataBox>
                 <StyledAmountField name="amount" placeholder="0.00" />
                 <ErrorMessage name="amount" render={renderError} />
                 <Datetime
-                  // open={isOpen}
                   timeFormat={false}
                   name="transactionDate"
-                  value={transactionDate}
-                  // id="date"
+                  value={formattedDate}
                   type="date"
                   // closeOnSelect={true}
                   // closeOnClickOutside={true}
