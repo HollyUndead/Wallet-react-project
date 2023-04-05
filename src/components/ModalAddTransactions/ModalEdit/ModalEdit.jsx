@@ -60,7 +60,7 @@ const ModalAdd = ({ handleSubmitForm }) => {
       </StyledTypebox>
       <Formik
         initialValues={{
-          transactionDate: formattedDate,
+          transactionDate,
           type,
           categoryId,
           amount: String(amount).replace('-', ''),
@@ -110,7 +110,7 @@ const ModalAdd = ({ handleSubmitForm }) => {
                 <Datetime
                   timeFormat={false}
                   name="transactionDate"
-                  value={transactionDate}
+                  value={formattedDate}
                   type="date"
                   // closeOnSelect={true}
                   // closeOnClickOutside={true}
